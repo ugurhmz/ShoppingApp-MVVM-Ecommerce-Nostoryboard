@@ -23,6 +23,8 @@
 		638A6E042837A87300F05EDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E022837A87300F05EDA /* Main.storyboard */; };
 		638A6E092837A87400F05EDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E072837A87400F05EDA /* LaunchScreen.storyboard */; };
 		638A6E0F2837A90800F05EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638A6DE72837A7E000F05EDA /* Assets.xcassets */; };
+		638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E102837AC6C00F05EDA /* LoginVC.swift */; };
+		638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E122837ADBD00F05EDA /* Extension+TextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		638A6E032837A87300F05EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		638A6E082837A87400F05EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		638A6E0A2837A87400F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		638A6E102837AC6C00F05EDA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		638A6E122837ADBD00F05EDA /* Extension+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TextField.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */,
+				638A6E122837ADBD00F05EDA /* Extension+TextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 				638A6DE32837A7E000F05EDA /* ProfileVC.swift */,
 				638A6DE42837A7E000F05EDA /* HomeVC.swift */,
 				638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */,
+				638A6E102837AC6C00F05EDA /* LoginVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,9 +280,11 @@
 				638A6DF12837A7E000F05EDA /* MainTabBarVC.swift in Sources */,
 				638A6DED2837A7E000F05EDA /* HeaderReusableView.swift in Sources */,
 				638A6DF02837A7E000F05EDA /* HomeVC.swift in Sources */,
+				638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */,
 				638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */,
 				638A6DEF2837A7E000F05EDA /* ProfileVC.swift in Sources */,
 				638A6DEC2837A7E000F05EDA /* ZeroCustomCell.swift in Sources */,
+				638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */,
 				638A6DEE2837A7E000F05EDA /* GeneralCustomCell.swift in Sources */,
 				638A6DF52837A7E000F05EDA /* SceneDelegate.swift in Sources */,
 			);

@@ -25,6 +25,7 @@
 		638A6E0F2837A90800F05EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 638A6DE72837A7E000F05EDA /* Assets.xcassets */; };
 		638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E102837AC6C00F05EDA /* LoginVC.swift */; };
 		638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E122837ADBD00F05EDA /* Extension+TextField.swift */; };
+		638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E142837CA4900F05EDA /* RegisterVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		638A6E0A2837A87400F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		638A6E102837AC6C00F05EDA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		638A6E122837ADBD00F05EDA /* Extension+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TextField.swift"; sourceTree = "<group>"; };
+		638A6E142837CA4900F05EDA /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				638A6DE42837A7E000F05EDA /* HomeVC.swift */,
 				638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */,
 				638A6E102837AC6C00F05EDA /* LoginVC.swift */,
+				638A6E142837CA4900F05EDA /* RegisterVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				638A6DEF2837A7E000F05EDA /* ProfileVC.swift in Sources */,
 				638A6DEC2837A7E000F05EDA /* ZeroCustomCell.swift in Sources */,
 				638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */,
+				638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */,
 				638A6DEE2837A7E000F05EDA /* GeneralCustomCell.swift in Sources */,
 				638A6DF52837A7E000F05EDA /* SceneDelegate.swift in Sources */,
 			);

@@ -75,15 +75,23 @@ class LoginVC: UIViewController {
     
     private let createNewUserBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Create new user", for: .normal)
+        btn.setTitle("Register", for: .normal)
         btn.setTitleColor(UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1), for: .normal)
         btn.layer.cornerRadius = 15
         btn.backgroundColor = .white
         btn.layer.borderWidth = 1
         btn.layer.borderColor = UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1).cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        btn.addTarget(self, action: #selector(goRegisterVC), for: .touchUpInside)
         return btn
     }()
+    
+    // Go RegisterVC
+    @objc func goRegisterVC(){
+        let regVC = RegisterVC()
+        regVC.modalPresentationStyle = .pageSheet
+        present(regVC, animated: true, completion: nil)
+    }
     
     private let continueGuesBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -119,7 +127,9 @@ class LoginVC: UIViewController {
         myview.clipsToBounds = true
         myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         stackView.setCustomSpacing(40, after: forgetPwTxtLabel)
+        
     }
+    
 }
 
 //MARK: -
@@ -143,14 +153,14 @@ extension LoginVC {
                              leading: nil,
                              bottom: nil,
                              trailing: view.trailingAnchor,
-                             padding: .init(top: 50, left: 50, bottom: 50, right: 10),
+                             padding: .init(top: 120, left: 50, bottom: 50, right: 10),
                              size: .init(width: 150, height: 100))
         
         loginTxtLabel.anchor(top: view.topAnchor,
                              leading: view.leadingAnchor,
                              bottom: nil,
                              trailing: nil,
-                             padding: .init(top: 14, left: 30, bottom: 30, right: 10))
+                             padding: .init(top: 14, left: 80, bottom: 30, right: 10))
         
 
     }

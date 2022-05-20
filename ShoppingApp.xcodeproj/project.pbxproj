@@ -26,6 +26,8 @@
 		638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E102837AC6C00F05EDA /* LoginVC.swift */; };
 		638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E122837ADBD00F05EDA /* Extension+TextField.swift */; };
 		638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E142837CA4900F05EDA /* RegisterVC.swift */; };
+		638A6E192837E41500F05EDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E182837E41500F05EDA /* GoogleService-Info.plist */; };
+		638A6E1B2837ED7200F05EDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */; };
 		9A70FA068254A00C0D843A5B /* Pods_ShoppingAdmin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */; };
 		E4CBB671FD351A860A5B3EBC /* Pods_ShoppingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1C28D591816F13D0309951E /* Pods_ShoppingApp.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		638A6E102837AC6C00F05EDA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		638A6E122837ADBD00F05EDA /* Extension+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TextField.swift"; sourceTree = "<group>"; };
 		638A6E142837CA4900F05EDA /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		638A6E182837E41500F05EDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		71D353B1937883435C0ADC7C /* Pods-ShoppingAdmin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingAdmin.release.xcconfig"; path = "Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin.release.xcconfig"; sourceTree = "<group>"; };
 		D1C28D591816F13D0309951E /* Pods_ShoppingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,6 +109,7 @@
 		638A6DB92837A76000F05EDA /* ShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
+				638A6E182837E41500F05EDA /* GoogleService-Info.plist */,
 				638A6DDE2837A7E000F05EDA /* Cells */,
 				638A6DDB2837A7E000F05EDA /* Extensions */,
 				638A6DDA2837A7E000F05EDA /* Model */,
@@ -173,6 +178,7 @@
 		638A6DFB2837A87300F05EDA /* ShoppingAdmin */ = {
 			isa = PBXGroup;
 			children = (
+				638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */,
 				638A6DFC2837A87300F05EDA /* AppDelegate.swift */,
 				638A6DFE2837A87300F05EDA /* SceneDelegate.swift */,
 				638A6E002837A87300F05EDA /* ViewController.swift */,
@@ -215,7 +221,6 @@
 				10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */,
 				411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -312,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				638A6DF22837A7E000F05EDA /* Assets.xcassets in Resources */,
+				638A6E192837E41500F05EDA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638A6E1B2837ED7200F05EDA /* GoogleService-Info.plist in Resources */,
 				638A6E092837A87400F05EDA /* LaunchScreen.storyboard in Resources */,
 				638A6E0F2837A90800F05EDA /* Assets.xcassets in Resources */,
 				638A6E042837A87300F05EDA /* Main.storyboard in Resources */,

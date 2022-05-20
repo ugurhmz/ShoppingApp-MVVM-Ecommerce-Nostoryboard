@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegisterVC: UIViewController {
     
@@ -75,10 +76,28 @@ class RegisterVC: UIViewController {
         btn.layer.borderWidth = 1
         btn.layer.borderColor = UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1).cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        btn.addTarget(self, action: #selector(clickRegisterBtn), for: .touchUpInside)
         return btn
     }()
     
-    
+    // click registerBtn
+    @objc func clickRegisterBtn(){
+        
+        guard let email = txtEmail.text, !email.isEmpty,
+              let username = txtUsername.text, !username.isEmpty,
+              let password = txtPassword.text, !password.isEmpty else { return }
+        
+        
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+           
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            print("success")
+        }
+    }
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [registerTxtLabel,txtUsername,txtEmail, txtPassword,txtRePassword, registerBtn ])

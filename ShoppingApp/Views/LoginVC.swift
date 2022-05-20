@@ -34,7 +34,7 @@ class LoginVC: UIViewController {
         return txt
     }()
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, createNewUserBtn])
+        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, createNewUserBtn, continueGuesBtn])
         stackView.axis = .vertical
         stackView.spacing = 16
         return stackView
@@ -76,10 +76,24 @@ class LoginVC: UIViewController {
     private let createNewUserBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Create new user", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
+        btn.setTitleColor(UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1), for: .normal)
         btn.layer.cornerRadius = 15
-        btn.backgroundColor = .systemGreen
+        btn.backgroundColor = .white
+        btn.layer.borderWidth = 1
+        btn.layer.borderColor = UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1).cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        return btn
+    }()
+    
+    private let continueGuesBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Continue as gues", for: .normal)
+        btn.setTitleColor(.darkGray, for: .normal)
+        btn.layer.cornerRadius = 15
+        btn.backgroundColor = .white
+        btn.layer.borderWidth = 1
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .light)
+        btn.titleLabel?.font = UIFont(name: "Futura-Medium", size:22)
         return btn
     }()
     
@@ -104,6 +118,7 @@ class LoginVC: UIViewController {
         myview.layer.cornerRadius = 50
         myview.clipsToBounds = true
         myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        stackView.setCustomSpacing(40, after: forgetPwTxtLabel)
     }
 }
 

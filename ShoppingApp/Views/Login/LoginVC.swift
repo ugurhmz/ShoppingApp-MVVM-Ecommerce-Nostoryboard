@@ -76,11 +76,11 @@ class LoginVC: UIViewController {
     private let registerBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Register", for: .normal)
-        btn.setTitleColor(UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1), for: .normal)
+        btn.setTitleColor(AppColors.DarkGreen, for: .normal)
         btn.layer.cornerRadius = 15
         btn.backgroundColor = .white
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1).cgColor
+        btn.layer.borderColor = AppColors.DarkGreen.cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         btn.addTarget(self, action: #selector(goRegisterVC), for: .touchUpInside)
         return btn
@@ -124,10 +124,36 @@ class LoginVC: UIViewController {
         view.bringSubviewToFront(stackView)
        
         myview.layer.cornerRadius = 50
-        myview.clipsToBounds = true
+       // myview.clipsToBounds = true
         myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        setupShadows()
         stackView.setCustomSpacing(40, after: forgetPwTxtLabel)
         
+    }
+    
+    private func setupShadows(){
+        myview.layer.shadowOpacity = 145
+        myview.layer.shadowRadius = 140
+        myview.layer.shadowColor = UIColor.red.cgColor
+        
+        
+        txtEmail.layer.shadowOpacity = 2
+        txtEmail.layer.shadowRadius = 2
+        txtEmail.layer.shadowColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1).cgColor
+        
+        
+        txtPassword.layer.shadowOpacity = 2
+        txtPassword.layer.shadowRadius = 2
+        txtPassword.layer.shadowColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1).cgColor
+        
+        loginBtn.layer.shadowOpacity = 15
+        loginBtn.layer.shadowRadius = 10
+        loginBtn.layer.shadowColor = UIColor.darkGray.cgColor
+        loginBtn.layer.cornerRadius = 10
+        
+        registerBtn.layer.shadowOpacity = 1.3
+        registerBtn.layer.shadowRadius = 0.7
+        registerBtn.layer.shadowColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1).cgColor
     }
     
 }

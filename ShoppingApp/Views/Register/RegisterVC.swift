@@ -16,6 +16,8 @@ class RegisterVC: UIViewController {
         return view
     }()
     
+    var actView: UIActivityIndicatorView!
+    
     private let personImgView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "person.crop.circle.badge.plus")
@@ -55,8 +57,10 @@ class RegisterVC: UIViewController {
         txt.isSecureTextEntry = true
         txt.placeholder = "Password"
         txt.layer.borderWidth = 1
+        txt.addTarget(self, action: #selector(pwTextDidChange(_:)), for: .editingChanged)
         return txt
     }()
+    
     
     private let txtRePassword: CustomTextField = {
         let txt = CustomTextField(padding: 24, height: 55)
@@ -64,8 +68,37 @@ class RegisterVC: UIViewController {
         txt.isSecureTextEntry = true
         txt.placeholder = "Re password"
         txt.layer.borderWidth = 1
+        txt.addTarget(self, action: #selector(pwTextDidChange(_:)), for: .editingChanged)
         return txt
     }()
+    
+    // Password did change
+    @objc func pwTextDidChange(_ textField: UITextField){
+        
+        guard let passTxt = txtPassword.text else { return }
+        
+        // typing then check when remove in field
+        if textField == txtRePassword {
+            checkPaswoordFieldImg.isHidden = false
+            checkRePasswordImg.isHidden = false
+        } else {
+            if passTxt.isEmpty {
+                checkPaswoordFieldImg.isHidden = true
+                checkRePasswordImg.isHidden = true
+                txtRePassword.text = ""
+            }
+        }
+        
+        // matching
+        if txtPassword.text == txtRePassword.text {
+            let darkGreen = UIColor(red: 16/255, green: 159/255, blue: 49/255, alpha: 1)
+            checkPaswoordFieldImg.tintColor = darkGreen
+            checkRePasswordImg.tintColor = darkGreen
+        } else {
+            checkPaswoordFieldImg.tintColor = .red
+            checkRePasswordImg.tintColor = .red
+        }
+    }
     
     private let registerBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -80,6 +113,20 @@ class RegisterVC: UIViewController {
         return btn
     }()
     
+    private let checkPaswoordFieldImg: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        iv.tintColor = .red
+        return iv
+    }()
+    
+    private let checkRePasswordImg: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        iv.tintColor = .red
+        return iv
+    }()
+    
     // click registerBtn
     @objc func clickRegisterBtn(){
         
@@ -87,6 +134,7 @@ class RegisterVC: UIViewController {
               let username = txtUsername.text, !username.isEmpty,
               let password = txtPassword.text, !password.isEmpty else { return }
         
+        actView.startAnimating()
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
            
@@ -94,7 +142,7 @@ class RegisterVC: UIViewController {
                 print(error.localizedDescription)
                 return
             }
-            
+            self.actView.stopAnimating()
             print("success")
         }
     }
@@ -121,9 +169,16 @@ extension RegisterVC {
         view.addSubview(myview)
         view.addSubview(stackView)
         view.addSubview(personImgView)
+        view.addSubview(checkPaswoordFieldImg)
+        view.addSubview(checkRePasswordImg)
+        
         myview.layer.cornerRadius = 50
         myview.clipsToBounds = true
         myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        
+        checkPaswoordFieldImg.isHidden = true
+        checkRePasswordImg.isHidden = true
     }
     
     private func setConstraints(){
@@ -148,5 +203,21 @@ extension RegisterVC {
                              size: .init(width: 150, height: 100)
         )
         personImgView.centerXInSuperview()
+        
+        
+        checkPaswoordFieldImg.anchor(top: txtPassword.topAnchor,
+                             leading: nil,
+                             bottom: nil,
+                             trailing: txtPassword.trailingAnchor,
+                             padding: .init(top: 5, left: 0, bottom: 0, right: 10),
+                             size: .init(width: 40, height: 40))
+        
+        checkRePasswordImg.anchor(top: txtRePassword.topAnchor,
+                             leading: nil,
+                             bottom: nil,
+                             trailing: txtRePassword.trailingAnchor,
+                             padding: .init(top: 5, left: 0, bottom: 0, right: 10),
+                             size: .init(width: 40, height: 40))
+        
     }
 }

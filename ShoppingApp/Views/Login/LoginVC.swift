@@ -90,7 +90,9 @@ class LoginVC: UIViewController {
                 return
             }
             self.hideActivityIndicator()
-            print("success")
+            let tabbarVC = MainTabBarVC()
+            tabbarVC.modalPresentationStyle = .fullScreen
+            self.present(tabbarVC, animated: true, completion: nil)
         }
     }
     

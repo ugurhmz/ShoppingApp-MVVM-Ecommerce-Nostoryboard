@@ -142,7 +142,7 @@ class RegisterVC: UIViewController {
                 return
             }
             self.hideActivityIndicator()
-            print("success")
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

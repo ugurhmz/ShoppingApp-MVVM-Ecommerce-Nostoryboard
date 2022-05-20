@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeVC:  UIViewController {
     
@@ -189,9 +190,33 @@ class HomeVC:  UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        settingsNavigateBar()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
+        if let _ = Auth.auth().currentUser {
+
+            let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
+
+           navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
+                                                              target: self, action: nil)
+            navigationItem.leftBarButtonItem?.action =  #selector(clickLogoutBtn)
+        } else {
+            let loginImage = UIImage(systemName: "person.fill")?.withRenderingMode(.alwaysOriginal)
+
+           navigationItem.leftBarButtonItem = UIBarButtonItem(image: loginImage, style: .done,
+                                                              target: self, action: nil)
+            navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
+        }
+    }
+
+    @objc func clickLoginBtn(){
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true, completion: nil)
+    }
     
     private func setupViews(){
         [generalCollectionView].forEach{ view.addSubview($0)}
@@ -200,6 +225,65 @@ class HomeVC:  UIViewController {
         generalCollectionView.collectionViewLayout =  HomeVC.createCompositionalLayout()
         setConstraints()
       
+    }
+    
+    
+    // click logout btn
+    @objc func clickLogoutBtn(){
+        print("logout")
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+
+
+        if let _ = Auth.auth().currentUser {
+            do {
+                try Auth.auth().signOut()
+
+                present(loginVC, animated: true, completion: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        } else {
+            //navigationController?.pushViewController(LoginVC(), animated: true)
+            present(loginVC, animated: true, completion: nil)
+
+        }
+    }
+    
+    
+    private func settingsNavigateBar() {
+        let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
+        
+       // left icon
+       navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
+                                                          target: self, action: nil)
+        
+        navigationItem.leftBarButtonItem?.action = #selector(clickLogoutBtn)
+       // right two icons
+       navigationItem.rightBarButtonItems = [
+           UIBarButtonItem(image: UIImage(systemName: "cart.fill"),
+                           style: .done, target: self, action: nil),
+           
+           UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .done,
+                               target: self, action: nil)
+       ]
+       
+        if #available(iOS 13.0, *) {
+          let navBarAppearance = UINavigationBarAppearance()
+          //navBarAppearance.configureWithOpaqueBackground()
+           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
+         
+           navigationController?.navigationBar.barStyle = .black
+          navigationController?.navigationBar.standardAppearance = navBarAppearance
+          navigationController?.navigationBar.compactAppearance = navBarAppearance
+          navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+
+          navigationController?.navigationBar.prefersLargeTitles = false
+          navigationItem.title = "ShopMe®"
+          
+          }
+       // icons color
+       navigationController?.navigationBar.tintColor = .black
     }
 }
 

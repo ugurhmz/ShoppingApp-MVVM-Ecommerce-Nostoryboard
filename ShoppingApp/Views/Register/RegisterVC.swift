@@ -17,8 +17,6 @@ class RegisterVC: UIViewController {
         return view
     }()
     
-    var actView: UIActivityIndicatorView!
-    
     private let personImgView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "person.crop.circle.badge.plus")
@@ -134,15 +132,16 @@ class RegisterVC: UIViewController {
               let username = txtUsername.text, !username.isEmpty,
               let password = txtPassword.text, !password.isEmpty else { return }
         
-        actView.startAnimating()
+        self.showActivityIndicator()
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
            
             if let error = error {
                 print(error.localizedDescription)
+                self.hideActivityIndicator()
                 return
             }
-            self.actView.stopAnimating()
+            self.hideActivityIndicator()
             print("success")
         }
     }
@@ -171,16 +170,15 @@ extension RegisterVC {
         view.addSubview(personImgView)
         view.addSubview(checkPaswoordFieldImg)
         view.addSubview(checkRePasswordImg)
-        
-        myview.layer.cornerRadius = 50
-        myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
         setupShadows()
         checkPaswoordFieldImg.isHidden = true
         checkRePasswordImg.isHidden = true
     }
     
     private func setupShadows(){
+        
+        myview.layer.cornerRadius = 50
+        myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         myview.layer.shadowOpacity = 145
         myview.layer.shadowRadius = 140
         myview.layer.shadowColor = UIColor.blue.cgColor

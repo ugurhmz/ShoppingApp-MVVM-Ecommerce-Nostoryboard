@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginVC: UIViewController {
-    
     
     private let myview: UIView = {
         let view = UIView()
@@ -70,8 +70,29 @@ class LoginVC: UIViewController {
         btn.layer.cornerRadius = 15
         btn.backgroundColor = .blue
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        btn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
         return btn
     }()
+    
+    // clickLoginBtn
+    @objc func clickLoginBtn(){
+        
+        guard let email = txtEmail.text, !email.isEmpty,
+              let password = txtPassword.text, !password.isEmpty else { return }
+        
+        self.showActivityIndicator()
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+           
+            if let error = error {
+                print(error.localizedDescription)
+                self.hideActivityIndicator()
+                return
+            }
+            self.hideActivityIndicator()
+            print("success")
+        }
+    }
     
     private let registerBtn: UIButton = {
         let btn = UIButton(type: .system)

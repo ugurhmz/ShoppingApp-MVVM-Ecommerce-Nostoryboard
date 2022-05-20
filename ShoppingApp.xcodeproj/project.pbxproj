@@ -139,11 +139,11 @@
 		638A6DE22837A7E000F05EDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				638A6E172837CE7000F05EDA /* Register */,
+				638A6E162837CE6C00F05EDA /* Login */,
 				638A6DE32837A7E000F05EDA /* ProfileVC.swift */,
 				638A6DE42837A7E000F05EDA /* HomeVC.swift */,
 				638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */,
-				638A6E102837AC6C00F05EDA /* LoginVC.swift */,
-				638A6E142837CA4900F05EDA /* RegisterVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,6 +177,22 @@
 				638A6DE72837A7E000F05EDA /* Assets.xcassets */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		638A6E162837CE6C00F05EDA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				638A6E102837AC6C00F05EDA /* LoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		638A6E172837CE7000F05EDA /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				638A6E142837CA4900F05EDA /* RegisterVC.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

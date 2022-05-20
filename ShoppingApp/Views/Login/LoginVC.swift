@@ -34,7 +34,7 @@ class LoginVC: UIViewController {
         return txt
     }()
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, createNewUserBtn, continueGuesBtn])
+        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, registerBtn, continueGuesBtn])
         stackView.axis = .vertical
         stackView.spacing = 16
         return stackView
@@ -73,7 +73,7 @@ class LoginVC: UIViewController {
         return btn
     }()
     
-    private let createNewUserBtn: UIButton = {
+    private let registerBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Register", for: .normal)
         btn.setTitleColor(UIColor(red: 16/255, green: 129/255, blue: 49/255, alpha: 1), for: .normal)

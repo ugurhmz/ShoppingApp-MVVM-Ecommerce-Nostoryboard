@@ -26,9 +26,15 @@
 		638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E102837AC6C00F05EDA /* LoginVC.swift */; };
 		638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E122837ADBD00F05EDA /* Extension+TextField.swift */; };
 		638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E142837CA4900F05EDA /* RegisterVC.swift */; };
+		9A70FA068254A00C0D843A5B /* Pods_ShoppingAdmin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */; };
+		E4CBB671FD351A860A5B3EBC /* Pods_ShoppingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1C28D591816F13D0309951E /* Pods_ShoppingApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0337C5918F4E68ADEF05CA6D /* Pods-ShoppingAdmin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingAdmin.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin.debug.xcconfig"; sourceTree = "<group>"; };
+		10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.debug.xcconfig"; sourceTree = "<group>"; };
+		20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingAdmin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.release.xcconfig"; sourceTree = "<group>"; };
 		638A6DB72837A76000F05EDA /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A6DC82837A76100F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
@@ -51,6 +57,8 @@
 		638A6E102837AC6C00F05EDA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		638A6E122837ADBD00F05EDA /* Extension+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TextField.swift"; sourceTree = "<group>"; };
 		638A6E142837CA4900F05EDA /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		71D353B1937883435C0ADC7C /* Pods-ShoppingAdmin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingAdmin.release.xcconfig"; path = "Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin.release.xcconfig"; sourceTree = "<group>"; };
+		D1C28D591816F13D0309951E /* Pods_ShoppingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4CBB671FD351A860A5B3EBC /* Pods_ShoppingApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A70FA068254A00C0D843A5B /* Pods_ShoppingAdmin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +88,8 @@
 				638A6DB92837A76000F05EDA /* ShoppingApp */,
 				638A6DFB2837A87300F05EDA /* ShoppingAdmin */,
 				638A6DB82837A76000F05EDA /* Products */,
+				AD2A928733C125942FDC193F /* Pods */,
+				DCB1B6C385F0E614ACB388D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +207,27 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
+		AD2A928733C125942FDC193F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0337C5918F4E68ADEF05CA6D /* Pods-ShoppingAdmin.debug.xcconfig */,
+				71D353B1937883435C0ADC7C /* Pods-ShoppingAdmin.release.xcconfig */,
+				10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */,
+				411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DCB1B6C385F0E614ACB388D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */,
+				D1C28D591816F13D0309951E /* Pods_ShoppingApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,9 +235,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 638A6DCB2837A76100F05EDA /* Build configuration list for PBXNativeTarget "ShoppingApp" */;
 			buildPhases = (
+				65C68B86931EE285BBD48103 /* [CP] Check Pods Manifest.lock */,
 				638A6DB32837A76000F05EDA /* Sources */,
 				638A6DB42837A76000F05EDA /* Frameworks */,
 				638A6DB52837A76000F05EDA /* Resources */,
+				87C60D5F86334E67993CD40D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -219,9 +254,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 638A6E0B2837A87400F05EDA /* Build configuration list for PBXNativeTarget "ShoppingAdmin" */;
 			buildPhases = (
+				E25CCFAA3FD3E95E4EFB9B0F /* [CP] Check Pods Manifest.lock */,
 				638A6DF62837A87300F05EDA /* Sources */,
 				638A6DF72837A87300F05EDA /* Frameworks */,
 				638A6DF82837A87300F05EDA /* Resources */,
+				BA284AA75D4C3FC7AA4C5D87 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -289,6 +326,87 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65C68B86931EE285BBD48103 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShoppingApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87C60D5F86334E67993CD40D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA284AA75D4C3FC7AA4C5D87 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShoppingAdmin/Pods-ShoppingAdmin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E25CCFAA3FD3E95E4EFB9B0F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShoppingAdmin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		638A6DB32837A76000F05EDA /* Sources */ = {
@@ -460,6 +578,7 @@
 		};
 		638A6DCC2837A76100F05EDA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -487,6 +606,7 @@
 		};
 		638A6DCD2837A76100F05EDA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -514,6 +634,7 @@
 		};
 		638A6E0C2837A87400F05EDA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0337C5918F4E68ADEF05CA6D /* Pods-ShoppingAdmin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -542,6 +663,7 @@
 		};
 		638A6E0D2837A87400F05EDA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71D353B1937883435C0ADC7C /* Pods-ShoppingAdmin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

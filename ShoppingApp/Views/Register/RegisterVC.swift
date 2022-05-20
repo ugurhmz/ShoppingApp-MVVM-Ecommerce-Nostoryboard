@@ -24,7 +24,7 @@ class RegisterVC: UIViewController {
     
     private let registerTxtLabel: UILabel = {
         let label = UILabel()
-        label.font =  UIFont(name: "Zapfino", size: 32)
+        label.font =  UIFont(name: "Zapfino", size: 45)
         label.text = "Register"
         label.textColor = .black
         label.textAlignment = .center
@@ -89,7 +89,7 @@ class RegisterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = UIColor(red: 16/255, green: 159/255, blue: 49/255, alpha: 1)
         setupViews()
         setConstraints()
     }

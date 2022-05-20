@@ -120,7 +120,7 @@ class LoginVC: UIViewController {
         view.addSubview(loginTxtLabel)
         forgetPwTxtLabel.textAlignment = .right
         
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .blue.withAlphaComponent(0.7)
         view.bringSubviewToFront(stackView)
        
         myview.layer.cornerRadius = 50

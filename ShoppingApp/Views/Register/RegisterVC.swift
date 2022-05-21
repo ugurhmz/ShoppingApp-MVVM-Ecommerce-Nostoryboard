@@ -130,7 +130,10 @@ class RegisterVC: UIViewController {
         
         guard let email = txtEmail.text, !email.isEmpty,
               let username = txtUsername.text, !username.isEmpty,
-              let password = txtPassword.text, !password.isEmpty else {
+              let password = txtPassword.text, !password.isEmpty,
+              let rePass = txtRePassword.text, !rePass.isEmpty
+              
+        else {
                   
                   self.createAlert(title: "",
                                    msg: "Fields can't be empty!",
@@ -138,9 +141,18 @@ class RegisterVC: UIViewController {
                                    bgColor: .white,
                                    textColor: .black,
                                    fontSize: 25)
-                  
                   return
               }
+        
+        guard let rePassword = txtRePassword.text, rePassword == password else {
+            self.createAlert(title: "Error",
+                             msg: "Passwords do not match !",
+                             prefStyle: .alert,
+                             bgColor: .white,
+                             textColor: .black,
+                             fontSize: 25)
+            return
+        }
         
         self.showActivityIndicator()
         

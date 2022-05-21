@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		636BB43E283909DC00095F2A /* SnackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43D283909DC00095F2A /* SnackHelper.swift */; };
 		636BB44028390B5700095F2A /* Extension+UIVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43F28390B5700095F2A /* Extension+UIVc.swift */; };
+		636BB44328391B9A00095F2A /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB44228391B9A00095F2A /* ForgotPasswordVC.swift */; };
 		638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
 		638A6DEC2837A7E000F05EDA /* ZeroCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDF2837A7E000F05EDA /* ZeroCustomCell.swift */; };
 		638A6DED2837A7E000F05EDA /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE02837A7E000F05EDA /* HeaderReusableView.swift */; };
@@ -43,6 +44,7 @@
 		411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.release.xcconfig"; sourceTree = "<group>"; };
 		636BB43D283909DC00095F2A /* SnackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackHelper.swift; sourceTree = "<group>"; };
 		636BB43F28390B5700095F2A /* Extension+UIVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIVc.swift"; sourceTree = "<group>"; };
+		636BB44228391B9A00095F2A /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		638A6DB72837A76000F05EDA /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A6DC82837A76100F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
@@ -93,6 +95,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		636BB44128391B8800095F2A /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				636BB44228391B9A00095F2A /* ForgotPasswordVC.swift */,
+			);
+			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
+		636BB44428391BA100095F2A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DE42837A7E000F05EDA /* HomeVC.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		636BB44528391BAD00095F2A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DE32837A7E000F05EDA /* ProfileVC.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		636BB44628391BB700095F2A /* MainTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */,
+			);
+			path = MainTabbar;
+			sourceTree = "<group>";
+		};
 		638A6DAE2837A76000F05EDA = {
 			isa = PBXGroup;
 			children = (
@@ -168,11 +202,12 @@
 		638A6DE22837A7E000F05EDA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				636BB44628391BB700095F2A /* MainTabbar */,
+				636BB44528391BAD00095F2A /* Profile */,
+				636BB44428391BA100095F2A /* Home */,
+				636BB44128391B8800095F2A /* ForgotPassword */,
 				638A6E172837CE7000F05EDA /* Register */,
 				638A6E162837CE6C00F05EDA /* Login */,
-				638A6DE32837A7E000F05EDA /* ProfileVC.swift */,
-				638A6DE42837A7E000F05EDA /* HomeVC.swift */,
-				638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,6 +473,7 @@
 				638A6DF02837A7E000F05EDA /* HomeVC.swift in Sources */,
 				638A6E112837AC6C00F05EDA /* LoginVC.swift in Sources */,
 				638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */,
+				636BB44328391B9A00095F2A /* ForgotPasswordVC.swift in Sources */,
 				638A6DEF2837A7E000F05EDA /* ProfileVC.swift in Sources */,
 				638A6DEC2837A7E000F05EDA /* ZeroCustomCell.swift in Sources */,
 				638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */,

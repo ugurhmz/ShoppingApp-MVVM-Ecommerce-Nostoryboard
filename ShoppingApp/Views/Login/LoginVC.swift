@@ -162,10 +162,15 @@ class LoginVC: UIViewController {
         view.bringSubviewToFront(stackView)
        
         myview.layer.cornerRadius = 50
-       // myview.clipsToBounds = true
         myview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         setupShadows()
         stackView.setCustomSpacing(40, after: forgetPwTxtLabel)
+        
+        
+        // forgot pw click handle
+        forgetPwTxtLabel.isUserInteractionEnabled = true
+        let guestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickForgotPw(_:)))
+        forgetPwTxtLabel.addGestureRecognizer(guestureRecognizer)
         
     }
     
@@ -192,6 +197,14 @@ class LoginVC: UIViewController {
         registerBtn.layer.shadowOpacity = 1.3
         registerBtn.layer.shadowRadius = 0.7
         registerBtn.layer.shadowColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1).cgColor
+    }
+    
+    
+    
+    @objc func clickForgotPw(_ sender: Any){
+        let forgotVC = ForgotPasswordVC()
+        forgotVC.modalPresentationStyle = .overFullScreen
+        present(forgotVC, animated: true, completion: nil)
     }
     
 }

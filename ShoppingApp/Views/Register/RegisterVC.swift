@@ -130,20 +130,39 @@ class RegisterVC: UIViewController {
         
         guard let email = txtEmail.text, !email.isEmpty,
               let username = txtUsername.text, !username.isEmpty,
-              let password = txtPassword.text, !password.isEmpty else { return }
+              let password = txtPassword.text, !password.isEmpty else {
+                  
+                  self.createAlert(title: "",
+                                   msg: "Fields can't be empty!",
+                                   prefStyle: .alert,
+                                   bgColor: .white,
+                                   textColor: .black,
+                                   fontSize: 25)
+                  
+                  return
+              }
         
         self.showActivityIndicator()
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-           
+        guard let authUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        authUser.link(with: credential) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
-                self.hideActivityIndicator()
+                self.handleFireAuthError(error: error,
+                                    fontSize: 24,
+                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                    bgColor: .white)
                 return
             }
+            
             self.hideActivityIndicator()
             self.dismiss(animated: true, completion: nil)
         }
+        
     }
     
     private lazy var stackView: UIStackView = {

@@ -77,8 +77,18 @@ class LoginVC: UIViewController {
     // clickLoginBtn
     @objc func clickLoginBtn(){
         
+        
+        
         guard let email = txtEmail.text, !email.isEmpty,
-              let password = txtPassword.text, !password.isEmpty else { return }
+              let password = txtPassword.text, !password.isEmpty else {
+                  self.createAlert(title: "",
+                                   msg: "Email or password is empty!",
+                                   prefStyle: .alert,
+                                   bgColor: .white,
+                                   textColor: .black,
+                                   fontSize: 25)
+                  return
+              }
         
         self.showActivityIndicator()
         
@@ -86,6 +96,11 @@ class LoginVC: UIViewController {
            
             if let error = error {
                 print(error.localizedDescription)
+                self.handleFireAuthError(error: error,
+                                    fontSize: 24,
+                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                    bgColor: .white)
+               
                 self.hideActivityIndicator()
                 return
             }

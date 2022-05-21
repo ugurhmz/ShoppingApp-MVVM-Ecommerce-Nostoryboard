@@ -9,6 +9,7 @@ def 	shared_pods
 	pod 'IQKeyboardManagerSwift'
 	pod 'Kingfisher', '~> 7.0'
 	pod 'CodableFirebase'
+	pod 'SwiftEntryKit', '2.0.0'
 end
     
 

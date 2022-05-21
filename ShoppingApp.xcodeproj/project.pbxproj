@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		636BB43E283909DC00095F2A /* SnackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43D283909DC00095F2A /* SnackHelper.swift */; };
+		636BB44028390B5700095F2A /* Extension+UIVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43F28390B5700095F2A /* Extension+UIVc.swift */; };
 		638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
 		638A6DEC2837A7E000F05EDA /* ZeroCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDF2837A7E000F05EDA /* ZeroCustomCell.swift */; };
 		638A6DED2837A7E000F05EDA /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE02837A7E000F05EDA /* HeaderReusableView.swift */; };
@@ -39,6 +41,8 @@
 		10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingAdmin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.release.xcconfig"; sourceTree = "<group>"; };
+		636BB43D283909DC00095F2A /* SnackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackHelper.swift; sourceTree = "<group>"; };
+		636BB43F28390B5700095F2A /* Extension+UIVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIVc.swift"; sourceTree = "<group>"; };
 		638A6DB72837A76000F05EDA /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A6DC82837A76100F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
@@ -135,9 +139,11 @@
 			isa = PBXGroup;
 			children = (
 				638A6E1F283802E700F05EDA /* Constants.swift */,
+				636BB43F28390B5700095F2A /* Extension+UIVc.swift */,
 				638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */,
 				638A6E122837ADBD00F05EDA /* Extension+TextField.swift */,
 				639F97C028380EC800893424 /* CustomActivityIndicator.swift */,
+				636BB43D283909DC00095F2A /* SnackHelper.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -437,8 +443,10 @@
 				638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */,
 				638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */,
 				638A6DEE2837A7E000F05EDA /* GeneralCustomCell.swift in Sources */,
+				636BB43E283909DC00095F2A /* SnackHelper.swift in Sources */,
 				638A6E20283802E700F05EDA /* Constants.swift in Sources */,
 				638A6DF52837A7E000F05EDA /* SceneDelegate.swift in Sources */,
+				636BB44028390B5700095F2A /* Extension+UIVc.swift in Sources */,
 				639F97C128380EC800893424 /* CustomActivityIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

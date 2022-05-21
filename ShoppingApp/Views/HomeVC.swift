@@ -191,12 +191,27 @@ class HomeVC:  UIViewController {
         super.viewDidLoad()
         setupViews()
         settingsNavigateBar()
+        isCurrentUserCheck()
+    }
+    
+    private func isCurrentUserCheck() {
+        if Auth.auth().currentUser == nil {
+            Auth.auth().signInAnonymously { (result, error) in
+                 if let error = error {
+                     self.handleFireAuthError(error: error,
+                                         fontSize: 24,
+                                         textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                         bgColor: .white)
+                     print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let _ = Auth.auth().currentUser {
+        if let user = Auth.auth().currentUser, !user.isAnonymous {
 
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
 
@@ -224,9 +239,7 @@ class HomeVC:  UIViewController {
         generalCollectionView.delegate = self
         generalCollectionView.collectionViewLayout =  HomeVC.createCompositionalLayout()
         setConstraints()
-      
     }
-    
     
     // click logout btn
     @objc func clickLogoutBtn(){
@@ -234,19 +247,31 @@ class HomeVC:  UIViewController {
         let loginVC = LoginVC()
         loginVC.modalPresentationStyle = .fullScreen
 
-
-        if let _ = Auth.auth().currentUser {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        if user.isAnonymous {
+            present(loginVC, animated: true, completion: nil)
+        } else {
             do {
-                try Auth.auth().signOut()
-
-                present(loginVC, animated: true, completion: nil)
+                  try Auth.auth().signOut()
+                    Auth.auth().signInAnonymously { result, error in
+                        if let error = error {
+                            self.handleFireAuthError(error: error,
+                                                fontSize: 24,
+                                                textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                                bgColor: .white)
+                            print(error.localizedDescription)
+                        }
+                        
+                        self.present(loginVC, animated: true, completion: nil)
+                    }
             } catch {
+                self.handleFireAuthError(error: error,
+                                    fontSize: 25,
+                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                    bgColor: .white)
                 print(error.localizedDescription)
             }
-        } else {
-            //navigationController?.pushViewController(LoginVC(), animated: true)
-            present(loginVC, animated: true, completion: nil)
-
         }
     }
     

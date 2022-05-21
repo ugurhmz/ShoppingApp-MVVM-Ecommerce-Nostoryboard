@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ForgotPasswordVC: UIViewController {
 
@@ -49,19 +50,44 @@ class ForgotPasswordVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private let sendBtn: UIButton = {
+    private let resetPasswordBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Reset Password", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = 15
         btn.backgroundColor = #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-       // btn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(clickResetBtn), for: .touchUpInside)
         return btn
     }()
     
+    @objc func clickResetBtn(){
+        
+        guard let email = emailTextField.text, !email.isEmpty else {
+            self.createAlert(title: "",
+                             msg: "Please enter email.",
+                             prefStyle: .alert,
+                             bgColor: .white,
+                             textColor: .black,
+                             fontSize: 25)
+            return
+        }
+        
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                self.handleFireAuthError(error: error, fontSize: 24, textColor: .red, bgColor: .white)
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+    }
+    
     private lazy var btnstackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [cancelBtn ,sendBtn])
+        let stackView = UIStackView(arrangedSubviews: [cancelBtn ,resetPasswordBtn])
         stackView.axis = .horizontal
         stackView.spacing = 12
         stackView.distribution = .fillEqually
@@ -82,6 +108,10 @@ class ForgotPasswordVC: UIViewController {
         view.addSubview(textLabel)
         view.addSubview(emailTextField)
         view.addSubview(btnstackView)
+        
+        centerView.layer.shadowOpacity = 80
+        centerView.layer.shadowRadius =  70
+        centerView.layer.shadowColor = UIColor.lightGray.cgColor
     }
     
 }

@@ -26,7 +26,7 @@ class HomeVC:  UIViewController {
         cv.register(CellHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier:   CellHeaderView.identifier)
         
         cv.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-        cv.register(OneCustomCell.self, forCellWithReuseIdentifier: OneCustomCell.identifier)
+        cv.register(ProductsOneCell.self, forCellWithReuseIdentifier: ProductsOneCell.identifier)
         return cv
     }()
     
@@ -103,7 +103,7 @@ class HomeVC:  UIViewController {
     
     
     
-       //MARK: - 1 SECTION
+       //MARK: - 1 SECTION Product
        static func createSecondSection() -> NSCollectionLayoutSection {
            
            let inset: CGFloat = 3
@@ -120,7 +120,7 @@ class HomeVC:  UIViewController {
            
            // group
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
-                                                  heightDimension: .fractionalHeight(0.25))
+                                                  heightDimension: .fractionalHeight(0.35))
            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                           subitem:  item, count: 2)
            
@@ -402,7 +402,7 @@ extension HomeVC: UICollectionViewDataSource {
         
         // Popular Furnitures Cell
         if indexPath.section == 1 {
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: OneCustomCell.identifier, for: indexPath) as! OneCustomCell
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
             
             otherImgList.forEach({ item in

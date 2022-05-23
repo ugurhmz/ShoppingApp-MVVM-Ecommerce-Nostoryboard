@@ -18,7 +18,7 @@
 		638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
 		638A6DEC2837A7E000F05EDA /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDF2837A7E000F05EDA /* CategoryCell.swift */; };
 		638A6DED2837A7E000F05EDA /* CellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE02837A7E000F05EDA /* CellHeaderView.swift */; };
-		638A6DEE2837A7E000F05EDA /* GeneralCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE12837A7E000F05EDA /* GeneralCustomCell.swift */; };
+		638A6DEE2837A7E000F05EDA /* ProductsOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE12837A7E000F05EDA /* ProductsOneCell.swift */; };
 		638A6DEF2837A7E000F05EDA /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE32837A7E000F05EDA /* ProfileVC.swift */; };
 		638A6DF02837A7E000F05EDA /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE42837A7E000F05EDA /* HomeVC.swift */; };
 		638A6DF12837A7E000F05EDA /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */; };
@@ -60,7 +60,7 @@
 		638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		638A6DDF2837A7E000F05EDA /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		638A6DE02837A7E000F05EDA /* CellHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellHeaderView.swift; sourceTree = "<group>"; };
-		638A6DE12837A7E000F05EDA /* GeneralCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralCustomCell.swift; sourceTree = "<group>"; };
+		638A6DE12837A7E000F05EDA /* ProductsOneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsOneCell.swift; sourceTree = "<group>"; };
 		638A6DE32837A7E000F05EDA /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		638A6DE42837A7E000F05EDA /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		638A6DE52837A7E000F05EDA /* MainTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
@@ -238,9 +238,9 @@
 		638A6DDE2837A7E000F05EDA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				638A6DDF2837A7E000F05EDA /* CategoryCell.swift */,
 				638A6DE02837A7E000F05EDA /* CellHeaderView.swift */,
-				638A6DE12837A7E000F05EDA /* GeneralCustomCell.swift */,
+				638A6DDF2837A7E000F05EDA /* CategoryCell.swift */,
+				638A6DE12837A7E000F05EDA /* ProductsOneCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -528,7 +528,7 @@
 				638A6DEC2837A7E000F05EDA /* CategoryCell.swift in Sources */,
 				638A6E132837ADBD00F05EDA /* Extension+TextField.swift in Sources */,
 				638A6E152837CA4900F05EDA /* RegisterVC.swift in Sources */,
-				638A6DEE2837A7E000F05EDA /* GeneralCustomCell.swift in Sources */,
+				638A6DEE2837A7E000F05EDA /* ProductsOneCell.swift in Sources */,
 				636BB44928393DC400095F2A /* CategoryVC.swift in Sources */,
 				636BB43E283909DC00095F2A /* SnackHelper.swift in Sources */,
 				638A6E20283802E700F05EDA /* ColorConstants.swift in Sources */,

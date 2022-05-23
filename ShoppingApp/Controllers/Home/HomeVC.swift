@@ -8,11 +8,11 @@
 import UIKit
 import Firebase
 
+
 class HomeVC:  UIViewController {
     
-    
     let otherImgList = ["v1","v2","v3","v4","v5","v6"]
-    
+    lazy var viewModel = HomeViewModel()
     
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,9 +23,9 @@ class HomeVC:  UIViewController {
         cv.register(UICollectionViewCell.self,
                     forCellWithReuseIdentifier: "cellId")
        
-        cv.register(HeaderReusableView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier:   HeaderReusableView.identifier)
+        cv.register(CellHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier:   CellHeaderView.identifier)
         
-        cv.register(ZeroCustomCell.self, forCellWithReuseIdentifier: ZeroCustomCell.identifier)
+        cv.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         cv.register(OneCustomCell.self, forCellWithReuseIdentifier: OneCustomCell.identifier)
         return cv
     }()
@@ -53,6 +53,10 @@ class HomeVC:  UIViewController {
             return createSecondSection()
         case 2:
             return createThirdSection()
+        case 3:
+            return createSecondSection()
+        case 4:
+            return createSliderSection()
         default:
             return  createFirstSection()
         }
@@ -66,7 +70,7 @@ class HomeVC:  UIViewController {
         
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.18),
-                                              heightDimension: .fractionalHeight(0.18))
+                                              heightDimension: .fractionalHeight(0.38))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: inset,
@@ -135,43 +139,60 @@ class HomeVC:  UIViewController {
            section.boundarySupplementaryItems = [header]
            return section
        }
+    
+      //MARK: - 2 SECTION
+       static func createThirdSection() -> NSCollectionLayoutSection {
+           let inset: CGFloat = 2.5
+           
+           // items
+           let smallItemSize  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                      heightDimension: .fractionalHeight(0.5))
+           let smallItem = NSCollectionLayoutItem(layoutSize: smallItemSize)
+           smallItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
+                                                             leading: inset,
+                                                             bottom: inset,
+                                                             trailing: inset)
+           let largeItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                                      heightDimension: .fractionalHeight(1))
+           let largeItem = NSCollectionLayoutItem(layoutSize: largeItemSize)
+           largeItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
+                                                             leading: inset,
+                                                             bottom: inset,
+                                                             trailing: inset)
+           
+           // group
+           let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.45), heightDimension: .fractionalHeight(1))
+           let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
+                                                                subitems: [smallItem])
+           
+           let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                            heightDimension: .fractionalHeight(0.4))
+           let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [largeItem, verticalGroup, verticalGroup])
+           
+           
+           // section
+           let section = NSCollectionLayoutSection(group: horizontalGroup)
+           section.orthogonalScrollingBehavior = .groupPaging
+           
+           // suplementary
+           let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                   heightDimension: .absolute(44))
+           let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                    elementKind: "header",
+                                                                    alignment: .top)
+           section.boundarySupplementaryItems = [header]
+           
+           return section
+       }
+    
+    static func createSliderSection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+                       item.contentInsets.trailing = 32
        
-    
-    
-    //MARK: - 2 SECTION
-    static func createThirdSection() -> NSCollectionLayoutSection {
-        let inset: CGFloat = 2.5
-        
-        // items
-        let smallItemSize  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .fractionalHeight(0.5))
-        let smallItem = NSCollectionLayoutItem(layoutSize: smallItemSize)
-        smallItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
-                                                          leading: inset,
-                                                          bottom: inset,
-                                                          trailing: inset)
-        let largeItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
-                                                   heightDimension: .fractionalHeight(1))
-        let largeItem = NSCollectionLayoutItem(layoutSize: largeItemSize)
-        largeItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
-                                                          leading: inset,
-                                                          bottom: inset,
-                                                          trailing: inset)
-        
-        // group
-        let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25),
-                                                       heightDimension: .fractionalHeight(1))
-        let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
-                                                             subitems: [smallItem])
-        
-        let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                         heightDimension: .fractionalHeight(0.4))
-        let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [largeItem, verticalGroup, verticalGroup])
-        
-        
-        // section
-        let section = NSCollectionLayoutSection(group: horizontalGroup)
-        section.orthogonalScrollingBehavior = .groupPaging
+       let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(125)), subitems: [item])
+       
+       let section = NSCollectionLayoutSection(group: group)
+       section.orthogonalScrollingBehavior = .continuous
         
         // suplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -180,12 +201,8 @@ class HomeVC:  UIViewController {
                                                                  elementKind: "header",
                                                                  alignment: .top)
         section.boundarySupplementaryItems = [header]
-        
-        return section
+       return section
     }
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,53 +242,23 @@ class HomeVC:  UIViewController {
                                                               target: self, action: nil)
             navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
         }
+        // fetching
+        viewModel.fetchCategory()
+        
     }
 
-    @objc func clickLoginBtn(){
-        let loginVC = LoginVC()
-        loginVC.modalPresentationStyle = .fullScreen
-        present(loginVC, animated: true, completion: nil)
-    }
-    
+  
     private func setupViews(){
         [generalCollectionView].forEach{ view.addSubview($0)}
         generalCollectionView.dataSource = self
         generalCollectionView.delegate = self
         generalCollectionView.collectionViewLayout =  HomeVC.createCompositionalLayout()
         setConstraints()
-    }
-    
-    // click logout btn
-    @objc func clickLogoutBtn(){
-        print("logout")
-        let loginVC = LoginVC()
-        loginVC.modalPresentationStyle = .fullScreen
-
-        guard let user = Auth.auth().currentUser else { return }
         
-        if user.isAnonymous {
-            present(loginVC, animated: true, completion: nil)
-        } else {
-            do {
-                  try Auth.auth().signOut()
-                    Auth.auth().signInAnonymously { result, error in
-                        if let error = error {
-                            self.handleFireAuthError(error: error,
-                                                fontSize: 24,
-                                                textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
-                                                bgColor: .white)
-                            print(error.localizedDescription)
-                        }
-                        
-                        self.present(loginVC, animated: true, completion: nil)
-                    }
-            } catch {
-                self.handleFireAuthError(error: error,
-                                    fontSize: 25,
-                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
-                                    bgColor: .white)
-                print(error.localizedDescription)
-            }
+        // reload data with closure
+        self.viewModel.reloadData = { [weak self] in
+            guard let self = self else { return }
+            self.generalCollectionView.reloadData()
         }
     }
     
@@ -313,9 +300,52 @@ class HomeVC:  UIViewController {
 }
 
 
-//MARK: - Constraints
+//MARK: - @objc functions
 extension HomeVC {
     
+    @objc func clickLoginBtn(){
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true, completion: nil)
+    }
+    
+    // click logout btn
+    @objc func clickLogoutBtn(){
+        print("logout")
+        let loginVC = LoginVC()
+        loginVC.modalPresentationStyle = .fullScreen
+
+        guard let user = Auth.auth().currentUser else { return }
+        
+        if user.isAnonymous {
+            present(loginVC, animated: true, completion: nil)
+        } else {
+            do {
+                  try Auth.auth().signOut()
+                    Auth.auth().signInAnonymously { result, error in
+                        if let error = error {
+                            self.handleFireAuthError(error: error,
+                                                fontSize: 24,
+                                                textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                                bgColor: .white)
+                            print(error.localizedDescription)
+                        }
+                        
+                        self.present(loginVC, animated: true, completion: nil)
+                    }
+            } catch {
+                self.handleFireAuthError(error: error,
+                                    fontSize: 25,
+                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                    bgColor: .white)
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+//MARK: - Constraints
+extension HomeVC {
     private func setConstraints(){
         generalCollectionView.fillSuperview()
     }
@@ -327,7 +357,7 @@ extension HomeVC: UICollectionViewDataSource {
     
     // numberOfSections
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 5
     }
     
     
@@ -336,7 +366,7 @@ extension HomeVC: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            return otherImgList.count
+            return self.viewModel.categoryList?.count ?? 0
         }
         
         if section == 1 {
@@ -357,19 +387,20 @@ extension HomeVC: UICollectionViewDataSource {
                                          saturation: 1,
                                          brightness: 1,
                                          alpha: 1)
-        
+        cell.layer.cornerRadius = 10
+        // Category Cell
         if indexPath.section == 0 {
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ZeroCustomCell.identifier, for: indexPath) as! ZeroCustomCell
+            let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
             
-            otherImgList.forEach({ item in
-                cell.imgView.image = UIImage(named: "\(otherImgList[indexPath.row])")
                 
-            })
+            if let categoryValue = self.viewModel.categoryList {
+                categoryCell.fillCategoryData(category: categoryValue[indexPath.item])
+            }
             
-            
-            return cell
+            return categoryCell
         }
         
+        // Popular Furnitures Cell
         if indexPath.section == 1 {
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: OneCustomCell.identifier, for: indexPath) as! OneCustomCell
             
@@ -391,20 +422,26 @@ extension HomeVC: UICollectionViewDataSource {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: HeaderReusableView.identifier, for: indexPath) as! HeaderReusableView
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: CellHeaderView.identifier, for: indexPath) as! CellHeaderView
         
         
         if indexPath.section == 0 {
             view.titleLabel.text = "Categories"
         }
         if indexPath.section == 1{
-            view.titleLabel.text = "Popular Furnitures"
+            view.titleLabel.text = "Furnitures"
         }
         if indexPath.section == 2 {
-            view.titleLabel.text = "All Products"
+            view.titleLabel.text = "Elbiseler"
         }
         
+        if indexPath.section == 3 {
+            view.titleLabel.text = "Beyaz Eşya"
+        }
         
+        if indexPath.section == 4 {
+            view.titleLabel.text = "Slider"
+        }
         
         return view
     }
@@ -412,7 +449,7 @@ extension HomeVC: UICollectionViewDataSource {
 }
 
 
-//MARK: - 
+//MARK: -  ViewDelegate
 extension HomeVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

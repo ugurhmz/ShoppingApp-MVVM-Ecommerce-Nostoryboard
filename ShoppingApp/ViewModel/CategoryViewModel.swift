@@ -9,11 +9,11 @@ import Foundation
 import FirebaseFirestore
 
 
-protocol HomeViewModelProtocol {
+protocol CategoryViewModelProtocol {
     var categoryList: [CategoryModel]? { get set}
 }
 
-final class HomeViewModel: HomeViewModelProtocol {
+final class CategoryViewModel: CategoryViewModelProtocol {
   
     
     

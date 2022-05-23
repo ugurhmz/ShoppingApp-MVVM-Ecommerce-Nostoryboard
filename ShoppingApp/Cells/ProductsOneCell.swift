@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductsOneCell: UICollectionViewCell {
     static var identifier  = "ProductsOneCell"
     
     
-    public var imgView: UIImageView = {
+    public var prdimgView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "v6")
         iv.contentMode = .scaleToFill
@@ -57,7 +58,7 @@ class ProductsOneCell: UICollectionViewCell {
     
     private let addToFavouriteBtn: UIButton = {
        let btn = UIButton(type: .custom)
-        btn.setBackgroundImage(UIImage(systemName: "heart")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
         btn.clipsToBounds = true
         btn.tintColor = .black
         btn.backgroundColor = .white
@@ -88,7 +89,7 @@ class ProductsOneCell: UICollectionViewCell {
     }
     
     private func setupViews(){
-        addSubview(imgView)
+        addSubview(prdimgView)
         addSubview(prdstackView)
         addSubview(prdNameLbl)
         addSubview(addToCartBtn)
@@ -105,19 +106,33 @@ class ProductsOneCell: UICollectionViewCell {
     }
     
 }
+
+
+//MARK: - FillData
+extension ProductsOneCell {
+    func fillData(product: ProductModel) {
+        if let prdImgUrl = URL(string: product.imageUrl) {
+            prdimgView.kf.setImage(with: prdImgUrl)
+        }
+        self.prdNameLbl.text = product.name
+        self.prdPriceLbl.text = "\(product.price) TL"
+    }
+}
+
+//MARK: -
 extension ProductsOneCell {
     private func setConstraints(){
-        imgView.anchor(top: contentView.topAnchor,
+        prdimgView.anchor(top: contentView.topAnchor,
                        leading: contentView.leadingAnchor,
                        bottom: nil,
                        trailing: contentView.trailingAnchor,
                        size: .init(width: 0, height: self.frame.height / 1.4 ))
         
-        prdstackView.anchor(top: imgView.bottomAnchor,
+        prdstackView.anchor(top: prdimgView.bottomAnchor,
                             leading: leadingAnchor,
                             bottom: bottomAnchor,
                             trailing: trailingAnchor)
-        prdPriceLbl.anchor(top: imgView.bottomAnchor,
+        prdPriceLbl.anchor(top: prdimgView.bottomAnchor,
                            leading: prdstackView.leadingAnchor,
                            bottom: nil,
                            trailing: prdstackView.trailingAnchor,
@@ -131,15 +146,15 @@ extension ProductsOneCell {
         
         addToCartBtn.anchor(top: nil,
                             leading: nil,
-                            bottom: imgView.bottomAnchor,
-                            trailing: imgView.trailingAnchor,
+                            bottom: prdimgView.bottomAnchor,
+                            trailing: prdimgView.trailingAnchor,
                             padding: .init(top: 0, left:0, bottom: 12, right: 10 ),
                             size: .init(width: 42, height: 42))
         
-        addToFavouriteBtn.anchor(top: imgView.topAnchor,
+        addToFavouriteBtn.anchor(top: prdimgView.topAnchor,
                                  leading: nil,
                                  bottom: nil,
-                                 trailing: imgView.trailingAnchor,
+                                 trailing: prdimgView.trailingAnchor,
                                  padding: .init(top: 10, left:0, bottom: 0, right: 10 ),
                                  size: .init(width: 30, height: 30))
     }

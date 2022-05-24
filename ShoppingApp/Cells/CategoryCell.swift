@@ -12,7 +12,6 @@ class CategoryCell: UICollectionViewCell {
     
     static var identifier  = "Mycell"
     
-    
     public var categoryImg: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "v6")
@@ -33,19 +32,16 @@ class CategoryCell: UICollectionViewCell {
         return label
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(categoryImg)
         contentView.addSubview(categoryNameLbl)
         setConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
-    
 }
 
 
@@ -54,7 +50,10 @@ extension CategoryCell {
     func fillCategoryData(category: CategoryModel){
         categoryNameLbl.text = category.name
         if let url = URL(string: category.imgUrl) {
-            categoryImg.kf.setImage(with: url)
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.1))]
+            categoryImg.kf.indicatorType = .activity
+            categoryImg.kf.setImage(with: url, placeholder: placeholder, options: options)
         }
     }
 }
@@ -74,6 +73,5 @@ extension CategoryCell {
                                  trailing: trailingAnchor,
                                  padding: .init(top: 0, left: 0, bottom: 0, right: 0),
                                  size: .init(width: 0, height: 80 ))
-        
     }
 }

@@ -17,7 +17,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productList: [ProductModel]?
     var reloadData: VoidClosure?
     var categoryList: [CategoryModel]? = []
-    
+    var realTimeListener: ListenerRegistration?
     var db: Firestore?
     
     init(){
@@ -34,18 +34,20 @@ final class HomeViewModel: HomeViewModelProtocol {
         
         self.productList = productData
         self.reloadData?()
-    }
+    } 
     
  
-    //MARK: -  FETCH ALL CATEGORIES
+    //MARK: -  FETCH ALL CATEGORIES (RealTime)
     func fetchAllCategoriesData(){
         
         let categoriesRef = db?.collection("categories")
-        categoriesRef?.getDocuments { (snap, error) in
+        
+        realTimeListener = categoriesRef?.addSnapshotListener { (snap, error) in
             guard let documents = snap?.documents else {
                 SnackHelper.showSnack(message: "Categories are unavailable. Database Error!", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
+            self.categoryList?.removeAll()
             for document in documents {
                 let data =  document.data()
                 let newCategoryArr = CategoryModel.init(data: data)
@@ -56,25 +58,3 @@ final class HomeViewModel: HomeViewModelProtocol {
         }
     }
 }
-
-
-
-
-
-
-//MARK: - Dummy datas example
-/*
-func fetchCategory(){
-    let categoryData = [CategoryModel.init(id: "qweq", name: "Nature", imgUrl: "https://images.unsplash.com/photo-1653194132914-eff329b9043a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472", timeStamp: Timestamp()),
-       CategoryModel.init(id: "qweq", name: "Nature", imgUrl: "https://images.unsplash.com/photo-1653194132914-eff329b9043a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472", timeStamp: Timestamp()),
-
-        CategoryModel.init(id: "qweq", name: "Retain Cycle Go Retain Cycle Go", imgUrl: "https://images.unsplash.com/photo-1653044290058-e829e1df14f8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=500", timeStamp: Timestamp()),
-
-    CategoryModel.init(id: "qweq", name: "Future", imgUrl: "https://images.unsplash.com/photo-1653044290058-e829e1df14f8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=500", timeStamp: Timestamp())
-
-    ]
-
-    self.categoryList = categoryData
-    self.reloadData?()
-}
-*/

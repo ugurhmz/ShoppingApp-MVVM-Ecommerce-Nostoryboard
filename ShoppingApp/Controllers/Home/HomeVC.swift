@@ -241,6 +241,10 @@ class HomeVC:  UIViewController {
         homeViewModel.fetchProducts()
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        homeViewModel.realTimeListener?.remove()
+    }
 
   
     private func setupViews(){

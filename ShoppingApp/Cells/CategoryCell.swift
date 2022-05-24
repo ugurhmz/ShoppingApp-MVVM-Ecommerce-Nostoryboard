@@ -14,9 +14,9 @@ class CategoryCell: UICollectionViewCell {
     
     public var categoryImg: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "v6")
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
+        iv.layer.cornerRadius = 20
        
         return iv
     }()
@@ -64,6 +64,7 @@ extension CategoryCell {
                        leading: contentView.leadingAnchor,
                        bottom: nil,
                        trailing: contentView.trailingAnchor,
+                           padding: .init(top: 0, left: 0, bottom: 0, right: 10),
                        size: .init(width: 0, height: self.frame.height - 32 ))
                
         categoryNameLbl.anchor(top: categoryImg.bottomAnchor,

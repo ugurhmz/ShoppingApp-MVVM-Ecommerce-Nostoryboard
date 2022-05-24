@@ -14,7 +14,6 @@ class CellHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -30,14 +29,11 @@ class CellHeaderView: UICollectionReusableView {
     }
     
     func setConstraints(){
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            
-        ])
+        titleLabel.anchor(top: topAnchor,
+                          leading: leadingAnchor,
+                          bottom: bottomAnchor,
+                          trailing: trailingAnchor,
+                          padding: .init(top: 20, left: 10, bottom: 8, right: 0))
     }
     
 }

@@ -74,7 +74,7 @@ class HomeVC:  UIViewController {
                                               heightDimension: .fractionalHeight(0.38))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: inset,
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10,
                                                      leading: inset,
                                                      bottom: inset,
                                                      trailing: inset)
@@ -82,7 +82,7 @@ class HomeVC:  UIViewController {
         
         // group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6),
-                                               heightDimension: .fractionalHeight(0.16))
+                                               heightDimension: .fractionalHeight(0.22))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem:  item, count: 2)
         
@@ -237,7 +237,7 @@ class HomeVC:  UIViewController {
             navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
         }
         // fetching
-        homeViewModel.fetchCategory()
+        homeViewModel.fetchAllCategoriesData()
         homeViewModel.fetchProducts()
         
     }

@@ -12,8 +12,7 @@ import Firebase
 class HomeVC:  UIViewController {
     
     let otherImgList = ["v1","v2","v3","v4","v5","v6"]
-    lazy var categoryViewModel = CategoryViewModel()
-    lazy var productViewModel = ProductViewModel()
+    lazy var  homeViewModel = HomeViewModel()
     
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -238,8 +237,8 @@ class HomeVC:  UIViewController {
             navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
         }
         // fetching
-        categoryViewModel.fetchCategory()
-        productViewModel.fetchProducts()
+        homeViewModel.fetchCategory()
+        homeViewModel.fetchProducts()
         
     }
 
@@ -252,12 +251,7 @@ class HomeVC:  UIViewController {
         setConstraints()
         
         // reload data with closure
-        self.categoryViewModel.reloadData = { [weak self] in
-            guard let self = self else { return }
-            self.generalCollectionView.reloadData()
-        }
-        
-        self.productViewModel.reloadData =  { [weak self] in
+        self.homeViewModel.reloadData = { [weak self] in
             guard let self = self else { return }
             self.generalCollectionView.reloadData()
         }
@@ -367,11 +361,11 @@ extension HomeVC: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            return self.categoryViewModel.categoryList?.count ?? 0
+            return self.homeViewModel.categoryList?.count ?? 0
         }
         
         if section == 1 {
-            return self.productViewModel.productList?.count ?? 0
+            return self.homeViewModel.productList?.count ?? 0
         }
         return section == 2 ?  15 : 5
     }
@@ -394,7 +388,7 @@ extension HomeVC: UICollectionViewDataSource {
             let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
             
                 
-            if let categoryValue = self.categoryViewModel.categoryList {
+            if let categoryValue = self.homeViewModel.categoryList {
                 categoryCell.fillCategoryData(category: categoryValue[indexPath.item])
             }
             
@@ -406,7 +400,7 @@ extension HomeVC: UICollectionViewDataSource {
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
             
-            if let productValue = self.productViewModel.productList {
+            if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
             }
             

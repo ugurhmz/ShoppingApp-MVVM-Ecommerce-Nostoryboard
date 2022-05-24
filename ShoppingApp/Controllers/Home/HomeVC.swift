@@ -28,6 +28,7 @@ class HomeVC:  UIViewController {
         
         cv.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         cv.register(ProductsOneCell.self, forCellWithReuseIdentifier: ProductsOneCell.identifier)
+        cv.register(ProductsTwoCell.self, forCellWithReuseIdentifier: ProductsTwoCell.identifier)
         return cv
     }()
     
@@ -64,7 +65,7 @@ class HomeVC:  UIViewController {
     }
     
     
-    //MARK: - 0 SECTION
+    //MARK: - 0 SECTION Categories
     static func createFirstSection() -> NSCollectionLayoutSection {
         
         let inset: CGFloat = 1
@@ -104,7 +105,7 @@ class HomeVC:  UIViewController {
     
     
     
-       //MARK: - 1 SECTION Product
+       //MARK: - 1 SECTION Products
        static func createSecondSection() -> NSCollectionLayoutSection {
            
            let inset: CGFloat = 3
@@ -153,22 +154,15 @@ class HomeVC:  UIViewController {
                                                              leading: inset,
                                                              bottom: inset,
                                                              trailing: inset)
-           let largeItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
-                                                      heightDimension: .fractionalHeight(1))
-           let largeItem = NSCollectionLayoutItem(layoutSize: largeItemSize)
-           largeItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
-                                                             leading: inset,
-                                                             bottom: inset,
-                                                             trailing: inset)
            
            // group
-           let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.45), heightDimension: .fractionalHeight(1))
+           let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.49), heightDimension: .fractionalHeight(1))
            let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
                                                                 subitems: [smallItem])
            
            let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.4))
-           let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [largeItem, verticalGroup, verticalGroup])
+                                                            heightDimension: .fractionalHeight(0.62))
+           let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup,verticalGroup, verticalGroup, verticalGroup])
            
            
            // section
@@ -416,6 +410,23 @@ extension HomeVC: UICollectionViewDataSource {
                 cell.fillData(product: productValue[indexPath.item])
             }
             
+            
+            return cell
+        }
+        
+        // Popular Furnitures Cell
+        if indexPath.section == 2 {
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsTwoCell.identifier, for: indexPath) as! ProductsTwoCell
+            
+            
+//            if let productValue = self.productViewModel.productList {
+//                cell.fillData(product: productValue[indexPath.item])
+//            }
+            // RANDOM COLORS
+            cell.backgroundColor =   UIColor(hue: CGFloat(drand48()),
+                                             saturation: 1,
+                                             brightness: 1,
+                                             alpha: 1)
             
             return cell
         }

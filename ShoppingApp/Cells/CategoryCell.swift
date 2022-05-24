@@ -40,7 +40,6 @@ class CategoryCell: UICollectionViewCell {
         contentView.addSubview(categoryNameLbl)
         setConstraints()
         
-        
     }
     
     required init?(coder: NSCoder) {

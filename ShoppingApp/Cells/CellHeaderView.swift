@@ -12,7 +12,7 @@ class CellHeaderView: UICollectionReusableView {
     
     public let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 22)
+        label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

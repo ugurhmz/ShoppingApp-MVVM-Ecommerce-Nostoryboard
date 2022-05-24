@@ -14,9 +14,9 @@ class ProductsOneCell: UICollectionViewCell {
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "v6")
         iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
+        iv.layer.cornerRadius = 12
        
         return iv
     }()
@@ -45,29 +45,30 @@ class ProductsOneCell: UICollectionViewCell {
         return label
     }()
     
-    private let addToCartBtn: UIButton = {
-       let btn = UIButton(type: .custom)
+    private var addToCartBtn: UIButton = {
+        let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
         btn.tintColor = .orange
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
+        btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
        
-           //btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
        return btn
    }()
     
     private let addToFavouriteBtn: UIButton = {
-       let btn = UIButton(type: .custom)
+        let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
-        btn.clipsToBounds = true
+       
         btn.tintColor = .black
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
-        
-       
-       //btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
+
+       btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
        return btn
    }()
+
+ 
     
     private lazy var prdstackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [prdPriceLbl, prdNameLbl])
@@ -77,17 +78,22 @@ class ProductsOneCell: UICollectionViewCell {
         return stackView
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
         setConstraints()
         customStyle()
+        bringSubviewToFront(addToCartBtn)
+        bringSubviewToFront(addToFavouriteBtn)
+       
     }
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
     
+  
     private func setupViews(){
         addSubview(prdimgView)
         addSubview(prdstackView)
@@ -99,12 +105,32 @@ class ProductsOneCell: UICollectionViewCell {
     private func customStyle(){
         contentView.layer.borderColor = UIColor.black.cgColor
         contentView.layer.borderWidth = 0.7
+        contentView.layer.cornerRadius = 12
+     
+      
+        contentView.layer.shadowOpacity = 5
+        contentView.layer.shadowRadius = 5
+        contentView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+        contentView.layer.masksToBounds = true
+    
         
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
         addToCartBtn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+     
     }
     
+}
+
+//MARK: - @objc funcs
+extension ProductsOneCell {
+    @objc func clickFavouriteBtn(){
+        print("clickFavouriteBtn")
+    }
+    
+    @objc func clickAddToCartBtn(){
+        print("clickAddToCartBtn")
+    }
 }
 
 

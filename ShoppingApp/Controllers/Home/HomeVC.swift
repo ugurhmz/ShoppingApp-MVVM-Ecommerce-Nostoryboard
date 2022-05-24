@@ -121,7 +121,7 @@ class HomeVC:  UIViewController {
            
            // group
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
-                                                  heightDimension: .fractionalHeight(0.35))
+                                                  heightDimension: .fractionalHeight(0.36))
            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                           subitem:  item, count: 2)
            
@@ -415,6 +415,7 @@ extension HomeVC: UICollectionViewDataSource {
             if let productValue = self.productViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
             }
+            
             
             return cell
         }

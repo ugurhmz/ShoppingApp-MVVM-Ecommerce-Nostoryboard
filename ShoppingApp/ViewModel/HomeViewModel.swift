@@ -37,23 +37,14 @@ final class HomeViewModel: HomeViewModelProtocol {
   
     
     func fetchCategory(){
-       
-        
         let docRef = db?.collection("categories").document("RvGTTdx7PE99wEI7Oq8j")
-        
         docRef?.getDocument { (snap, error) in
             guard let data = snap?.data() else {
                 SnackHelper.showSnack(message: "Categories are unavailable. Database Error!", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
             
-            let id = data["id"] as? String ?? ""
-            let name = data["name"] as? String ?? ""
-            let imgUrl = data["imgUrl"] as? String ?? ""
-            let isActive = data["isActive"] as? Bool ?? true
-            let timeStamp = data["timeStamp"] as? Timestamp ?? Timestamp()
-            
-            let newCategory = [CategoryModel.init(id: id, name: name, imgUrl: imgUrl, isActive: isActive, timeStamp: timeStamp)]
+            let newCategory = [CategoryModel.init(data: data)]
             
             self.categoryList = newCategory
             self.reloadData?()

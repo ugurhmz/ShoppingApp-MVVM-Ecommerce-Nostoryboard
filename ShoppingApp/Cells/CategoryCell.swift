@@ -15,16 +15,15 @@ class CategoryCell: UICollectionViewCell {
     public var categoryImg: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "v6")
-        iv.contentMode = .scaleToFill
+        iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 40
+       
         return iv
     }()
     
     private let categoryNameLbl: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.text = "Ayakkabı Boyoları Ve Geliştirmeleri Ayakkabı Boyoları Ve Geliştirmeleri"
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 3
@@ -65,13 +64,12 @@ extension CategoryCell {
                        leading: contentView.leadingAnchor,
                        bottom: nil,
                        trailing: contentView.trailingAnchor,
-                       size: .init(width: 0, height: self.frame.height - 72 ))
+                       size: .init(width: 0, height: self.frame.height - 32 ))
                
-        categoryNameLbl.anchor(top: nil,
+        categoryNameLbl.anchor(top: categoryImg.bottomAnchor,
                                  leading: leadingAnchor,
                                  bottom: bottomAnchor,
                                  trailing: trailingAnchor,
-                                 padding: .init(top: 0, left: 0, bottom: 0, right: 0),
-                                 size: .init(width: 0, height: 80 ))
+                                 padding: .init(top: 5, left: 0, bottom: 10, right: 0))
     }
 }

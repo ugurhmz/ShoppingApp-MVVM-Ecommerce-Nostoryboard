@@ -10,21 +10,26 @@ import SwiftEntryKit
 
 class SnackHelper {
     
-    class func showSnack(message: String, bgColor: UIColor, textColor: UIColor) {
+    class func showSnack(message: String,
+                         bgColor: UIColor,
+                         textColor: UIColor,
+                         viewHeight: CGFloat,
+                         msgDuration: CGFloat
+    ) {
         let contentView = UIView()
         contentView.backgroundColor = bgColor
         contentView.anchor(top: nil,
                            leading: nil,
                            bottom: nil,
                            trailing: nil,
-                           size: .init(width: 0, height: 40))
+                           size: .init(width: 0, height: viewHeight))
         contentView.layer.cornerRadius = 30
         
         let label = UILabel()
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 23)
         label.textColor = textColor
-        label.numberOfLines = 0
+        label.numberOfLines = 5
         label.text = message
         contentView.addSubview(label)
         label.fillSuperview()
@@ -57,13 +62,13 @@ class SnackHelper {
             scale: .init(
                 from: 1.05,
                 to: 1,
-                duration: 0.4,
+                duration: msgDuration,
                 spring: .init(damping: 1, initialVelocity: 0)
             )
         )
         
         attributes.exitAnimation = .init(
-            translate: .init(duration: 0.2)
+            translate: .init(duration: 0.6)
         )
         attributes.popBehavior = .animated(
             animation: .init(

@@ -49,23 +49,23 @@ class HomeVC:  UIViewController {
         
         switch index {
         case 0:
-            return createFirstSection()
+            return createCategoriesSection()
         case 1:
-            return createSecondSection()
+            return createProductsOneSection()
         case 2:
-            return createThirdSection()
+            return createProductsTwoSection()
         case 3:
-            return createSecondSection()
+            return createProductsOneSection()
         case 4:
             return createSliderSection()
         default:
-            return  createFirstSection()
+            return  createCategoriesSection()
         }
     }
     
     
     //MARK: - 0 SECTION Categories
-    static func createFirstSection() -> NSCollectionLayoutSection {
+    static func createCategoriesSection() -> NSCollectionLayoutSection {
         
         let inset: CGFloat = 1
         
@@ -75,9 +75,9 @@ class HomeVC:  UIViewController {
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 10,
-                                                     leading: inset,
+                                                     leading: 8,
                                                      bottom: inset,
-                                                     trailing: inset)
+                                                     trailing: 4)
         item.contentInsets.bottom = -100
         
         // group
@@ -105,7 +105,7 @@ class HomeVC:  UIViewController {
     
     
        //MARK: - 1 SECTION Products
-       static func createSecondSection() -> NSCollectionLayoutSection {
+       static func createProductsOneSection() -> NSCollectionLayoutSection {
            
            let inset: CGFloat = 3
            
@@ -115,9 +115,9 @@ class HomeVC:  UIViewController {
            
            let item = NSCollectionLayoutItem(layoutSize: itemSize)
            item.contentInsets = NSDirectionalEdgeInsets(top: inset,
-                                                        leading: inset,
+                                                        leading: 8,
                                                         bottom: inset,
-                                                        trailing: inset)
+                                                        trailing: 8)
            
            // group
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
@@ -142,7 +142,7 @@ class HomeVC:  UIViewController {
        }
     
       //MARK: - 2 SECTION
-       static func createThirdSection() -> NSCollectionLayoutSection {
+       static func createProductsTwoSection() -> NSCollectionLayoutSection {
            let inset: CGFloat = 2.5
            
            // items
@@ -150,9 +150,9 @@ class HomeVC:  UIViewController {
                                                       heightDimension: .fractionalHeight(0.5))
            let smallItem = NSCollectionLayoutItem(layoutSize: smallItemSize)
            smallItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
-                                                             leading: inset,
+                                                             leading: 8,
                                                              bottom: inset,
-                                                             trailing: inset)
+                                                             trailing: 6)
            
            // group
            let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.49), heightDimension: .fractionalHeight(1))
@@ -365,14 +365,17 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         
-        if section == 0 {
+        switch section {
+        case Sections.CategoriesSection.rawValue:
             return self.homeViewModel.categoryList?.count ?? 0
+            
+        case Sections.ProductsOneSection.rawValue:
+            return self.homeViewModel.productList?.count ?? 0
+            
+        default :
+            return 5
         }
         
-        if section == 1 {
-            return self.homeViewModel.productList?.count ?? 0
-        }
-        return section == 2 ?  15 : 5
     }
     
     
@@ -413,7 +416,6 @@ extension HomeVC: UICollectionViewDataSource {
             return cell
         }
         
-        // Popular Furnitures Cell
         if indexPath.section == 2 {
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsTwoCell.identifier, for: indexPath) as! ProductsTwoCell
             
@@ -442,24 +444,20 @@ extension HomeVC: UICollectionViewDataSource {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: CellHeaderView.identifier, for: indexPath) as! CellHeaderView
         
         
-        if indexPath.section == 0 {
-            view.titleLabel.text = "Categories"
+        switch indexPath.section {
+            case Sections.CategoriesSection.rawValue:
+                view.titleLabel.text = "Categories"
+            case Sections.ProductsOneSection.rawValue:
+                view.titleLabel.text = "Phones"
+            case Sections.ProductsTwoSection.rawValue:
+                view.titleLabel.text = "Coffess"
+            case Sections.ProductsThreeSection.rawValue:
+                view.titleLabel.text = "Dresses"
+            case Sections.SliderSection.rawValue:
+                view.titleLabel.text = "Slider"
+            default:
+                return UICollectionReusableView()
         }
-        if indexPath.section == 1{
-            view.titleLabel.text = "Phones"
-        }
-        if indexPath.section == 2 {
-            view.titleLabel.text = "Coffees"
-        }
-        
-        if indexPath.section == 3 {
-            view.titleLabel.text = "Dreesses"
-        }
-        
-        if indexPath.section == 4 {
-            view.titleLabel.text = "Slider"
-        }
-        
         return view
     }
      

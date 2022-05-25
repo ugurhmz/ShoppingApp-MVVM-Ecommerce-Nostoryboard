@@ -93,7 +93,7 @@ class HomeVC:  UIViewController {
         
         // suplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .absolute(45))
+                                                heightDimension: .absolute(55))
         
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind: "header",
@@ -132,7 +132,7 @@ class HomeVC:  UIViewController {
            
            // suplementary
            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .absolute(45))
+                                                   heightDimension: .absolute(55))
            
            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                     elementKind: "header",
@@ -170,7 +170,7 @@ class HomeVC:  UIViewController {
            
            // suplementary
            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .absolute(44))
+                                                   heightDimension: .absolute(55))
            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                     elementKind: "header",
                                                                     alignment: .top)
@@ -190,7 +190,7 @@ class HomeVC:  UIViewController {
         
         // suplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                heightDimension: .absolute(44))
+                                                heightDimension: .absolute(55))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind: "header",
                                                                  alignment: .top)
@@ -244,6 +244,7 @@ class HomeVC:  UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         homeViewModel.realTimeListener?.remove()
+        self.generalCollectionView.reloadData()
     }
 
   
@@ -445,7 +446,7 @@ extension HomeVC: UICollectionViewDataSource {
             view.titleLabel.text = "Categories"
         }
         if indexPath.section == 1{
-            view.titleLabel.text = "Furnitures"
+            view.titleLabel.text = "Phones"
         }
         if indexPath.section == 2 {
             view.titleLabel.text = "Elbiseler"

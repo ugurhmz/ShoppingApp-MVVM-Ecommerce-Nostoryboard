@@ -23,7 +23,7 @@ class ProductsOneCell: UICollectionViewCell {
     
     private let prdPriceLbl: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 19, weight: .bold)
         label.text = "6,10 TL"
         label.textColor = .black
         label.textAlignment = .left
@@ -84,7 +84,6 @@ class ProductsOneCell: UICollectionViewCell {
         customStyle()
         bringSubviewToFront(addToCartBtn)
         bringSubviewToFront(addToFavouriteBtn)
-       
     }
     
     required init?(coder: NSCoder) {
@@ -101,17 +100,24 @@ class ProductsOneCell: UICollectionViewCell {
     }
     
     private func customStyle(){
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
-        contentView.layer.borderWidth = 0.3
+        contentView.layer.borderColor = UIColor.darkGray.cgColor
+        contentView.layer.borderWidth = 0.8
         contentView.layer.cornerRadius = 12
-     
-      
-        contentView.layer.shadowOpacity = 5
-        contentView.layer.shadowRadius = 5
-        contentView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-        contentView.layer.masksToBounds = true
-    
         
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 9
+        self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
+                                                              y: 0,
+                                                              width: layer.bounds.width,
+                                                              height: layer.bounds.height / 1.46 ),
+                                            transform: nil)
+        self.layer.shadowOpacity = 6.0;
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+       
+        
+    
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
         addToCartBtn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor

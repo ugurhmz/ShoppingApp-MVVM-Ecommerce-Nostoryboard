@@ -16,8 +16,8 @@ class CategoryCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
+      
         iv.layer.cornerRadius = 20
-       
         return iv
     }()
     
@@ -36,7 +36,11 @@ class CategoryCell: UICollectionViewCell {
         contentView.addSubview(categoryImg)
         contentView.addSubview(categoryNameLbl)
         setConstraints()
+        
+        
     }
+    
+  
     
     required init?(coder: NSCoder) {
         fatalError("not imp")

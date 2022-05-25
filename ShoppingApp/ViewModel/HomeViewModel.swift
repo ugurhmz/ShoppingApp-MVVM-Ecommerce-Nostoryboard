@@ -29,8 +29,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         let productData = [ ProductModel(id: "1", name: "Eşya", category: "abc", price: 3.15, productOverview: "lorem ipsum",
               imageUrl: "https://images.unsplash.com/photo-1653044290058-e829e1df14f8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=500",
                    timeStamp: Timestamp(),
-                    stock: 15,
-                    favoritePrd: false)]
+                    stock: 15)]
         
         self.productList = productData
         self.reloadData?()
@@ -40,7 +39,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     //MARK: -  FETCH ALL CATEGORIES (RealTime)
     func fetchAllCategoriesData(){
         
-        let categoriesRef = db?.collection("categories")
+        let categoriesRef = db?.collection("categories").whereField("isActive", isEqualTo: true).order(by: "timeStamp")
         
         realTimeListener = categoriesRef?.addSnapshotListener { (snap, error) in
             guard let documents = snap?.documents else {
@@ -48,6 +47,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                 return
             }
             self.categoryList?.removeAll()
+            
             for document in documents {
                 let data =  document.data()
                 let newCategoryArr = CategoryModel.init(data: data)

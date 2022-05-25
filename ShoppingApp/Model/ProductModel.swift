@@ -17,5 +17,15 @@ struct ProductModel {
     var imageUrl: String
     var timeStamp: Timestamp
     var stock: Int
-    var favoritePrd: Bool
+    
+    init(data: [String: Any]) {
+        id = data["id"] as? String ?? ""
+        name = data["name"] as? String ?? ""
+        category = data["category"] as? String ?? ""
+        price = data["price"] as? Double ?? 0.0
+        productOverview = data["productOverview"] as? String ?? ""
+        imageUrl = data["imageUrl"] as? String ?? ""
+        timeStamp = data["timeStamp"] as? Timestamp ?? Timestamp()
+        stock = data["stock"] as? Int ?? 0
+    }
 }

@@ -20,8 +20,8 @@ class HomeVC:  UIViewController {
         cv.backgroundColor = .white
         
         // register
-        cv.register(UICollectionViewCell.self,
-                    forCellWithReuseIdentifier: "cellId")
+        cv.register(AdvertiseCell.self,
+                    forCellWithReuseIdentifier: AdvertiseCell.identifier)
        
         cv.register(CellHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier:   CellHeaderView.identifier)
         
@@ -53,14 +53,15 @@ class HomeVC:  UIViewController {
         case 1:
             return createProductsOneSection()
         case 2:
-            return createProductsTwoSection()
-        case 3:
-            return createProductsOneSection()
-        case 4:
             return createSliderSection()
+        case 3:
+            return createProductsTwoSection()
+        case 4:
+            return createProductsOneSection()
         default:
             return  createCategoriesSection()
         }
+        
     }
     
     
@@ -181,9 +182,10 @@ class HomeVC:  UIViewController {
     
     static func createSliderSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                       item.contentInsets.trailing = 32
+            item.contentInsets.trailing = 6
+            item.contentInsets.leading = 8
        
-       let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(125)), subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8), heightDimension: .absolute(125)), subitems: [item])
        
        let section = NSCollectionLayoutSection(group: group)
        section.orthogonalScrollingBehavior = .continuous
@@ -248,7 +250,6 @@ class HomeVC:  UIViewController {
         homeViewModel.realTimeListener?.remove()
         self.generalCollectionView.reloadData()
     }
-
   
     private func setupViews(){
         [generalCollectionView].forEach{ view.addSubview($0)}
@@ -362,15 +363,14 @@ extension HomeVC: UICollectionViewDataSource {
         return 5
     }
     
-    
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        
         switch section {
         case Sections.CategoriesSection.rawValue:
             return self.homeViewModel.categoryList?.count ?? 0
-            
+        case Sections.AdvertiseSection.rawValue:
+            return 10
         case Sections.ProductsOneSection.rawValue:
             return self.homeViewModel.productList?.count ?? 0
         case Sections.ProductsTwoSection.rawValue:
@@ -387,17 +387,12 @@ extension HomeVC: UICollectionViewDataSource {
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: "cellId",
-                                                             for: indexPath)
         
-        // RANDOM COLORS
-        cell.backgroundColor =   UIColor(hue: CGFloat(drand48()),
-                                         saturation: 1,
-                                         brightness: 1,
-                                         alpha: 1)
-        cell.layer.cornerRadius = 10
-        // Category Cell
-        if indexPath.section == 0 {
+        
+        switch indexPath.section {
+            
+        //MARK: - Categories
+        case Sections.CategoriesSection.rawValue:
             let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
             
            
@@ -406,46 +401,50 @@ extension HomeVC: UICollectionViewDataSource {
             }
             
             return categoryCell
-        }
-        
-        // Popular Furnitures Cell
-        if indexPath.section == 1 {
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
+            
+        //MARK: - Phones
+        case Sections.ProductsOneSection.rawValue:
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
             if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
             }
             
+            return cell
+            
+            
+        //MARK: - Advertise
+        case Sections.AdvertiseSection.rawValue:
+            
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdvertiseCell.identifier, for: indexPath)
+            cell.layer.cornerRadius = 20
             
             return cell
-        }
-        
-        if indexPath.section == 2 {
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsTwoCell.identifier, for: indexPath) as! ProductsTwoCell
             
+            
+        //MARK: - Phones
+        case Sections.ProductsTwoSection.rawValue:
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsTwoCell.identifier, for: indexPath) as! ProductsTwoCell
             
             if let productValue = self.homeViewModel.productTwoList {
                 cell.fillData(product: productValue[indexPath.item])
             }
             
-            
             return cell
-        }
-        
-        if indexPath.section == 3 {
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
+        //MARK: - Dresses
+        case Sections.ProductsThreeSection.rawValue:
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
             
             if let productValue = self.homeViewModel.productThreeList {
                 cell.fillData(product: productValue[indexPath.item])
             }
-            
-            
             return cell
+       
+        default:
+            return UICollectionViewCell()
         }
-        
-        return cell
     }
     
     
@@ -466,8 +465,8 @@ extension HomeVC: UICollectionViewDataSource {
                 view.titleLabel.text = "Coffess"
             case Sections.ProductsThreeSection.rawValue:
                 view.titleLabel.text = "Dresses"
-            case Sections.SliderSection.rawValue:
-                view.titleLabel.text = "Slider"
+            case Sections.AdvertiseSection.rawValue:
+                view.titleLabel.text = "Advertisements "
             default:
                 return UICollectionReusableView()
         }

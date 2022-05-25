@@ -36,12 +36,7 @@ class CategoryCell: UICollectionViewCell {
         contentView.addSubview(categoryImg)
         contentView.addSubview(categoryNameLbl)
         setConstraints()
-        
-        
     }
-    
-  
-    
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }

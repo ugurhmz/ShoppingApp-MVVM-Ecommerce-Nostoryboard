@@ -15,6 +15,7 @@
 		636BB45128395AB100095F2A /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB45028395AB100095F2A /* Closures.swift */; };
 		637E296E283CF06A0027CF8F /* ProductsTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */; };
 		6380D0F6283E604C005D07A8 /* CustomEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380D0F5283E604C005D07A8 /* CustomEnums.swift */; };
+		6380D0F8283E8C41005D07A8 /* AdvertiseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380D0F7283E8C41005D07A8 /* AdvertiseCell.swift */; };
 		63841461283C35BE0065773A /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841460283C35BE0065773A /* ProductModel.swift */; };
 		63841463283C443F0065773A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841462283C443F0065773A /* HomeViewModel.swift */; };
 		638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
@@ -57,6 +58,7 @@
 		636BB45028395AB100095F2A /* Closures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closures.swift; sourceTree = "<group>"; };
 		637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTwoCell.swift; sourceTree = "<group>"; };
 		6380D0F5283E604C005D07A8 /* CustomEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnums.swift; sourceTree = "<group>"; };
+		6380D0F7283E8C41005D07A8 /* AdvertiseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertiseCell.swift; sourceTree = "<group>"; };
 		63841460283C35BE0065773A /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		63841462283C443F0065773A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		638A6DB72837A76000F05EDA /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,46 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		6380D0F9283E9199005D07A8 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DDF2837A7E000F05EDA /* CategoryCell.swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		6380D0FA283E91B1005D07A8 /* PhonesAndDresses */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DE12837A7E000F05EDA /* ProductsOneCell.swift */,
+			);
+			path = PhonesAndDresses;
+			sourceTree = "<group>";
+		};
+		6380D0FB283E91BA005D07A8 /* Advertisements */ = {
+			isa = PBXGroup;
+			children = (
+				6380D0F7283E8C41005D07A8 /* AdvertiseCell.swift */,
+			);
+			path = Advertisements;
+			sourceTree = "<group>";
+		};
+		6380D0FC283E91D3005D07A8 /* CellHeader */ = {
+			isa = PBXGroup;
+			children = (
+				638A6DE02837A7E000F05EDA /* CellHeaderView.swift */,
+			);
+			path = CellHeader;
+			sourceTree = "<group>";
+		};
+		6380D0FD283E91EC005D07A8 /* Coffees */ = {
+			isa = PBXGroup;
+			children = (
+				637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */,
+			);
+			path = Coffees;
+			sourceTree = "<group>";
+		};
 		638A6DAE2837A76000F05EDA = {
 			isa = PBXGroup;
 			children = (
@@ -243,10 +285,11 @@
 		638A6DDE2837A7E000F05EDA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				638A6DE02837A7E000F05EDA /* CellHeaderView.swift */,
-				638A6DDF2837A7E000F05EDA /* CategoryCell.swift */,
-				638A6DE12837A7E000F05EDA /* ProductsOneCell.swift */,
-				637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */,
+				6380D0FD283E91EC005D07A8 /* Coffees */,
+				6380D0FC283E91D3005D07A8 /* CellHeader */,
+				6380D0FB283E91BA005D07A8 /* Advertisements */,
+				6380D0FA283E91B1005D07A8 /* PhonesAndDresses */,
+				6380D0F9283E9199005D07A8 /* Categories */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -541,6 +584,7 @@
 				638A6E20283802E700F05EDA /* ColorConstants.swift in Sources */,
 				638A6DF52837A7E000F05EDA /* SceneDelegate.swift in Sources */,
 				636BB44B28393EF200095F2A /* CategoryModel.swift in Sources */,
+				6380D0F8283E8C41005D07A8 /* AdvertiseCell.swift in Sources */,
 				636BB44028390B5700095F2A /* Extension+UIVc.swift in Sources */,
 				637E296E283CF06A0027CF8F /* ProductsTwoCell.swift in Sources */,
 				639F97C128380EC800893424 /* CustomActivityIndicator.swift in Sources */,

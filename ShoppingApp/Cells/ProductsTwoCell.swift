@@ -14,7 +14,7 @@ class ProductsTwoCell: UICollectionViewCell {
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "v6")
-        iv.contentMode = .scaleToFill
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 12
        
@@ -88,15 +88,20 @@ class ProductsTwoCell: UICollectionViewCell {
     }
     
     private func customStyle(){
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
-        contentView.layer.borderWidth = 0.3
+        contentView.layer.borderColor = UIColor.darkGray.cgColor
+        contentView.layer.borderWidth = 0.8
         contentView.layer.cornerRadius = 12
-     
-      
-        contentView.layer.shadowOpacity = 5
-        contentView.layer.shadowRadius = 5
-        contentView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-        contentView.layer.masksToBounds = true
+        
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowRadius = 9
+        self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
+                                                              y: 0,
+                                                              width: layer.bounds.width,
+                                                              height: layer.bounds.height / 1.46 ),
+                                            transform: nil)
+        self.layer.shadowOpacity = 6.0;
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
@@ -137,7 +142,7 @@ extension ProductsTwoCell {
                            leading: leadingAnchor,
                            bottom: nil,
                            trailing: trailingAnchor,
-                           padding: .init(top: 3, left: 5, bottom: 0, right: 0))
+                           padding: .init(top: 8, left: 5, bottom: 0, right: 0))
 
         prdNameLbl.anchor(top: prdPriceLbl.bottomAnchor,
                           leading: leadingAnchor,
@@ -149,8 +154,8 @@ extension ProductsTwoCell {
                             leading: nil,
                             bottom: prdimgView.bottomAnchor,
                             trailing: prdimgView.trailingAnchor,
-                            padding: .init(top: 0, left:0, bottom: 12, right: 10 ),
-                            size: .init(width: 42, height: 42))
+                            padding: .init(top: 0, left:0, bottom: 4, right: 6 ),
+                            size: .init(width: 36, height: 36))
         
         addToFavouriteBtn.anchor(top: prdimgView.topAnchor,
                                  leading: nil,

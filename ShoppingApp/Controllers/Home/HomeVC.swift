@@ -240,6 +240,7 @@ class HomeVC:  UIViewController {
         homeViewModel.fetchAllCategoriesData()
         homeViewModel.fetchProducts(getCategoryFilter: "phones")
         homeViewModel.fetchProducts(getCategoryFilter: "coffees")
+        homeViewModel.fetchProducts(getCategoryFilter: "dresses")
            
     }
     
@@ -374,6 +375,8 @@ extension HomeVC: UICollectionViewDataSource {
             return self.homeViewModel.productList?.count ?? 0
         case Sections.ProductsTwoSection.rawValue:
             return self.homeViewModel.productTwoList?.count ?? 0
+        case Sections.ProductsThreeSection.rawValue:
+            return self.homeViewModel.productThreeList?.count ?? 0
         default :
             return 5
         }
@@ -423,6 +426,18 @@ extension HomeVC: UICollectionViewDataSource {
             
             
             if let productValue = self.homeViewModel.productTwoList {
+                cell.fillData(product: productValue[indexPath.item])
+            }
+            
+            
+            return cell
+        }
+        
+        if indexPath.section == 3 {
+            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
+            
+            
+            if let productValue = self.homeViewModel.productThreeList {
                 cell.fillData(product: productValue[indexPath.item])
             }
             

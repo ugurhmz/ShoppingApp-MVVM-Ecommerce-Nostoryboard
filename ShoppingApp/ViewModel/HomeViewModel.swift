@@ -12,21 +12,18 @@ protocol HomeViewModelProtocol {
     var productList: [ProductModel]? { get set}
     var categoryList: [CategoryModel]? { get set}
 }
-enum CategoriesType: String {
-        case phones = "phones"
-        case coffees = "coffees"
-}
+
 final class HomeViewModel: HomeViewModelProtocol {
-    
-   
     
     var productList: [ProductModel]? = []
     var productTwoList: [ProductModel]? = []
+    var productThreeList: [ProductModel]? = []
+
     var reloadData: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
     var db: Firestore?
-   // private var categoriesType: CategoriesType?
+  
     
     init(){
         db = Firestore.firestore()
@@ -57,7 +54,7 @@ extension HomeViewModel {
                         self.productList?.append(newProductArr)
                        
                     }
-                case "coffees":
+            case "coffees":
                 self.productTwoList?.removeAll()
                     for document in documents {
                         let data =  document.data()
@@ -65,7 +62,15 @@ extension HomeViewModel {
                         self.productTwoList?.append(newProductArr)
                         
                     }
-                default:
+            case "dresses":
+                self.productThreeList?.removeAll()
+                for document in documents {
+                    let data =  document.data()
+                    let newProductArr = ProductModel.init(data: data)
+                    self.productThreeList?.append(newProductArr)
+                    
+                }
+            default:
                 return
             }
             

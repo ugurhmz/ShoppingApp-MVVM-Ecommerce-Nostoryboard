@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductsTwoCell: UICollectionViewCell {
     static var identifier = "ProductsTwoCell"
@@ -107,6 +108,20 @@ class ProductsTwoCell: UICollectionViewCell {
         fatalError("not imp")
     }
     
+}
+
+//MARK: - Fill Data
+extension ProductsTwoCell {
+    func fillData(product: ProductModel) {
+        if let prdImgUrl = URL(string: product.imageUrl) {
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
+            prdimgView.kf.indicatorType = .activity
+            prdimgView.kf.setImage(with: prdImgUrl, placeholder: placeholder, options: options)
+        }
+        self.prdNameLbl.text = product.name
+        self.prdPriceLbl.text = "\(product.price) TL"
+    }
 }
 
 //MARK: -

@@ -239,7 +239,8 @@ class HomeVC:  UIViewController {
         // fetching
         homeViewModel.fetchAllCategoriesData()
         homeViewModel.fetchProducts(getCategoryFilter: "phones")
-        
+        homeViewModel.fetchProducts(getCategoryFilter: "coffees")
+           
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -371,7 +372,8 @@ extension HomeVC: UICollectionViewDataSource {
             
         case Sections.ProductsOneSection.rawValue:
             return self.homeViewModel.productList?.count ?? 0
-            
+        case Sections.ProductsTwoSection.rawValue:
+            return self.homeViewModel.productTwoList?.count ?? 0
         default :
             return 5
         }
@@ -395,7 +397,7 @@ extension HomeVC: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
             
-                
+           
             if let categoryValue = self.homeViewModel.categoryList {
                 categoryCell.fillCategoryData(category: categoryValue[indexPath.item])
             }
@@ -420,14 +422,10 @@ extension HomeVC: UICollectionViewDataSource {
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsTwoCell.identifier, for: indexPath) as! ProductsTwoCell
             
             
-//            if let productValue = self.productViewModel.productList {
-//                cell.fillData(product: productValue[indexPath.item])
-//            }
-            // RANDOM COLORS
-            cell.backgroundColor =   UIColor(hue: CGFloat(drand48()),
-                                             saturation: 1,
-                                             brightness: 1,
-                                             alpha: 1)
+            if let productValue = self.homeViewModel.productTwoList {
+                cell.fillData(product: productValue[indexPath.item])
+            }
+            
             
             return cell
         }

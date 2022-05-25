@@ -14,7 +14,7 @@ protocol HomeViewModelProtocol {
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
-    var productList: [ProductModel]?
+    var productList: [ProductModel]? = []
     var reloadData: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
@@ -25,14 +25,26 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
     
     //MARK: - FETCH ALL PRODUCTS
-    func fetchProducts(){
-        let productData = [ ProductModel(id: "1", name: "Eşya", category: "abc", price: 3.15, productOverview: "lorem ipsum",
-              imageUrl: "https://images.unsplash.com/photo-1653044290058-e829e1df14f8?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=500",
-                   timeStamp: Timestamp(),
-                    stock: 15)]
+    func fetchProducts(getCategoryFilter: String){
+  
+        let productRef = db?.collection("products").whereField("category", isEqualTo: "\(getCategoryFilter)")
         
-        self.productList = productData
-        self.reloadData?()
+        realTimeListener = productRef?.addSnapshotListener { (snap, error) in
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            self.productList?.removeAll()
+            
+            for document in documents {
+                let data =  document.data()
+                let newProductArr = ProductModel.init(data: data)
+                self.productList?.append(newProductArr)
+             
+            }
+            self.reloadData?()
+        }
+        
     } 
     
  
@@ -43,7 +55,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         
         realTimeListener = categoriesRef?.addSnapshotListener { (snap, error) in
             guard let documents = snap?.documents else {
-                SnackHelper.showSnack(message: "Categories are unavailable. Database Error!", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                SnackHelper.showSnack(message: " Database Error!. Categories are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
             self.categoryList?.removeAll()

@@ -142,7 +142,10 @@ extension ProductsOneCell {
 extension ProductsOneCell {
     func fillData(product: ProductModel) {
         if let prdImgUrl = URL(string: product.imageUrl) {
-            prdimgView.kf.setImage(with: prdImgUrl)
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
+            prdimgView.kf.indicatorType = .activity
+            prdimgView.kf.setImage(with: prdImgUrl, placeholder: placeholder, options: options)
         }
         self.prdNameLbl.text = product.name
         self.prdPriceLbl.text = "\(product.price) TL"

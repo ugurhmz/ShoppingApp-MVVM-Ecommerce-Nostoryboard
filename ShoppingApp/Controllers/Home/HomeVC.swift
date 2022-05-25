@@ -238,7 +238,7 @@ class HomeVC:  UIViewController {
         }
         // fetching
         homeViewModel.fetchAllCategoriesData()
-        homeViewModel.fetchProducts()
+        homeViewModel.fetchProducts(getCategoryFilter: "phones")
         
     }
     
@@ -449,11 +449,11 @@ extension HomeVC: UICollectionViewDataSource {
             view.titleLabel.text = "Phones"
         }
         if indexPath.section == 2 {
-            view.titleLabel.text = "Elbiseler"
+            view.titleLabel.text = "Coffees"
         }
         
         if indexPath.section == 3 {
-            view.titleLabel.text = "Beyaz Eşya"
+            view.titleLabel.text = "Dreesses"
         }
         
         if indexPath.section == 4 {

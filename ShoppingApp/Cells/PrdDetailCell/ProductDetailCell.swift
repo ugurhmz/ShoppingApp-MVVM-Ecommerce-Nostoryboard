@@ -22,14 +22,13 @@ class ProductDetailCell: UICollectionViewCell {
     
     private let prdPriceLbl: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.text = "6,10 TL"
+        label.font = .systemFont(ofSize: 23, weight: .bold)
+        label.text = "102.500.000 TL"
         label.textColor = .black
-        label.textAlignment = .left
-      
+        label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
-    
     
     
     private let prdTitleLbl: UILabel = {
@@ -117,17 +116,24 @@ class ProductDetailCell: UICollectionViewCell {
         return stackView
     }()
     
-    private var addCartBtn: UIButton = {
+    private var addBasketBtn: UIButton = {
         let buton = UIButton(type: .system)
          buton.setTitle("Add To Cart", for: .normal)
          buton.backgroundColor = UIColor(red: 197/255, green: 33/255, blue: 52/255, alpha: 1)
          buton.setTitleColor(.white, for: .normal)
          buton.layer.cornerRadius = 15
          buton.layer.masksToBounds = true
-         buton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+         buton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
          buton.addTarget(self, action: #selector(clickMinusBtn), for: .touchUpInside)
          return buton
      }()
+    
+    private let cartIcon: UIImageView = {
+           let iv = UIImageView()
+           iv.image = UIImage(systemName: "cart")?.withRenderingMode(.alwaysTemplate)
+           iv.tintColor = .white
+           return iv
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -143,7 +149,9 @@ class ProductDetailCell: UICollectionViewCell {
         addSubview(prdstackView)
         [minusBtn, stepperCountLbl, plusBtn].forEach{ prdstackView.addArrangedSubview($0)}
         
-        addSubview(addCartBtn)
+        addSubview(addBasketBtn)
+        addSubview(cartIcon)
+        addSubview(prdPriceLbl)
     }
     
     required init?(coder: NSCoder) {
@@ -189,19 +197,31 @@ extension ProductDetailCell {
         
         prdstackView.anchor(top: prdDescriptionLbl.bottomAnchor,
                             leading: leadingAnchor,
-                            bottom: addCartBtn.topAnchor,
+                            bottom: addBasketBtn.topAnchor,
                             trailing: nil,
                             padding: .init(top: 10, left: 15, bottom: 30, right: 10),
                             size: .init(width: 140, height: 50))
         
                             
-        addCartBtn.anchor(top: prdstackView.bottomAnchor,
+        addBasketBtn.anchor(top: prdstackView.bottomAnchor,
                           leading: leadingAnchor,
                           bottom: bottomAnchor,
                           trailing: trailingAnchor,
                           padding: .init(top: 10, left: 40, bottom: 10, right: 40),
-                          size: .init(width: 0, height: 60)
-                          
-        )
+                          size: .init(width: 0, height: 60))
+        
+        cartIcon.anchor(top: addBasketBtn.topAnchor,
+                        leading: leadingAnchor,
+                        bottom: nil,
+                        trailing: nil,
+                        padding: .init(top: 15, left: 50, bottom: 0, right: 0),
+                        size: .init(width: 30, height: 30))
+        
+        prdPriceLbl.anchor(top: prdDescriptionLbl.bottomAnchor,
+                           leading: prdstackView.trailingAnchor,
+                           bottom: nil,
+                           trailing: prdDescriptionLbl.trailingAnchor,
+                           padding: .init(top: 22, left: 40, bottom: 0, right: 0),
+                           size: .init(width: 0, height: 0))
     }
 }

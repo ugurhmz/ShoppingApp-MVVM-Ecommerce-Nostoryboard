@@ -10,6 +10,9 @@ import UIKit
 
 class ProductDetailVC: UIViewController {
 
+    var didSelectClosure: ( (ProductModel) -> Void)?
+
+    var myObj: ProductModel?
     private  var generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -27,19 +30,17 @@ class ProductDetailVC: UIViewController {
         super.viewDidLoad()
         view.addSubview(generalCollectionView)
         generalCollectionView.fillSuperview()
-        
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
-        
         generalCollectionView.backgroundColor = .white
     }
 
 }
 
-//MARK: - Fill Data
+//MARK: - Pass Data
 extension ProductDetailVC {
     func configure(with productValue: ProductModel){
-        print("model", productValue.name)
+        self.myObj = productValue
     }
 }
 
@@ -57,7 +58,7 @@ extension ProductDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailCell.identifier, for: indexPath) as! ProductDetailCell
         
-        cell.backgroundColor = .white
+        cell.configure(objModel: self.myObj ?? ProductModel(data: [:]))
         
         return cell
     }

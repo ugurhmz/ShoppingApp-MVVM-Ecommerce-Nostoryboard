@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
@@ -159,6 +160,20 @@ class ProductDetailCell: UICollectionViewCell {
     }
 }
 
+//MARK: - Fill Data
+extension ProductDetailCell {
+    func configure(objModel: ProductModel) {
+        if let prdImgUrl = URL(string: objModel.imageUrl) {
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
+            prdimgView.kf.indicatorType = .activity
+            prdimgView.kf.setImage(with: prdImgUrl, placeholder: placeholder, options: options)
+        }
+        self.prdTitleLbl.text = objModel.name
+        self.prdDescriptionLbl.text = objModel.productOverview
+        self.prdPriceLbl.text = "\(objModel.price) TL"
+    }
+}
 
 //MARK: - @objc funcs
 extension ProductDetailCell {

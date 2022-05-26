@@ -489,15 +489,16 @@ extension HomeVC: UICollectionViewDelegate {
             
             case Sections.ProductsOneSection.rawValue:
                 vc.configure(with: self.homeViewModel.productList?[indexPath.row] ?? ProductModel(data: [:]))
-                navigationController?.pushViewController(vc, animated: false)
-
+            self.navigationController?.pushViewController(vc, animated: true)
             
             case Sections.ProductsTwoSection.rawValue:
                 vc.configure(with: self.homeViewModel.productTwoList?[indexPath.row] ?? ProductModel(data: [:]))
-                navigationController?.pushViewController(vc, animated: false)
+                navigationController?.pushViewController(vc, animated: true)
+            
             case Sections.ProductsThreeSection.rawValue:
                 vc.configure(with: self.homeViewModel.productThreeList?[indexPath.row] ?? ProductModel(data: [:]))
-                navigationController?.pushViewController(vc, animated: false)
+                navigationController?.pushViewController(vc, animated: true)
+            
             case Sections.AdvertiseSection.rawValue:
             print(indexPath.row)
             default:

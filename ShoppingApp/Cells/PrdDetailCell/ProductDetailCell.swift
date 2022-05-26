@@ -171,6 +171,8 @@ class ProductDetailCell: UICollectionViewCell {
             self.stepperCountLbl.text = "\(myPrdCount)"
             let totalPrice = self.getObjPrice * Double(myPrdCount)
             self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
+            
+            NotificationCenter.default.post(name: NSNotification.Name("applyBtn"), object: myPrdCount)
         }
     }
     

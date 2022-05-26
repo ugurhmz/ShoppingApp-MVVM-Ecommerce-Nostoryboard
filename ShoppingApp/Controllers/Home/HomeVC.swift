@@ -276,12 +276,11 @@ class HomeVC:  UIViewController {
         navigationItem.leftBarButtonItem?.action = #selector(clickLogoutBtn)
        // right two icons
        navigationItem.rightBarButtonItems = [
-           UIBarButtonItem(image: UIImage(systemName: "cart.fill"),
-                           style: .done, target: self, action: nil),
-           
            UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .done,
                                target: self, action: nil)
        ]
+        
+       
        
         if #available(iOS 13.0, *) {
           let navBarAppearance = UINavigationBarAppearance()

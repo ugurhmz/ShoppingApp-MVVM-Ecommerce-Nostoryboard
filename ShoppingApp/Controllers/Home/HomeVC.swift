@@ -142,9 +142,9 @@ class HomeVC:  UIViewController {
            return section
        }
     
-      //MARK: - 2 SECTION
+      //MARK: - Coffes
        static func createProductsTwoSection() -> NSCollectionLayoutSection {
-           let inset: CGFloat = 2.5
+           let inset: CGFloat = 4.5
            
            // items
            let smallItemSize  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -152,7 +152,7 @@ class HomeVC:  UIViewController {
            let smallItem = NSCollectionLayoutItem(layoutSize: smallItemSize)
            smallItem.contentInsets = NSDirectionalEdgeInsets(top: inset,
                                                              leading: 8,
-                                                             bottom: inset,
+                                                             bottom: 10,
                                                              trailing: 6)
            
            // group
@@ -162,7 +162,7 @@ class HomeVC:  UIViewController {
            
            let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(0.62))
-           let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup,verticalGroup, verticalGroup, verticalGroup])
+           let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup])
            
            
            // section
@@ -171,7 +171,7 @@ class HomeVC:  UIViewController {
            
            // suplementary
            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .absolute(55))
+                                                   heightDimension: .absolute(62))
            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                     elementKind: "header",
                                                                     alignment: .top)

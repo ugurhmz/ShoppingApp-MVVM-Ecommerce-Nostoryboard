@@ -10,10 +10,12 @@ import Kingfisher
 
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
+    let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
+    let colorTwo: UIColor = #colorLiteral(red: 0.1414878297, green: 0.6880354557, blue: 0.5711142574, alpha: 0.9887210265)
+    let colorThree: UIColor = #colorLiteral(red: 0.4158273037, green: 0.763119476, blue: 0.2118647997, alpha: 1)
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "v6")
         iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 5
@@ -45,7 +47,6 @@ class ProductDetailCell: UICollectionViewCell {
     
     private let prdDescriptionLbl: UILabel = {
         let label = UILabel()
-        label.text = "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentiallyis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentiallyis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially "
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = #colorLiteral(red: 0.1709887727, green: 0.1870856636, blue: 0.2076978542, alpha: 1)
         label.textAlignment = .left
@@ -67,7 +68,6 @@ class ProductDetailCell: UICollectionViewCell {
     private let addToFavouriteBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
-       
         btn.tintColor = .black
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
@@ -141,6 +141,7 @@ class ProductDetailCell: UICollectionViewCell {
         bringSubviewToFront(contentView)
         setupViews()
         setConstraints()
+        setupStyle()
     }
     
     private func setupViews(){
@@ -153,6 +154,13 @@ class ProductDetailCell: UICollectionViewCell {
         addSubview(addBasketBtn)
         addSubview(cartIcon)
         addSubview(prdPriceLbl)
+    }
+    
+    private func setupStyle(){
+        
+        self.addBasketBtn.applyGradient(colors: [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor])
+        self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
+        self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
     }
     
     required init?(coder: NSCoder) {
@@ -204,7 +212,7 @@ extension ProductDetailCell {
                            leading: leadingAnchor,
                            bottom: prdDescriptionLbl.topAnchor,
                            trailing: trailingAnchor,
-                           padding: .init(top: 15, left: 10, bottom: 10, right: 10)
+                           padding: .init(top: 15, left: 20, bottom: 10, right: 15)
                            )
         
         
@@ -212,21 +220,21 @@ extension ProductDetailCell {
                                  leading: leadingAnchor,
                                  bottom: prdstackView.topAnchor,
                                  trailing: trailingAnchor,
-                                 padding: .init(top: 7, left: 10, bottom: 15, right: 10))
+                                 padding: .init(top: 7, left: 20, bottom: 15, right: 15))
         
         prdstackView.anchor(top: prdDescriptionLbl.bottomAnchor,
                             leading: leadingAnchor,
                             bottom: addBasketBtn.topAnchor,
                             trailing: nil,
-                            padding: .init(top: 10, left: 15, bottom: 30, right: 10),
-                            size: .init(width: 140, height: 50))
+                            padding: .init(top: 10, left: 15, bottom: 33, right: 10),
+                            size: .init(width: 140, height: 60))
         
                             
-        addBasketBtn.anchor(top: prdstackView.bottomAnchor,
+        addBasketBtn.anchor(top: nil,
                           leading: leadingAnchor,
                           bottom: bottomAnchor,
                           trailing: trailingAnchor,
-                          padding: .init(top: 10, left: 40, bottom: 10, right: 40),
+                          padding: .init(top: 0, left: 40, bottom: 13, right: 40),
                           size: .init(width: 0, height: 60))
         
         cartIcon.anchor(top: addBasketBtn.topAnchor,

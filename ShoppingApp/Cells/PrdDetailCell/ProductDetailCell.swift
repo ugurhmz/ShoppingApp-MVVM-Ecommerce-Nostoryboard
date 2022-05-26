@@ -101,7 +101,7 @@ class ProductDetailCell: UICollectionViewCell {
     private let stepperCountLbl: UILabel = {
           let label = UILabel()
           label.font = .systemFont(ofSize: 18, weight: .bold)
-          label.text = "0"
+          label.text = "1"
           label.textColor = .black
           label.textAlignment = .center
           
@@ -124,7 +124,7 @@ class ProductDetailCell: UICollectionViewCell {
          buton.layer.cornerRadius = 15
          buton.layer.masksToBounds = true
          buton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
-         buton.addTarget(self, action: #selector(clickMinusBtn), for: .touchUpInside)
+         buton.addTarget(self, action: #selector(clickAddBasketBtn), for: .touchUpInside)
          return buton
      }()
     
@@ -168,6 +168,10 @@ extension ProductDetailCell {
     
     @objc func clickPlusBtn(){
         print("+")
+    }
+    
+    @objc func clickAddBasketBtn(){
+        print("addBasket")
     }
 }
 

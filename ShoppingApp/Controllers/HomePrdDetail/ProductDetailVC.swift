@@ -15,6 +15,8 @@ class ProductDetailVC: UIViewController {
         layout.scrollDirection = .vertical
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.showsHorizontalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = false
         cv.register(ProductDetailCell.self,
                     forCellWithReuseIdentifier: ProductDetailCell.identifier)
         
@@ -32,6 +34,13 @@ class ProductDetailVC: UIViewController {
         generalCollectionView.backgroundColor = .white
     }
 
+}
+
+//MARK: - Fill Data
+extension ProductDetailVC {
+    func configure(with productValue: ProductModel){
+        print("model", productValue.name)
+    }
 }
 
 //MARK: -

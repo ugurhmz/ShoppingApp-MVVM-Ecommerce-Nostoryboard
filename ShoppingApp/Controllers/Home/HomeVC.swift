@@ -480,8 +480,29 @@ extension HomeVC: UICollectionViewDataSource {
 extension HomeVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        
+        let vc = ProductDetailVC()
+        
+        switch indexPath.section {
+            case Sections.CategoriesSection.rawValue:
             print(indexPath.row)
+            
+            case Sections.ProductsOneSection.rawValue:
+                vc.configure(with: self.homeViewModel.productList?[indexPath.row] ?? ProductModel(data: [:]))
+                navigationController?.pushViewController(vc, animated: false)
+
+            
+            case Sections.ProductsTwoSection.rawValue:
+                vc.configure(with: self.homeViewModel.productTwoList?[indexPath.row] ?? ProductModel(data: [:]))
+                navigationController?.pushViewController(vc, animated: false)
+            case Sections.ProductsThreeSection.rawValue:
+                vc.configure(with: self.homeViewModel.productThreeList?[indexPath.row] ?? ProductModel(data: [:]))
+                navigationController?.pushViewController(vc, animated: false)
+            case Sections.AdvertiseSection.rawValue:
+            print(indexPath.row)
+            default:
+               print("")
         }
+        
     }
 }

@@ -10,9 +10,13 @@ import Kingfisher
 
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
+    var myClosure: ( (Int) -> Void )?
+    
+    var prdCount = 1
     let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
     let colorTwo: UIColor = #colorLiteral(red: 0.1414878297, green: 0.6880354557, blue: 0.5711142574, alpha: 0.9887210265)
     let colorThree: UIColor = #colorLiteral(red: 0.4158273037, green: 0.763119476, blue: 0.2118647997, alpha: 1)
+    var getObjPrice: Double = 0.0
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -161,11 +165,20 @@ class ProductDetailCell: UICollectionViewCell {
         self.addBasketBtn.applyGradient(colors: [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor])
         self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
         self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
+        
+        self.myClosure = { [weak self] myPrdCount in
+            guard let self = self else { return }
+            self.stepperCountLbl.text = "\(myPrdCount)"
+            let totalPrice = self.getObjPrice * Double(myPrdCount)
+            self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
+    
+   
 }
 
 //MARK: - Fill Data
@@ -180,17 +193,28 @@ extension ProductDetailCell {
         self.prdTitleLbl.text = objModel.name
         self.prdDescriptionLbl.text = objModel.productOverview
         self.prdPriceLbl.text = "\(objModel.price) TL"
+        self.getObjPrice = objModel.price
     }
+    
 }
 
 //MARK: - @objc funcs
 extension ProductDetailCell {
     @objc func clickMinusBtn(){
-        print("-")
+        prdCount -= 1
+        if prdCount < 1 {
+            self.prdCount = 1
+        }
+        self.myClosure?(prdCount)
     }
     
     @objc func clickPlusBtn(){
-        print("+")
+        prdCount += 1
+        
+        if prdCount > 15 {
+            self.prdCount = 15
+        }
+        self.myClosure?(prdCount)
     }
     
     @objc func clickAddBasketBtn(){
@@ -230,18 +254,19 @@ extension ProductDetailCell {
                             size: .init(width: 140, height: 60))
         
                             
-        addBasketBtn.anchor(top: nil,
+        addBasketBtn.anchor(top: prdstackView.bottomAnchor,
                           leading: leadingAnchor,
                           bottom: bottomAnchor,
                           trailing: trailingAnchor,
-                          padding: .init(top: 0, left: 40, bottom: 13, right: 40),
+                          padding: .init(top: 5, left: 25, bottom: 13, right: 25),
                           size: .init(width: 0, height: 60))
+       
         
         cartIcon.anchor(top: addBasketBtn.topAnchor,
                         leading: leadingAnchor,
                         bottom: nil,
                         trailing: nil,
-                        padding: .init(top: 15, left: 50, bottom: 0, right: 0),
+                        padding: .init(top: 15, left: 80, bottom: 0, right: 0),
                         size: .init(width: 30, height: 30))
         
         prdPriceLbl.anchor(top: prdDescriptionLbl.bottomAnchor,

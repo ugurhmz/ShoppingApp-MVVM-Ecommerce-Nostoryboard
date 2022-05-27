@@ -76,7 +76,8 @@ extension AdminHomeVC {
         loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
     }
     @objc func clickAddCategory(){
-        print("abc")
+        let vc = AddCategoryVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func clickLoginBtn(){

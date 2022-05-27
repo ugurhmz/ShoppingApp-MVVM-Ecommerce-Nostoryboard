@@ -13,12 +13,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        window =  UIWindow(windowScene: windowScene)
-        window?.rootViewController = AdminHomeVC()
+        guard let  windowScene = (scene as? UIWindowScene) else { return }
+                
+        window = UIWindow(windowScene: windowScene)
+        let nc  = UINavigationController(rootViewController: AdminHomeVC())
+        window?.rootViewController = nc
         window?.makeKeyAndVisible()
+       
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

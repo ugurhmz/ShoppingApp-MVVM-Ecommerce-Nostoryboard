@@ -21,6 +21,9 @@
 		63721DA32841668A0025FCE4 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
 		63721DA42841668A0025FCE4 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639F97C028380EC800893424 /* CustomActivityIndicator.swift */; };
 		63721DA52841668A0025FCE4 /* Extension+UIVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43F28390B5700095F2A /* Extension+UIVc.swift */; };
+		63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E1F283802E700F05EDA /* ColorConstants.swift */; };
+		63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380D0F5283E604C005D07A8 /* CustomEnums.swift */; };
+		63721DA92841704F0025FCE4 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB45028395AB100095F2A /* Closures.swift */; };
 		6375C1632840F2C400E27C4E /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C1622840F2C400E27C4E /* CartCollectionCell.swift */; };
 		6375C16528411AAF00E27C4E /* Extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C16428411AAF00E27C4E /* Extension+UILabel.swift */; };
 		637E296E283CF06A0027CF8F /* ProductsTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */; };
@@ -662,8 +665,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				63721DA22841668A0025FCE4 /* Extension+UILabel.swift in Sources */,
+				63721DA92841704F0025FCE4 /* Closures.swift in Sources */,
 				63721D9E284166160025FCE4 /* AdminHomeCell.swift in Sources */,
 				63721DA02841668A0025FCE4 /* Extension+TextField.swift in Sources */,
+				63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */,
+				63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */,
 				63721DA42841668A0025FCE4 /* CustomActivityIndicator.swift in Sources */,
 				63721DA52841668A0025FCE4 /* Extension+UIVc.swift in Sources */,
 				63721D9F2841668A0025FCE4 /* SnackHelper.swift in Sources */,

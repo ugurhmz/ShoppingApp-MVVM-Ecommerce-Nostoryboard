@@ -59,9 +59,8 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CartCollectionCell.identifier, for: indexPath) as! CartCollectionCell
-           
-        cell.backgroundColor = .orange
-        cell.layer.cornerRadius = 15
+
+        cell.layer.cornerRadius = 12
         return cell
     }
     
@@ -86,7 +85,7 @@ extension CartVC: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
     
         return CGSize(width: generalCollectionView.frame.width - 35,
-                      height: generalCollectionView.frame.width - 300)
+                      height: generalCollectionView.frame.width - 285)
         
     }
     
@@ -98,6 +97,7 @@ extension CartVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
 }
+
 
 
 

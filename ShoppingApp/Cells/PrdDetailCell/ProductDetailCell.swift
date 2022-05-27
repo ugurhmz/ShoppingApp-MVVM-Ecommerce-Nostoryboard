@@ -10,13 +10,11 @@ import Kingfisher
 
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
-    var myClosure: ( (Int) -> Void )?
     
-    var prdCount = 1
     let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
     let colorTwo: UIColor = #colorLiteral(red: 0.1414878297, green: 0.6880354557, blue: 0.5711142574, alpha: 0.9887210265)
     let colorThree: UIColor = #colorLiteral(red: 0.4158273037, green: 0.763119476, blue: 0.2118647997, alpha: 1)
-    var getObjPrice: Double = 0.0
+    var doublePrice: Double = 0.0
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -29,10 +27,10 @@ class ProductDetailCell: UICollectionViewCell {
     
     private let prdPriceLbl: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 23, weight: .bold)
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         label.text = "102.500.000 TL"
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.numberOfLines = 0
         return label
     }()
@@ -58,17 +56,6 @@ class ProductDetailCell: UICollectionViewCell {
         return label
     }()
     
-    private var addToCartBtn: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
-        btn.tintColor = .orange
-        btn.backgroundColor = .white
-        btn.layer.cornerRadius = 15
-        //btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
-       
-       return btn
-   }()
-    
     private let addToFavouriteBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
@@ -80,47 +67,6 @@ class ProductDetailCell: UICollectionViewCell {
        return btn
    }()
     
-    private let plusBtn: UIButton = {
-         let buton = UIButton()
-         buton.setTitle("+", for: .normal)
-         buton.backgroundColor = UIColor(red: 197/255, green: 33/255, blue: 52/255, alpha: 1)
-         buton.setTitleColor(.white, for: .normal)
-         buton.layer.cornerRadius = 15
-         buton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-         
-         buton.addTarget(self, action: #selector(clickPlusBtn), for: .touchUpInside)
-         return buton
-     }()
-    
-    private var minusBtn: UIButton = {
-        let buton = UIButton(type: .system)
-         buton.setTitle("-", for: .normal)
-         buton.backgroundColor = UIColor(red: 197/255, green: 33/255, blue: 52/255, alpha: 1)
-         buton.setTitleColor(.white, for: .normal)
-         buton.layer.cornerRadius = 15
-         buton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-         buton.addTarget(self, action: #selector(clickMinusBtn), for: .touchUpInside)
-         return buton
-     }()
-    
-    private let stepperCountLbl: UILabel = {
-          let label = UILabel()
-          label.font = .systemFont(ofSize: 18, weight: .bold)
-          label.text = "1"
-          label.textColor = .black
-          label.textAlignment = .center
-          
-          return label
-   }()
-    
-    private var  prdstackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-    
     private var addBasketBtn: UIButton = {
         let buton = UIButton(type: .system)
          buton.setTitle("Add To Cart", for: .normal)
@@ -128,7 +74,7 @@ class ProductDetailCell: UICollectionViewCell {
          buton.setTitleColor(.white, for: .normal)
          buton.layer.cornerRadius = 15
          buton.layer.masksToBounds = true
-         buton.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
+         buton.titleLabel?.font = .systemFont(ofSize: 21, weight: .bold)
          buton.addTarget(self, action: #selector(clickAddBasketBtn), for: .touchUpInside)
          return buton
      }()
@@ -152,28 +98,18 @@ class ProductDetailCell: UICollectionViewCell {
         addSubview(prdimgView)
         addSubview(prdTitleLbl)
         addSubview(prdDescriptionLbl)
-        addSubview(prdstackView)
-        [minusBtn, stepperCountLbl, plusBtn].forEach{ prdstackView.addArrangedSubview($0)}
-        
         addSubview(addBasketBtn)
         addSubview(cartIcon)
-        addSubview(prdPriceLbl)
     }
     
     private func setupStyle(){
         
         self.addBasketBtn.applyGradient(colors: [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor])
-        self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
-        self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
-        
-        self.myClosure = { [weak self] myPrdCount in
-            guard let self = self else { return }
-            self.stepperCountLbl.text = "\(myPrdCount)"
-            let totalPrice = self.getObjPrice * Double(myPrdCount)
-            self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
-            
-            NotificationCenter.default.post(name: NSNotification.Name("applyBtn"), object: myPrdCount)
-        }
+       
+    }
+    
+    @objc func clickAddBasketBtn(){
+        print("addBasket")
     }
     
     required init?(coder: NSCoder) {
@@ -194,34 +130,16 @@ extension ProductDetailCell {
         }
         self.prdTitleLbl.text = objModel.name
         self.prdDescriptionLbl.text = objModel.productOverview
-        self.prdPriceLbl.text = "\(objModel.price) TL"
-        self.getObjPrice = objModel.price
-    }
-    
-}
-
-//MARK: - @objc funcs
-extension ProductDetailCell {
-    @objc func clickMinusBtn(){
-        prdCount -= 1
-        if prdCount < 1 {
-            self.prdCount = 1
-        }
-        self.myClosure?(prdCount)
-    }
-    
-    @objc func clickPlusBtn(){
-        prdCount += 1
         
-        if prdCount > 15 {
-            self.prdCount = 15
-        }
-        self.myClosure?(prdCount)
+        let strCast = "\(objModel.price)"
+        let addCartStr = "Add To Cart | "
+        
+        let str = NSMutableAttributedString(string: "\(addCartStr)\(objModel.price) TL")
+        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 27), range: NSMakeRange(0, addCartStr.count))
+        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 19), range: NSMakeRange(addCartStr.count, strCast.count + 3))
+        self.addBasketBtn.setAttributedTitle(str, for: .normal)
     }
     
-    @objc func clickAddBasketBtn(){
-        print("addBasket")
-    }
 }
 
 //MARK: -
@@ -244,23 +162,16 @@ extension ProductDetailCell {
         
         prdDescriptionLbl.anchor(top: prdTitleLbl.bottomAnchor,
                                  leading: leadingAnchor,
-                                 bottom: prdstackView.topAnchor,
+                                 bottom: nil,
                                  trailing: trailingAnchor,
                                  padding: .init(top: 7, left: 20, bottom: 15, right: 15))
-        
-        prdstackView.anchor(top: prdDescriptionLbl.bottomAnchor,
-                            leading: leadingAnchor,
-                            bottom: addBasketBtn.topAnchor,
-                            trailing: nil,
-                            padding: .init(top: 10, left: 15, bottom: 33, right: 10),
-                            size: .init(width: 140, height: 60))
-        
+    
                             
-        addBasketBtn.anchor(top: prdstackView.bottomAnchor,
+        addBasketBtn.anchor(top: prdDescriptionLbl.bottomAnchor,
                           leading: leadingAnchor,
                           bottom: bottomAnchor,
                           trailing: trailingAnchor,
-                          padding: .init(top: 5, left: 25, bottom: 13, right: 25),
+                          padding: .init(top: 15, left: 15, bottom: 13, right: 15),
                           size: .init(width: 0, height: 60))
        
         
@@ -268,14 +179,9 @@ extension ProductDetailCell {
                         leading: leadingAnchor,
                         bottom: nil,
                         trailing: nil,
-                        padding: .init(top: 15, left: 80, bottom: 0, right: 0),
+                        padding: .init(top: 15, left: 25, bottom: 0, right: 0),
                         size: .init(width: 30, height: 30))
         
-        prdPriceLbl.anchor(top: prdDescriptionLbl.bottomAnchor,
-                           leading: prdstackView.trailingAnchor,
-                           bottom: nil,
-                           trailing: prdDescriptionLbl.trailingAnchor,
-                           padding: .init(top: 22, left: 40, bottom: 0, right: 0),
-                           size: .init(width: 0, height: 0))
+   
     }
 }

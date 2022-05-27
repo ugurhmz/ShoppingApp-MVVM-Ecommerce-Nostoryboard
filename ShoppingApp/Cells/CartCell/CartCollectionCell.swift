@@ -76,6 +76,7 @@ class CartCollectionCell: UICollectionViewCell {
          buton.addTarget(self, action: #selector(clickMinusBtn), for: .touchUpInside)
          return buton
      }()
+    
 
     private let stepperCountLbl: UILabel = {
           let label = UILabel()
@@ -120,7 +121,7 @@ class CartCollectionCell: UICollectionViewCell {
     private func setStyle(){
         self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
         self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
-        
+        bringSubviewToFront(prdstackView)
         self.myClosure = { [weak self] myPrdCount in
             guard let self = self else { return }
             self.stepperCountLbl.text = "\(myPrdCount)"

@@ -13,6 +13,7 @@ class HomeVC:  UIViewController {
     
     let otherImgList = ["v1","v2","v3","v4","v5","v6"]
     lazy var  homeViewModel = HomeViewModel()
+    lazy var cartVC = CartVC()
     
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

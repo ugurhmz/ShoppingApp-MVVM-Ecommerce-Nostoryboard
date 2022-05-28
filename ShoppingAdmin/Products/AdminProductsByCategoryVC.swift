@@ -7,8 +7,12 @@
 
 import UIKit
 
-class AdminProductsVC: UIViewController {
+class AdminProductsByCategoryVC: UIViewController {
 
+     lazy var homeViewModel = HomeViewModel()
+    var arrProductsByCategory: [ProductModel]? = []
+    var selectStr: String?
+    
      // General CollectionView
       private let generalCollectionView: UICollectionView = {
           let layout = UICollectionViewFlowLayout()
@@ -18,8 +22,8 @@ class AdminProductsVC: UIViewController {
           cv.backgroundColor = .white
          
           //register cells
-          cv.register(AdminProductsCell.self,
-                      forCellWithReuseIdentifier: AdminProductsCell.identifier)
+          cv.register(AdminProductsByCategoryCell.self,
+                      forCellWithReuseIdentifier: AdminProductsByCategoryCell.identifier)
           return cv
       }()
     
@@ -30,15 +34,42 @@ class AdminProductsVC: UIViewController {
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
         settingsNavigateBar()
+        
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //self.showActivityIndicator()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        if let myStr = self.selectStr {
+            self.homeViewModel.fetchCategoryToProducts(getCategoryFilter: myStr)
+            //self.hideActivityIndicator()
+        }
+        
+        
+        // reload data with closure
+        self.homeViewModel.reloadData = { [weak self] in
+            guard let self = self else { return }
+            print("xx", self.homeViewModel.adminArrList?.count)
+            self.arrProductsByCategory = self.homeViewModel.adminArrList
+            self.generalCollectionView.reloadData()
+        }
+        
+       
+    }
+    
     
     private func setupViews(){
         view.addSubview(generalCollectionView)
     }
 }
 
+
 //MARK: -  Navbar Settings
-extension AdminProductsVC {
+extension AdminProductsByCategoryVC {
     
     private func settingsNavigateBar() {
         if #available(iOS 13.0, *) {
@@ -83,7 +114,7 @@ extension AdminProductsVC {
 }
 
 //MARK: - Delegate & DataSource
-extension AdminProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AdminProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -91,16 +122,17 @@ extension AdminProductsVC: UICollectionViewDelegate, UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return self.arrProductsByCategory?.count ?? 0
     }
-    
+
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdminProductsCell.identifier, for: indexPath) as! AdminProductsCell
+        let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdminProductsByCategoryCell.identifier, for: indexPath) as! AdminProductsByCategoryCell
         cell.layer.cornerRadius = 12
         
         
+        cell.fillData(data: self.arrProductsByCategory?[indexPath.row] ?? ProductModel(data: [:]))
         return cell
     }
     
@@ -111,7 +143,7 @@ extension AdminProductsVC: UICollectionViewDelegate, UICollectionViewDataSource 
 }
 
 //MARK: - DelegateFlowLayout
-extension AdminProductsVC: UICollectionViewDelegateFlowLayout {
+extension AdminProductsByCategoryVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -128,7 +160,7 @@ extension AdminProductsVC: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: -
-extension AdminProductsVC {
+extension AdminProductsByCategoryVC {
     private func setConstraints(){
         generalCollectionView.fillSuperview()
     }

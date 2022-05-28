@@ -7,8 +7,9 @@
 
 import UIKit
 
-class AdminProductsCell: UICollectionViewCell {
+class AdminProductsByCategoryCell: UICollectionViewCell {
     static var identifier = "AdminProductsCell"
+    var homeViewModel = HomeViewModel()
     
     private let prdImgView: UIImageView = {
          let iv = UIImageView()
@@ -94,10 +95,16 @@ class AdminProductsCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+extension AdminProductsByCategoryCell {
+    func fillData(data: ProductModel){
+        self.prdTitleLbl.text = data.name
+    }
 }
 
 //MARK: -
-extension AdminProductsCell {
+extension AdminProductsByCategoryCell {
     
     private func setupViews(){
         addSubview(prdImgView)

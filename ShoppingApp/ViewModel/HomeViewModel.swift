@@ -18,7 +18,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productList: [ProductModel]? = []
     var productTwoList: [ProductModel]? = []
     var productThreeList: [ProductModel]? = []
-
+    
+    var adminArrList: [ProductModel]? = []
+    
     var reloadData: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
@@ -52,7 +54,6 @@ extension HomeViewModel {
                         let data =  document.data()
                         let newProductArr = ProductModel.init(data: data)
                         self.productList?.append(newProductArr)
-                       
                     }
             case "coffees":
                 self.productTwoList?.removeAll()
@@ -60,7 +61,6 @@ extension HomeViewModel {
                         let data =  document.data()
                         let newProductArr = ProductModel.init(data: data)
                         self.productTwoList?.append(newProductArr)
-                        
                     }
             case "dresses":
                 self.productThreeList?.removeAll()
@@ -68,12 +68,38 @@ extension HomeViewModel {
                     let data =  document.data()
                     let newProductArr = ProductModel.init(data: data)
                     self.productThreeList?.append(newProductArr)
-                    
                 }
             default:
                 return
             }
             
+            self.reloadData?()
+        }
+        
+    }
+    
+    
+    //MARK: -
+    //MARK: - FETCH ALL PRODUCTS
+    func fetchCategoryToProducts(getCategoryFilter: String){
+  
+        let productRef = db?.collection("products").whereField("category", isEqualTo: "\(getCategoryFilter)")
+        
+        realTimeListener = productRef?.addSnapshotListener { (snap, error) in
+            
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            
+            print("documents", documents)
+            self.adminArrList?.removeAll()
+            for document in documents {
+                let data =  document.data()
+                let newProductArr = ProductModel.init(data: data)
+                self.adminArrList?.append(newProductArr)
+            }
+           
             self.reloadData?()
         }
         

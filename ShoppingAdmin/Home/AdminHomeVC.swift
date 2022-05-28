@@ -124,6 +124,19 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.layer.cornerRadius = 8
         return cell
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let categoryValue = self.homeViewModel.categoryList {
+            let vc = AdminProductsByCategoryVC()
+            let selectedCategory = categoryValue[indexPath.item]
+            let lowerCaseStr: String = selectedCategory.name.lowercased()
+            vc.selectStr = lowerCaseStr
+            
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 

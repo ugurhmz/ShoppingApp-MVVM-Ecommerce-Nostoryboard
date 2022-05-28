@@ -19,7 +19,6 @@ class HomeVC:  UIViewController {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: HomeVC.createCompositionalLayout())
         cv.backgroundColor = .white
-        
         // register
         cv.register(AdvertiseCell.self,
                     forCellWithReuseIdentifier: AdvertiseCell.identifier)
@@ -32,22 +31,15 @@ class HomeVC:  UIViewController {
         return cv
     }()
     
-    
-    
-    
     //MARK: - createCompositionalLayout
    static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
        let mylayout = UICollectionViewCompositionalLayout {  (index, environment) -> NSCollectionLayoutSection? in
-          
            return  HomeVC.createSectionFor(index: index, environment: environment)
         }
-        
         return mylayout
     }
     
-    
     static func createSectionFor(index: Int, environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        
         switch index {
         case 0:
             return createCategoriesSection()
@@ -62,7 +54,6 @@ class HomeVC:  UIViewController {
         default:
             return  createCategoriesSection()
         }
-        
     }
     
     
@@ -70,28 +61,23 @@ class HomeVC:  UIViewController {
     static func createCategoriesSection() -> NSCollectionLayoutSection {
         
         let inset: CGFloat = 1
-        
         // item
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.18),
                                               heightDimension: .fractionalHeight(0.38))
-        
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 10,
                                                      leading: 8,
                                                      bottom: inset,
                                                      trailing: 4)
         item.contentInsets.bottom = -100
-        
         // group
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6),
                                                heightDimension: .fractionalHeight(0.22))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem:  item, count: 2)
-        
         // section
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        
         
         // suplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -104,38 +90,29 @@ class HomeVC:  UIViewController {
         return section
     }
     
-    
-    
        //MARK: - 1 SECTION Products
        static func createProductsOneSection() -> NSCollectionLayoutSection {
            
            let inset: CGFloat = 3
-           
            // item
            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4),
                                                  heightDimension: .fractionalHeight(1))
-           
            let item = NSCollectionLayoutItem(layoutSize: itemSize)
            item.contentInsets = NSDirectionalEdgeInsets(top: inset,
                                                         leading: 8,
                                                         bottom: inset,
                                                         trailing: 8)
-           
            // group
            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                   heightDimension: .fractionalHeight(0.36))
            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                           subitem:  item, count: 2)
-           
            // section
            let section = NSCollectionLayoutSection(group: group)
            section.orthogonalScrollingBehavior = .continuous
-           
-           
            // suplementary
            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                    heightDimension: .absolute(55))
-           
            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                     elementKind: "header",
                                                                     alignment: .top)
@@ -146,7 +123,6 @@ class HomeVC:  UIViewController {
       //MARK: - Coffes
        static func createProductsTwoSection() -> NSCollectionLayoutSection {
            let inset: CGFloat = 4.5
-           
            // items
            let smallItemSize  = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                       heightDimension: .fractionalHeight(0.5))
@@ -155,7 +131,6 @@ class HomeVC:  UIViewController {
                                                              leading: 8,
                                                              bottom: 10,
                                                              trailing: 6)
-           
            // group
            let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.50), heightDimension: .fractionalHeight(1))
            let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
@@ -164,8 +139,6 @@ class HomeVC:  UIViewController {
            let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(0.82))
            let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup])
-           
-           
            // section
            let section = NSCollectionLayoutSection(group: horizontalGroup)
            section.orthogonalScrollingBehavior = .groupPaging
@@ -177,7 +150,6 @@ class HomeVC:  UIViewController {
                                                                     elementKind: "header",
                                                                     alignment: .top)
            section.boundarySupplementaryItems = [header]
-           
            return section
        }
     
@@ -187,10 +159,8 @@ class HomeVC:  UIViewController {
             item.contentInsets.leading = 8
        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8), heightDimension: .absolute(125)), subitems: [item])
-       
        let section = NSCollectionLayoutSection(group: group)
        section.orthogonalScrollingBehavior = .continuous
-        
         // suplementary
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                 heightDimension: .absolute(55))
@@ -242,7 +212,12 @@ class HomeVC:  UIViewController {
         homeViewModel.fetchProducts(getCategoryFilter: "phones")
         homeViewModel.fetchProducts(getCategoryFilter: "coffees")
         homeViewModel.fetchProducts(getCategoryFilter: "dresses")
-           
+        
+        // reload data with closure
+        self.homeViewModel.reloadData = { [weak self] in
+            guard let self = self else { return }
+            self.generalCollectionView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -256,28 +231,16 @@ class HomeVC:  UIViewController {
         generalCollectionView.delegate = self
         generalCollectionView.collectionViewLayout =  HomeVC.createCompositionalLayout()
         setConstraints()
-        
-        // reload data with closure
-        self.homeViewModel.reloadData = { [weak self] in
-            guard let self = self else { return }
-            self.generalCollectionView.reloadData()
-        }
     }
     
     
     private func settingsNavigateBar() {
         let logOutImage = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal)
-        
        // left icon
        navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
                                                           target: self, action: nil)
-        
         navigationItem.leftBarButtonItem?.action = #selector(clickLogoutBtn)
        // right two icons
-       
-        
-       
-       
         if #available(iOS 13.0, *) {
           let navBarAppearance = UINavigationBarAppearance()
             //navBarAppearance.configureWithDefaultBackground()
@@ -329,7 +292,6 @@ extension HomeVC {
                                                 bgColor: .white)
                             print(error.localizedDescription)
                         }
-                        
                         self.present(loginVC, animated: true, completion: nil)
                     }
             } catch {
@@ -358,7 +320,6 @@ extension HomeVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 5
     }
-    
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -376,14 +337,11 @@ extension HomeVC: UICollectionViewDataSource {
         default :
             return 5
         }
-        
     }
-    
     
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         
         switch indexPath.section {
             
@@ -398,7 +356,6 @@ extension HomeVC: UICollectionViewDataSource {
             
             return categoryCell
             
-            
         //MARK: - Phones
         case Sections.ProductsOneSection.rawValue:
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsOneCell.identifier, for: indexPath) as! ProductsOneCell
@@ -406,18 +363,14 @@ extension HomeVC: UICollectionViewDataSource {
             if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
             }
-            
             return cell
-            
             
         //MARK: - Advertise
         case Sections.AdvertiseSection.rawValue:
             
             let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdvertiseCell.identifier, for: indexPath)
             cell.layer.cornerRadius = 20
-            
             return cell
-            
             
         //MARK: - Phones
         case Sections.ProductsTwoSection.rawValue:
@@ -442,15 +395,12 @@ extension HomeVC: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
     }
-    
-    
     // viewForSupplementaryElementOfKind
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: CellHeaderView.identifier, for: indexPath) as! CellHeaderView
-        
         
         switch indexPath.section {
             case Sections.CategoriesSection.rawValue:
@@ -468,9 +418,7 @@ extension HomeVC: UICollectionViewDataSource {
         }
         return view
     }
-     
 }
-
 
 //MARK: -  ViewDelegate
 extension HomeVC: UICollectionViewDelegate {
@@ -500,6 +448,5 @@ extension HomeVC: UICollectionViewDelegate {
             default:
                print("")
         }
-        
     }
 }

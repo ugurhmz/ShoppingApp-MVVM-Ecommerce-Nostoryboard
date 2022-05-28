@@ -57,11 +57,11 @@ class CartCollectionCell: UICollectionViewCell {
     private let plusBtn: UIButton = {
          let buton = UIButton()
          buton.setTitle("+", for: .normal)
-         buton.backgroundColor = UIColor(red: 197/255, green: 33/255, blue: 52/255, alpha: 1)
+         buton.backgroundColor = #colorLiteral(red: 0.8086332071, green: 0.3559194398, blue: 0.1270762815, alpha: 1)
          buton.setTitleColor(.white, for: .normal)
-         buton.layer.cornerRadius = 15
-         buton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-
+         buton.layer.cornerRadius = 12
+         buton.titleLabel?.font = .systemFont(ofSize: 22, weight: .bold)
+         
          buton.addTarget(self, action: #selector(clickPlusBtn), for: .touchUpInside)
          return buton
      }()
@@ -69,10 +69,10 @@ class CartCollectionCell: UICollectionViewCell {
     private var minusBtn: UIButton = {
         let buton = UIButton(type: .system)
          buton.setTitle("-", for: .normal)
-         buton.backgroundColor = UIColor(red: 197/255, green: 33/255, blue: 52/255, alpha: 1)
+         buton.backgroundColor = #colorLiteral(red: 0.8086332071, green: 0.3559194398, blue: 0.1270762815, alpha: 1)
          buton.setTitleColor(.white, for: .normal)
-         buton.layer.cornerRadius = 15
-         buton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+         buton.layer.cornerRadius = 12
+         buton.titleLabel?.font = .systemFont(ofSize: 22, weight: .bold)
          buton.addTarget(self, action: #selector(clickMinusBtn), for: .touchUpInside)
          return buton
      }()
@@ -199,7 +199,7 @@ extension CartCollectionCell {
                             leading: prdImgView.trailingAnchor,
                            bottom: bottomAnchor,
                            trailing: nil,
-                           padding: .init(top: 2, left: 8, bottom: 5, right: 10),
+                           padding: .init(top: 2, left: 8, bottom: 2, right: 10),
                            size: .init(width: 100, height: 0))
         
         prdPriceLbl.anchor(top: topstackView.bottomAnchor,

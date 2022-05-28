@@ -1,16 +1,17 @@
 //
-//  ZeroCustomCell.swift
-//  FurnitureShop
+//  AdminHomeCells.swift
+//  ShoppingAdmin
 //
-//  Created by ugur-pc on 19.05.2022.
+//  Created by ugur-pc on 27.05.2022.
 //
 
+import Foundation
 import UIKit
 import Kingfisher
 
-class CategoryCell: UICollectionViewCell {
+class AdminHomeCell: UICollectionViewCell {
     
-    static var identifier  = "Mycell"
+    static var identifier = "AdminHomeCell"
     
     public var categoryImg: UIImageView = {
         let iv = UIImageView()
@@ -26,6 +27,7 @@ class CategoryCell: UICollectionViewCell {
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 3
+      
         return label
     }()
     
@@ -40,12 +42,12 @@ class CategoryCell: UICollectionViewCell {
     }
 }
 
-
-//MARK: -  Fill data
-extension CategoryCell {
-    func fillCategoryData(category: CategoryModel){
+//MARK: - Fill Data
+extension AdminHomeCell {
+    func fillCategoryData(category: CategoryModel ) {
         categoryNameLbl.text = category.name
         if let url = URL(string: category.imgUrl) {
+            let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
             categoryImg.kf.indicatorType = .activity
             categoryImg.kf.setImage(with: url, placeholder: placeholder, options: options)
@@ -53,14 +55,15 @@ extension CategoryCell {
     }
 }
 
-//MARK: -
-extension CategoryCell {
+
+//MARK: - Constraints
+extension AdminHomeCell {
     private func setConstraints(){
         categoryImg.anchor(top: contentView.topAnchor,
                        leading: contentView.leadingAnchor,
                        bottom: nil,
                        trailing: contentView.trailingAnchor,
-                           padding: .init(top: 0, left: 0, bottom: 0, right: 10),
+                           padding: .init(top: 0, left: 0, bottom: 0, right: 7),
                        size: .init(width: 0, height: self.frame.height - 32 ))
                
         categoryNameLbl.anchor(top: categoryImg.bottomAnchor,

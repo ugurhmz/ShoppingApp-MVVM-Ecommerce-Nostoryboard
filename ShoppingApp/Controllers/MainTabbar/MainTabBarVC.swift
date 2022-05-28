@@ -30,7 +30,20 @@ class MainTabBarVC: UITabBarController {
         cartTab.title = "Cart"
         profileTab.title = "Profile"
         
-        tabBar.tintColor = .label
+        tabBar.tintColor = .black
+       // tabBar.unselectedItemTintColor = .white
+        //UITabBar.appearance().barTintColor = UIColor.blue
+     
+        if #available(iOS 15.0, *) {
+           let appearance = UITabBarAppearance()
+           appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+           
+           self.tabBar.standardAppearance = appearance
+            self.tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
+        
+        
         setViewControllers([homeTab,favoritePrdTab,cartTab ,profileTab], animated: true)
     }
     

@@ -9,6 +9,7 @@ import UIKit
 
 class AdminHomeVC: UIViewController {
     
+    lazy var  homeViewModel = HomeViewModel()
     
      private let mainCollectionView: UICollectionView = {
          let layout = UICollectionViewFlowLayout()
@@ -25,12 +26,24 @@ class AdminHomeVC: UIViewController {
          super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        homeViewModel.fetchAllCategoriesData()
+        
+        // reload data with closure
+        self.homeViewModel.reloadData = { [weak self] in
+            guard let self = self else { return }
+            self.mainCollectionView.reloadData()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         settingsNavigateBar()
         setConstraints()
     }
+    
 }
 
 //MARK: -
@@ -94,7 +107,7 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
      func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return self.homeViewModel.categoryList?.count ?? 0
     }
     
      func collectionView(_ collectionView: UICollectionView,
@@ -102,10 +115,11 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdminHomeCell.identifier, for: indexPath) as! AdminHomeCell
         
-        cell.backgroundColor = UIColor(hue: drand48(),
-                                       saturation: 1,
-                                       brightness: 1,
-                                       alpha: 1)
+         
+          if let categoryValue = self.homeViewModel.categoryList {
+              cell.fillCategoryData(category: categoryValue[indexPath.item])
+          }
+         
         
         cell.layer.cornerRadius = 8
         return cell
@@ -120,14 +134,14 @@ extension AdminHomeVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
       
-        return CGSize(width: (view.frame.width / 3) - 16 ,
+        return CGSize(width: (view.frame.width / 3) - 10,
                           height: 250)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8)
+            return UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 4)
     }
     
 }

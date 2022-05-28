@@ -15,6 +15,20 @@ struct CategoryModel {
     var isActive: Bool = true
     var timeStamp: Timestamp
     
+    init(id: String,
+         name: String,
+         imgUrl: String,
+         isActive: Bool,
+         timeStamp: Timestamp)
+    {
+        self.id = id
+        self.name = name
+        self.imgUrl = imgUrl
+        self.isActive = isActive
+        self.timeStamp = timeStamp
+    }
+    
+    
     init(data: [String: Any]){
         
         self.id = data["id"] as? String ?? ""

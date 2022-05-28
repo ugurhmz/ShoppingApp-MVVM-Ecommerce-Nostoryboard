@@ -27,6 +27,8 @@
 		63721DAC2841728E0025FCE4 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */; };
 		6375C1632840F2C400E27C4E /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C1622840F2C400E27C4E /* CartCollectionCell.swift */; };
 		6375C16528411AAF00E27C4E /* Extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C16428411AAF00E27C4E /* Extension+UILabel.swift */; };
+		637BDCF62842452900F5E1D5 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB44A28393EF200095F2A /* CategoryModel.swift */; };
+		637BDCF72842452900F5E1D5 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841460283C35BE0065773A /* ProductModel.swift */; };
 		637E296E283CF06A0027CF8F /* ProductsTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */; };
 		637F0F2A283F91130023F579 /* ProductDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637F0F29283F91130023F579 /* ProductDetailVC.swift */; };
 		637F0F2D283F931D0023F579 /* ProductDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637F0F2C283F931D0023F579 /* ProductDetailCell.swift */; };
@@ -678,6 +680,7 @@
 				63721DA22841668A0025FCE4 /* Extension+UILabel.swift in Sources */,
 				63721DA92841704F0025FCE4 /* Closures.swift in Sources */,
 				63721D9E284166160025FCE4 /* AdminHomeCell.swift in Sources */,
+				637BDCF72842452900F5E1D5 /* ProductModel.swift in Sources */,
 				63721DA02841668A0025FCE4 /* Extension+TextField.swift in Sources */,
 				63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */,
 				63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */,
@@ -688,6 +691,7 @@
 				63721DA12841668A0025FCE4 /* Extension+UIButton.swift in Sources */,
 				638A6E012837A87300F05EDA /* AdminHomeVC.swift in Sources */,
 				638A6DFD2837A87300F05EDA /* AppDelegate.swift in Sources */,
+				637BDCF62842452900F5E1D5 /* CategoryModel.swift in Sources */,
 				638A6DFF2837A87300F05EDA /* SceneDelegate.swift in Sources */,
 				63721DA32841668A0025FCE4 /* Extension+UIView.swift in Sources */,
 			);

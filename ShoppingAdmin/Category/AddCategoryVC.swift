@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseFirestore
 
 class AddCategoryVC: UIViewController {
 
@@ -53,7 +55,7 @@ class AddCategoryVC: UIViewController {
         btn.layer.borderWidth = 1
         btn.layer.borderColor = AppColors.DarkGreen.cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-       // btn.addTarget(self, action: #selector(clickRegisterBtn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(clickAddCategory), for: .touchUpInside)
         return btn
     }()
     
@@ -83,10 +85,89 @@ class AddCategoryVC: UIViewController {
         categoryimgView.isUserInteractionEnabled = true
         categoryimgView.addGestureRecognizer(tap)
     }
+  
+    
+}
+
+
+//MARK: - @objc funcs
+extension AddCategoryVC {
     
     @objc func clickImg( _ tap: UITapGestureRecognizer){
         launchImagePicker()
     }
+    
+    @objc func clickAddCategory(){
+        self.showActivityIndicator()
+        uploadImageThenDocument()
+    }
+    
+    func uploadImageThenDocument(){
+        guard let image = categoryimgView.image,
+              let categoryName = txtCategoryName.text, !categoryName.isEmpty else {
+                  self.createAlert(title: "Error",
+                                   msg: "Category picture and name required !",
+                                   prefStyle: .alert,
+                                   bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
+                  
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                      self.hideActivityIndicator()
+                  }
+                  return
+              }
+       
+        
+        // 1. convert data
+        guard let imgData = image.jpegData(compressionQuality: 0.2) else {return }
+        
+        // 2.Firestorage stored.
+        let imageRef =  Storage.storage().reference().child("/categoryImages/\(categoryName).jpg")
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        
+        // 3. Upload
+        imageRef.putData(imgData, metadata: metaData) { (metaData, error) in
+            
+            if let error = error {
+                self.createAlert(title: "Error",
+                                 msg: "Fail to upload image",
+                                 prefStyle: .alert,
+                                 bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
+                print("err",error.localizedDescription)
+                self.hideActivityIndicator()
+                return
+            }
+            
+            // 4.
+            imageRef.downloadURL { url, error in
+                
+                if let error = error {
+                    self.createAlert(title: "Error",
+                                     msg: "Fail to upload image",
+                                     prefStyle: .alert,
+                                     bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
+                    print("err",error.localizedDescription)
+                    self.hideActivityIndicator()
+                    return
+                }
+                
+                // 5. upload category with url
+                guard let url = url else { return}
+                print("url",url)
+                self.uploadDocument(url: url.absoluteString)
+                
+            }
+            
+        }
+        
+        
+    }
+   
+    func uploadDocument(url: String){
+        
+    }
+    
 }
 
 //MARK: -

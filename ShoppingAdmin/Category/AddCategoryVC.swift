@@ -116,7 +116,6 @@ extension AddCategoryVC {
                   return
               }
        
-        
         // 1. convert data
         guard let imgData = image.jpegData(compressionQuality: 0.2) else {return }
         
@@ -156,12 +155,8 @@ extension AddCategoryVC {
                 guard let url = url else { return}
                 print("url",url)
                 self.uploadDocument(url: url.absoluteString)
-                
             }
-            
         }
-        
-        
     }
    
     func uploadDocument(url: String){
@@ -194,12 +189,10 @@ extension AddCategoryVC {
                                  prefStyle: .alert,
                                  bgColor: .systemGreen, textColor: .white, fontSize: 24)
             }
-            
-          
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
                 self.navigationController?.popViewController(animated: true)
             }
-            
         })
     }
     

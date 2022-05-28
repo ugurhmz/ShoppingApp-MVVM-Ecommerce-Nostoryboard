@@ -15,7 +15,7 @@ class CartVC: UIViewController {
           layout.scrollDirection = .vertical
           let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
           cv.showsHorizontalScrollIndicator = false
-          cv.backgroundColor = .systemBackground
+          cv.backgroundColor = .lightGray
          
           
           //register cells

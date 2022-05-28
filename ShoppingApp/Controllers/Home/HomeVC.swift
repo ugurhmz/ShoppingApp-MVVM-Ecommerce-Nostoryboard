@@ -157,12 +157,12 @@ class HomeVC:  UIViewController {
                                                              trailing: 6)
            
            // group
-           let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.49), heightDimension: .fractionalHeight(1))
+           let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.50), heightDimension: .fractionalHeight(1))
            let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
                                                                 subitems: [smallItem])
            
            let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalHeight(0.62))
+                                                            heightDimension: .fractionalHeight(0.82))
            let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup])
            
            
@@ -228,13 +228,11 @@ class HomeVC:  UIViewController {
         if let user = Auth.auth().currentUser, !user.isAnonymous {
 
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
-
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
                                                               target: self, action: nil)
             navigationItem.leftBarButtonItem?.action =  #selector(clickLogoutBtn)
         } else {
             let loginImage = UIImage(systemName: "person.fill")?.withRenderingMode(.alwaysOriginal)
-
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: loginImage, style: .done,
                                                               target: self, action: nil)
             navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
@@ -268,7 +266,7 @@ class HomeVC:  UIViewController {
     
     
     private func settingsNavigateBar() {
-        let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
+        let logOutImage = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal)
         
        // left icon
        navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
@@ -276,20 +274,17 @@ class HomeVC:  UIViewController {
         
         navigationItem.leftBarButtonItem?.action = #selector(clickLogoutBtn)
        // right two icons
-       navigationItem.rightBarButtonItems = [
-           UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .done,
-                               target: self, action: nil)
-       ]
+       
         
        
        
         if #available(iOS 13.0, *) {
           let navBarAppearance = UINavigationBarAppearance()
-          //navBarAppearance.configureWithOpaqueBackground()
-           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
-         
-           navigationController?.navigationBar.barStyle = .black
-          navigationController?.navigationBar.standardAppearance = navBarAppearance
+            //navBarAppearance.configureWithDefaultBackground()
+           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
+           
+          // navigationController?.navigationBar.barStyle = .black
+          //navigationController?.navigationBar.standardAppearance = navBarAppearance
           navigationController?.navigationBar.compactAppearance = navBarAppearance
           navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
 
@@ -298,7 +293,8 @@ class HomeVC:  UIViewController {
           
           }
        // icons color
-       navigationController?.navigationBar.tintColor = .black
+       navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.3210115628, blue: 0.07575775568, alpha: 1)
     }
 }
 

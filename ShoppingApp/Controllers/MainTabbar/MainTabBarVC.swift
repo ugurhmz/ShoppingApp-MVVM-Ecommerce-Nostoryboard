@@ -12,22 +12,26 @@ class MainTabBarVC: UITabBarController {
     let homeTab = UINavigationController(rootViewController: HomeVC())
     let profileTab = UINavigationController(rootViewController: ProfileVC())
     let cartTab = UINavigationController(rootViewController: CartVC())
+    let favoritePrdTab = UINavigationController(rootViewController: ProfileVC())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
         
         homeTab.tabBarItem.image = UIImage(systemName: "house")
-        cartTab.tabBarItem.image = UIImage(systemName: "cart")
+        favoritePrdTab.tabBarItem.image =  UIImage(systemName: "heart.fill")
+        cartTab.tabBarItem.image = UIImage(systemName: "cart.fill")
         profileTab.tabBarItem.image = UIImage(systemName: "person")
-      
+       
         
         homeTab.title = "Home"
+        favoritePrdTab.title = "Favourites"
         cartTab.title = "Cart"
         profileTab.title = "Profile"
         
         tabBar.tintColor = .label
-        setViewControllers([homeTab,cartTab ,profileTab], animated: true)
+        setViewControllers([homeTab,favoritePrdTab,cartTab ,profileTab], animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {

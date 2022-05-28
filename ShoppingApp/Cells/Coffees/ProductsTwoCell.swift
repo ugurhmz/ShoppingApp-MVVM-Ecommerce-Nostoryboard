@@ -89,18 +89,18 @@ class ProductsTwoCell: UICollectionViewCell {
     
     private func customStyle(){
         contentView.layer.borderColor = UIColor.darkGray.cgColor
-        contentView.layer.borderWidth = 0.8
+        contentView.layer.borderWidth = 0.4
         contentView.layer.cornerRadius = 12
         
         
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowRadius = 9
+        self.layer.shadowRadius = 3
         self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
                                                               y: 0,
                                                               width: layer.bounds.width,
                                                               height: layer.bounds.height / 1.46 ),
                                             transform: nil)
-        self.layer.shadowOpacity = 6.0;
+        self.layer.shadowOpacity = 2;
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         
         addToCartBtn.layer.shadowOpacity = 12
@@ -142,19 +142,19 @@ extension ProductsTwoCell {
                            leading: leadingAnchor,
                            bottom: nil,
                            trailing: trailingAnchor,
-                           padding: .init(top: 8, left: 5, bottom: 0, right: 0))
+                           padding: .init(top: 8, left: 8, bottom: 0, right: 0))
 
         prdNameLbl.anchor(top: prdPriceLbl.bottomAnchor,
                           leading: leadingAnchor,
                           bottom: nil,
                           trailing: trailingAnchor,
-                          padding: .init(top: 3, left: 5, bottom: 2, right: 0))
+                          padding: .init(top: 3, left: 8, bottom: 2, right: 0))
         
         addToCartBtn.anchor(top: nil,
                             leading: nil,
                             bottom: prdimgView.bottomAnchor,
                             trailing: prdimgView.trailingAnchor,
-                            padding: .init(top: 0, left:0, bottom: 4, right: 6 ),
+                            padding: .init(top: 0, left:0, bottom: 4, right: 1 ),
                             size: .init(width: 36, height: 36))
         
         addToFavouriteBtn.anchor(top: prdimgView.topAnchor,

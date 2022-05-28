@@ -144,7 +144,7 @@ extension AddCategoryVC {
                 
                 if let error = error {
                     self.createAlert(title: "Error",
-                                     msg: "Fail to upload image",
+                                     msg: "Url download error !",
                                      prefStyle: .alert,
                                      bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
                     print("err",error.localizedDescription)
@@ -165,7 +165,42 @@ extension AddCategoryVC {
     }
    
     func uploadDocument(url: String){
+        var docRef: DocumentReference?
         
+        var category = CategoryModel.init(id: "",
+                                          name: txtCategoryName.text ?? "-",
+                                          imgUrl: url,
+                                          isActive: true,
+                                          timeStamp: Timestamp())
+        
+        docRef = Firestore.firestore().collection("categories").document()
+        category.id = docRef?.documentID ?? "1231qw0e"
+        
+        let data = CategoryModel.modelToData(category: category)
+        docRef?.setData(data, merge: true, completion: {  error in
+            if let error = error {
+                self.createAlert(title: "Error",
+                                 msg: "Fail upload new category to Firestore",
+                                 prefStyle: .alert,
+                                 bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
+                print("err",error.localizedDescription)
+                self.hideActivityIndicator()
+                return
+            }
+            
+            if let catName = self.txtCategoryName.text {
+                self.createAlert(title: "\(catName)",
+                                 msg: "Category successfully saved",
+                                 prefStyle: .alert,
+                                 bgColor: .systemGreen, textColor: .white, fontSize: 24)
+            }
+            
+          
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        })
     }
     
 }

@@ -9,8 +9,11 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 
-class AddCategoryVC: UIViewController {
-
+class AddEditCategoryVC: UIViewController {
+    
+    var categoryEdit: CategoryModel?
+    var homeViewModel = HomeViewModel()
+    var selectCategoryModel: CategoryModel = CategoryModel(data: [:])
     
     private let categoryNameLabel: UILabel = {
         let label = UILabel()
@@ -45,7 +48,6 @@ class AddCategoryVC: UIViewController {
         return iv
     }()
     
-    
     private let addBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Add Category", for: .normal)
@@ -77,6 +79,7 @@ class AddCategoryVC: UIViewController {
 
         setConstraints()
         addTapGestureForImage()
+        categoryIfEditing()
     }
     
     private func addTapGestureForImage(){
@@ -86,12 +89,17 @@ class AddCategoryVC: UIViewController {
         categoryimgView.addGestureRecognizer(tap)
     }
   
-    
+    private func categoryIfEditing(){
+        txtCategoryName.text = selectCategoryModel.name
+        addBtn.setTitle("Save Changes", for: .normal)
+        if let url = URL(string: selectCategoryModel.imgUrl) {
+            categoryimgView.kf.setImage(with: url)
+        }
+    }
 }
 
-
-//MARK: - @objc funcs
-extension AddCategoryVC {
+//MARK: - @objc funcs AND IMAGE UPLOAD/Firestore
+extension AddEditCategoryVC {
     
     @objc func clickImg( _ tap: UITapGestureRecognizer){
         launchImagePicker()
@@ -198,8 +206,8 @@ extension AddCategoryVC {
     
 }
 
-//MARK: -
-extension AddCategoryVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//MARK: - IMAGE PICKER
+extension AddEditCategoryVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func launchImagePicker() {
         let imagePicker  = UIImagePickerController()
@@ -221,8 +229,8 @@ extension AddCategoryVC: UIImagePickerControllerDelegate, UINavigationController
 }
 
 
-//MARK: - Constraints
-extension AddCategoryVC {
+//MARK: - CONSTRAINTS
+extension AddEditCategoryVC {
     private func setConstraints(){
         
          stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor,

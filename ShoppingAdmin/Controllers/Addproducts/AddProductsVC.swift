@@ -165,16 +165,8 @@ extension AddProductsVC: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8)
     }
-    
-   
-    
 }
-extension AddProductsVC: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-      
-    }
-}
+
 
 //MARK: -
 extension AddProductsVC {
@@ -194,13 +186,12 @@ extension AddProductsVC {
     private func setConstraints(){
         
          view.addSubview(scrollView)
-         scrollView.frame = CGRect(x: 10, y: 10, width: view.frame.size.width - 20,
-                                   height: view.frame.size.height - 20)
-         
-        scrollView.anchor(top: view.topAnchor,
+        scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                           leading: view.leadingAnchor,
                           bottom: view.bottomAnchor,
-                          trailing: view.trailingAnchor)
+                          trailing: view.trailingAnchor,
+                          padding: .init(top: 0, left: 0, bottom: 0, right: 0)
+        )
         
          scrollView.addSubview(stackView)
         prdTitleField.anchor(top: nil,
@@ -237,7 +228,7 @@ extension AddProductsVC {
                          leading: view.leadingAnchor,
                          bottom: scrollView.bottomAnchor,
                          trailing: view.trailingAnchor,
-                         padding: .init(top: -15, left: 0, bottom: 25, right: 0) )
+                         padding: .init(top: 23, left: 0, bottom: 25, right: 0) )
        
         
         prdImgView.anchor(top: nil,

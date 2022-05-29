@@ -25,7 +25,7 @@
 		63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E1F283802E700F05EDA /* ColorConstants.swift */; };
 		63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380D0F5283E604C005D07A8 /* CustomEnums.swift */; };
 		63721DA92841704F0025FCE4 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB45028395AB100095F2A /* Closures.swift */; };
-		63721DAC2841728E0025FCE4 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */; };
+		63721DAC2841728E0025FCE4 /* AddEditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63721DAB2841728E0025FCE4 /* AddEditCategoryVC.swift */; };
 		6375C1632840F2C400E27C4E /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C1622840F2C400E27C4E /* CartCollectionCell.swift */; };
 		6375C16528411AAF00E27C4E /* Extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C16428411AAF00E27C4E /* Extension+UILabel.swift */; };
 		637BD265284392DF0063E444 /* AddProductsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637BD264284392DF0063E444 /* AddProductsVC.swift */; };
@@ -82,7 +82,7 @@
 		636BB44A28393EF200095F2A /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		636BB45028395AB100095F2A /* Closures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Closures.swift; sourceTree = "<group>"; };
 		63721D9D284166160025FCE4 /* AdminHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeCell.swift; sourceTree = "<group>"; };
-		63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
+		63721DAB2841728E0025FCE4 /* AddEditCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCategoryVC.swift; sourceTree = "<group>"; };
 		6375C1622840F2C400E27C4E /* CartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionCell.swift; sourceTree = "<group>"; };
 		6375C16428411AAF00E27C4E /* Extension+UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UILabel.swift"; sourceTree = "<group>"; };
 		637BD264284392DF0063E444 /* AddProductsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductsVC.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 			children = (
 				637BD266284396430063E444 /* Addproducts */,
 				63721D9C284166060025FCE4 /* Home */,
-				63721DAA284172460025FCE4 /* AddCategory */,
+				63721DAA284172460025FCE4 /* AddEditCategory */,
 				637BDCFB2842789100F5E1D5 /* ProductsByCategory */,
 			);
 			path = Controllers;
@@ -232,12 +232,12 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		63721DAA284172460025FCE4 /* AddCategory */ = {
+		63721DAA284172460025FCE4 /* AddEditCategory */ = {
 			isa = PBXGroup;
 			children = (
-				63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */,
+				63721DAB2841728E0025FCE4 /* AddEditCategoryVC.swift */,
 			);
-			path = AddCategory;
+			path = AddEditCategory;
 			sourceTree = "<group>";
 		};
 		6375C1612840F2A200E27C4E /* CartCell */ = {
@@ -376,7 +376,6 @@
 				636BB44C28394A0500095F2A /* ViewModel */,
 				638A6DDE2837A7E000F05EDA /* Cells */,
 				638A6DDA2837A7E000F05EDA /* Model */,
-				638A6DDD2837A7E000F05EDA /* Network */,
 				638A6DE62837A7E000F05EDA /* Resources */,
 				638A6DE22837A7E000F05EDA /* Controllers */,
 			);
@@ -404,13 +403,6 @@
 				6375C16428411AAF00E27C4E /* Extension+UILabel.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		638A6DDD2837A7E000F05EDA /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		638A6DDE2837A7E000F05EDA /* Cells */ = {
@@ -747,7 +739,7 @@
 				63721DA02841668A0025FCE4 /* Extension+TextField.swift in Sources */,
 				63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */,
 				63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */,
-				63721DAC2841728E0025FCE4 /* AddCategoryVC.swift in Sources */,
+				63721DAC2841728E0025FCE4 /* AddEditCategoryVC.swift in Sources */,
 				63721DA42841668A0025FCE4 /* CustomActivityIndicator.swift in Sources */,
 				63721DA52841668A0025FCE4 /* Extension+UIVc.swift in Sources */,
 				637BDCFF28427C0C00F5E1D5 /* AdminProductsByCategoryCell.swift in Sources */,

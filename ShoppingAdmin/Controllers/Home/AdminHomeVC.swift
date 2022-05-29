@@ -10,6 +10,7 @@ import UIKit
 class AdminHomeVC: UIViewController {
     
     lazy var  homeViewModel = HomeViewModel()
+    var editClosure:((CategoryModel) -> Void)?
     
      private let mainCollectionView: UICollectionView = {
          let layout = UICollectionViewFlowLayout()
@@ -89,7 +90,7 @@ extension AdminHomeVC {
         loginBtn.addTarget(self, action: #selector(clickLoginBtn), for: .touchUpInside)
     }
     @objc func clickAddCategory(){
-        let vc = AddCategoryVC()
+        let vc = AddEditCategoryVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -127,13 +128,13 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if let categoryValue = self.homeViewModel.categoryList {
             let vc = AdminProductsByCategoryVC()
             let selectedCategory = categoryValue[indexPath.item]
+            vc.selCategory = selectedCategory   // AddEditCategoryVC pass data -> selected category
             let lowerCaseStr: String = selectedCategory.name.lowercased()
             vc.selectStr = lowerCaseStr
-            
-
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

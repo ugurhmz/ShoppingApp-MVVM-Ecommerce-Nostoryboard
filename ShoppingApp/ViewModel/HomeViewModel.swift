@@ -18,9 +18,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productList: [ProductModel]? = []
     var productTwoList: [ProductModel]? = []
     var productThreeList: [ProductModel]? = []
-    
     var adminArrList: [ProductModel]? = []
-    
     var reloadData: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?

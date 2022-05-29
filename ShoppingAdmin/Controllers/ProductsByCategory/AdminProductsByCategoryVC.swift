@@ -12,6 +12,7 @@ class AdminProductsByCategoryVC: UIViewController {
      lazy var homeViewModel = HomeViewModel()
     var arrProductsByCategory: [ProductModel]? = []
     var selectStr: String?
+    var selCategory: CategoryModel?
     
      // General CollectionView
       private let generalCollectionView: UICollectionView = {
@@ -38,14 +39,15 @@ class AdminProductsByCategoryVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.showActivityIndicator()
+        self.showActivityIndicator()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let myStr = self.selectStr {
             self.homeViewModel.fetchCategoryToProducts(getCategoryFilter: myStr)
-            //self.hideActivityIndicator()
+            self.hideActivityIndicator()
         }
         
         // reload data with closure
@@ -56,14 +58,13 @@ class AdminProductsByCategoryVC: UIViewController {
         }
     }
     
-    
     private func setupViews(){
         view.addSubview(generalCollectionView)
     }
 }
 
 
-//MARK: -  Navbar Settings
+//MARK: -  NAVBAR SETTINGS
 extension AdminProductsByCategoryVC {
     
     private func settingsNavigateBar() {
@@ -104,7 +105,9 @@ extension AdminProductsByCategoryVC {
     }
     
     @objc func clickEditCategoryBtn(){
-        print("abc")
+       let vc = AddEditCategoryVC()
+        vc.selectCategoryModel = self.selCategory ?? CategoryModel(data: [:])
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -154,7 +157,7 @@ extension AdminProductsByCategoryVC: UICollectionViewDelegateFlowLayout {
    
 }
 
-//MARK: -
+//MARK: - CONSTRAINTS
 extension AdminProductsByCategoryVC {
     private func setConstraints(){
         generalCollectionView.fillSuperview()

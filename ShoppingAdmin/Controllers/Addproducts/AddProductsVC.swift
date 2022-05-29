@@ -13,7 +13,7 @@ class AddProductsVC: UIViewController {
     var allCategories: [CategoryModel]? = []
     var lastIndexActive:IndexPath = [1 ,0]
     var myBool: Bool = false
-   
+    let scrollView = UIScrollView()
     
     private let prdTitleField: CustomTextField = {
         let txt = CustomTextField(padding: 24, height: 55)
@@ -61,6 +61,7 @@ class AddProductsVC: UIViewController {
            tv.layer.cornerRadius = 12
            tv.isEditable = true
            tv.textColor = .black
+           tv.layer.borderWidth = 1
            return tv
        }()
  
@@ -97,7 +98,7 @@ class AddProductsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .white
         setupViews()
         setConstraints()
     }
@@ -114,7 +115,6 @@ class AddProductsVC: UIViewController {
         }
     }
 }
-
 
 //MARK: - Delegate, DataSource
 extension AddProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -134,23 +134,19 @@ extension AddProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
  
+   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+       if self.lastIndexActive != indexPath {
+       let cell = collectionView.cellForItem(at: indexPath) as! SelectCategoryCell
+       cell.configure(select: true)
+           print(self.allCategories?[indexPath.item].name)
 
-       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-           if self.lastIndexActive != indexPath {
-
-           
-           let cell = collectionView.cellForItem(at: indexPath) as! SelectCategoryCell
-           cell.configure(select: true)
-               print(self.allCategories?[indexPath.item].name)
-
-           let cell1 = collectionView.cellForItem(at: self.lastIndexActive) as? SelectCategoryCell
-               cell1?.configure(select: false)
-           self.lastIndexActive = indexPath
-              
-           }
+       let cell1 = collectionView.cellForItem(at: self.lastIndexActive) as? SelectCategoryCell
+           cell1?.configure(select: false)
+       self.lastIndexActive = indexPath
+          
        }
+   }
 }
 
 //MARK: -
@@ -173,15 +169,20 @@ extension AddProductsVC: UICollectionViewDelegateFlowLayout {
    
     
 }
-
+extension AddProductsVC: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      
+    }
+}
 
 //MARK: -
 extension AddProductsVC {
     
     private func setupViews(){
-        view.addSubview(stackView)
+        
         stackView.setCustomSpacing(15, after: prdDescriptionText)
-        stackView.setCustomSpacing(25, after: prdImgView)
+        stackView.setCustomSpacing(15, after: prdImgView)
         
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -192,6 +193,16 @@ extension AddProductsVC {
     
     private func setConstraints(){
         
+         view.addSubview(scrollView)
+         scrollView.frame = CGRect(x: 10, y: 10, width: view.frame.size.width - 20,
+                                   height: view.frame.size.height - 20)
+         
+        scrollView.anchor(top: view.topAnchor,
+                          leading: view.leadingAnchor,
+                          bottom: view.bottomAnchor,
+                          trailing: view.trailingAnchor)
+        
+         scrollView.addSubview(stackView)
         prdTitleField.anchor(top: nil,
                              leading: nil,
                              bottom: nil,
@@ -222,18 +233,18 @@ extension AddProductsVC {
                              trailing: nil,
                              size: .init(width: 0, height: 200))
         
-        stackView.anchor(top: view.topAnchor,
+        stackView.anchor(top: scrollView.topAnchor,
                          leading: view.leadingAnchor,
-                         bottom: view.bottomAnchor,
+                         bottom: scrollView.bottomAnchor,
                          trailing: view.trailingAnchor,
-                         padding: .init(top: 8, left: 0, bottom: 25, right: 0) )
+                         padding: .init(top: -15, left: 0, bottom: 25, right: 0) )
        
         
         prdImgView.anchor(top: nil,
                           leading: nil,
                           bottom: nil,
                           trailing: nil,
-                          size: .init(width: 100, height: 160))
+                          size: .init(width: 100, height: 260))
         
         addBtn.anchor(top: nil,
                       leading: nil,

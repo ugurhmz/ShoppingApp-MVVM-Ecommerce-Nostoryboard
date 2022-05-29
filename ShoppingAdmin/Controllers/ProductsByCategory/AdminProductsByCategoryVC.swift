@@ -43,12 +43,10 @@ class AdminProductsByCategoryVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         if let myStr = self.selectStr {
             self.homeViewModel.fetchCategoryToProducts(getCategoryFilter: myStr)
             //self.hideActivityIndicator()
         }
-        
         
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
@@ -56,8 +54,6 @@ class AdminProductsByCategoryVC: UIViewController {
             self.arrProductsByCategory = self.homeViewModel.adminArrList
             self.generalCollectionView.reloadData()
         }
-        
-       
     }
     
     

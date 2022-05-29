@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		636486402842D51C00295A74 /* ByCategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */; };
 		636BB43E283909DC00095F2A /* SnackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43D283909DC00095F2A /* SnackHelper.swift */; };
 		636BB44028390B5700095F2A /* Extension+UIVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB43F28390B5700095F2A /* Extension+UIVc.swift */; };
 		636BB44328391B9A00095F2A /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB44228391B9A00095F2A /* ForgotPasswordVC.swift */; };
@@ -27,6 +28,7 @@
 		63721DAC2841728E0025FCE4 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */; };
 		6375C1632840F2C400E27C4E /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C1622840F2C400E27C4E /* CartCollectionCell.swift */; };
 		6375C16528411AAF00E27C4E /* Extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375C16428411AAF00E27C4E /* Extension+UILabel.swift */; };
+		637BD265284392DF0063E444 /* AddProductsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637BD264284392DF0063E444 /* AddProductsVC.swift */; };
 		637BDCF62842452900F5E1D5 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636BB44A28393EF200095F2A /* CategoryModel.swift */; };
 		637BDCF72842452900F5E1D5 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841460283C35BE0065773A /* ProductModel.swift */; };
 		637BDCF92842757E00F5E1D5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841462283C443F0065773A /* HomeViewModel.swift */; };
@@ -71,6 +73,7 @@
 		10ABBE5D427B332CB0BAA06E /* Pods-ShoppingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		20C7B95DA8D1807F787B9D8D /* Pods_ShoppingAdmin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingAdmin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		411B77F6B50A94C28371F036 /* Pods-ShoppingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingApp.release.xcconfig"; path = "Target Support Files/Pods-ShoppingApp/Pods-ShoppingApp.release.xcconfig"; sourceTree = "<group>"; };
+		6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByCategoryHeaderView.swift; sourceTree = "<group>"; };
 		636BB43D283909DC00095F2A /* SnackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackHelper.swift; sourceTree = "<group>"; };
 		636BB43F28390B5700095F2A /* Extension+UIVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIVc.swift"; sourceTree = "<group>"; };
 		636BB44228391B9A00095F2A /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 		6375C1622840F2C400E27C4E /* CartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionCell.swift; sourceTree = "<group>"; };
 		6375C16428411AAF00E27C4E /* Extension+UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UILabel.swift"; sourceTree = "<group>"; };
+		637BD264284392DF0063E444 /* AddProductsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductsVC.swift; sourceTree = "<group>"; };
 		637BDCFC284278A500F5E1D5 /* AdminProductsByCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminProductsByCategoryVC.swift; sourceTree = "<group>"; };
 		637BDCFE28427C0C00F5E1D5 /* AdminProductsByCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminProductsByCategoryCell.swift; sourceTree = "<group>"; };
 		637E296D283CF06A0027CF8F /* ProductsTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTwoCell.swift; sourceTree = "<group>"; };
@@ -140,6 +144,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6364863E2842D32300295A74 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				637BD266284396430063E444 /* Addproducts */,
+				63721D9C284166060025FCE4 /* Home */,
+				63721DAA284172460025FCE4 /* AddCategory */,
+				637BDCFB2842789100F5E1D5 /* ProductsByCategory */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		636BB44128391B8800095F2A /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,12 +230,12 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		63721DAA284172460025FCE4 /* Category */ = {
+		63721DAA284172460025FCE4 /* AddCategory */ = {
 			isa = PBXGroup;
 			children = (
 				63721DAB2841728E0025FCE4 /* AddCategoryVC.swift */,
 			);
-			path = Category;
+			path = AddCategory;
 			sourceTree = "<group>";
 		};
 		6375C1612840F2A200E27C4E /* CartCell */ = {
@@ -229,6 +244,14 @@
 				6375C1622840F2C400E27C4E /* CartCollectionCell.swift */,
 			);
 			path = CartCell;
+			sourceTree = "<group>";
+		};
+		637BD266284396430063E444 /* Addproducts */ = {
+			isa = PBXGroup;
+			children = (
+				637BD264284392DF0063E444 /* AddProductsVC.swift */,
+			);
+			path = Addproducts;
 			sourceTree = "<group>";
 		};
 		637BDCF82842753200F5E1D5 /* Cells */ = {
@@ -249,12 +272,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		637BDCFB2842789100F5E1D5 /* Products */ = {
+		637BDCFB2842789100F5E1D5 /* ProductsByCategory */ = {
 			isa = PBXGroup;
 			children = (
 				637BDCFC284278A500F5E1D5 /* AdminProductsByCategoryVC.swift */,
 			);
-			path = Products;
+			path = ProductsByCategory;
 			sourceTree = "<group>";
 		};
 		637F0F28283F90DE0023F579 /* HomePrdDetail */ = {
@@ -430,13 +453,12 @@
 		638A6DFB2837A87300F05EDA /* ShoppingAdmin */ = {
 			isa = PBXGroup;
 			children = (
-				637BDCFB2842789100F5E1D5 /* Products */,
+				6364863E2842D32300295A74 /* Controllers */,
 				637BDCFA2842788100F5E1D5 /* Resources */,
 				637BDCF82842753200F5E1D5 /* Cells */,
-				63721DAA284172460025FCE4 /* Category */,
-				63721D9C284166060025FCE4 /* Home */,
 				638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */,
 				638A6E0A2837A87400F05EDA /* Info.plist */,
+				6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */,
 			);
 			path = ShoppingAdmin;
 			sourceTree = "<group>";
@@ -710,9 +732,11 @@
 			files = (
 				63721DA22841668A0025FCE4 /* Extension+UILabel.swift in Sources */,
 				637BDCF92842757E00F5E1D5 /* HomeViewModel.swift in Sources */,
+				637BD265284392DF0063E444 /* AddProductsVC.swift in Sources */,
 				63721DA92841704F0025FCE4 /* Closures.swift in Sources */,
 				63721D9E284166160025FCE4 /* AdminHomeCell.swift in Sources */,
 				637BDCF72842452900F5E1D5 /* ProductModel.swift in Sources */,
+				636486402842D51C00295A74 /* ByCategoryHeaderView.swift in Sources */,
 				63721DA02841668A0025FCE4 /* Extension+TextField.swift in Sources */,
 				63721DA82841704F0025FCE4 /* CustomEnums.swift in Sources */,
 				63721DA72841704F0025FCE4 /* ColorConstants.swift in Sources */,

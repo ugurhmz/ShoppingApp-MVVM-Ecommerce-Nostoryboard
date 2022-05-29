@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
         window = UIWindow(windowScene: windowScene)
      
-        let nc  = UINavigationController(rootViewController: AdminHomeVC())
+        let nc  = UINavigationController(rootViewController: AddProductsVC())
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
        

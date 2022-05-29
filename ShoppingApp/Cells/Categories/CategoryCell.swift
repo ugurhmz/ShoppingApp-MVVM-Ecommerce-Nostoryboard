@@ -46,6 +46,7 @@ extension CategoryCell {
     func fillCategoryData(category: CategoryModel){
         categoryNameLbl.text = category.name
         if let url = URL(string: category.imgUrl) {
+            let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
             categoryImg.kf.indicatorType = .activity
             categoryImg.kf.setImage(with: url, placeholder: placeholder, options: options)

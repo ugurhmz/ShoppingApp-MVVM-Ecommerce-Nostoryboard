@@ -53,7 +53,6 @@ class AdminProductsByCategoryVC: UIViewController {
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
             guard let self = self else { return }
-            print("xx", self.homeViewModel.adminArrList?.count)
             self.arrProductsByCategory = self.homeViewModel.adminArrList
             self.generalCollectionView.reloadData()
         }
@@ -87,13 +86,13 @@ extension AdminProductsByCategoryVC {
         addProducsBtn.setImage(UIImage(systemName: "rectangle.stack.badge.plus"), for: .normal)
         addProducsBtn.setTitle("Add Product", for: .normal)
         addProducsBtn.tintColor = #colorLiteral(red: 0, green: 0.6297852238, blue: 0.05335827891, alpha: 1)
-        addProducsBtn.titleLabel?.font = UIFont(name: "Charter-Black", size: 21)
+        addProducsBtn.titleLabel?.font = UIFont(name: "Charter-Black", size: 18)
         
         let editCategoryBtn = UIButton(type: .system)
         editCategoryBtn.setImage(UIImage(systemName: "pencil"), for: .normal)
         editCategoryBtn.setTitle("Edit Category", for: .normal)
         editCategoryBtn.tintColor = #colorLiteral(red: 0.8279277146, green: 0.3757062302, blue: 0.0934060527, alpha: 1)
-        editCategoryBtn.titleLabel?.font = UIFont(name: "Charter-Black", size: 21)
+        editCategoryBtn.titleLabel?.font = UIFont(name: "Charter-Black", size: 18)
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(customView: addProducsBtn),
@@ -104,7 +103,7 @@ extension AdminProductsByCategoryVC {
         editCategoryBtn.addTarget(self, action: #selector(clickEditCategoryBtn), for: .touchUpInside)
     }
     @objc func clickAddProducts(){
-        let vc = AddCategoryVC()
+        let vc = AddProductsVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -122,7 +121,7 @@ extension AdminProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return self.arrProductsByCategory?.count ?? 0
+            return self.arrProductsByCategory?.count ?? 0
     }
 
     // cellForItemAt
@@ -149,7 +148,7 @@ extension AdminProductsByCategoryVC: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
     
         return CGSize(width: generalCollectionView.frame.width - 35,
-                      height: generalCollectionView.frame.width - 245)
+                      height: generalCollectionView.frame.width - 200)
     }
     // First element padding
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

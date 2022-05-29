@@ -12,14 +12,18 @@ class AdminHomeVC: UIViewController {
     lazy var  homeViewModel = HomeViewModel()
     var editClosure:((CategoryModel) -> Void)?
     
+    var headerView = ByCategoryHeaderView()
+    
      private let mainCollectionView: UICollectionView = {
          let layout = UICollectionViewFlowLayout()
          let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
          layout.scrollDirection = .vertical
          cv.backgroundColor = .white
+         cv.contentInset = UIEdgeInsets(top: 50, left: 10, bottom: 0, right:10)
         
          cv.register(AdminHomeCell.self,
                                    forCellWithReuseIdentifier: AdminHomeCell.identifier)
+         cv.register(ByCategoryHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ByCategoryHeaderView.identifier)
          return cv
      }()
     
@@ -53,10 +57,15 @@ extension AdminHomeVC {
         view.addSubview(mainCollectionView)
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+        view.backgroundColor = .white
     }
     
     private func setConstraints(){
-        mainCollectionView.fillSuperview()
+        
+        mainCollectionView.anchor(top: view.topAnchor,
+                                  leading: view.leadingAnchor,
+                                  bottom: view.bottomAnchor,
+                                  trailing: view.trailingAnchor)
     }
     
     private func settingsNavigateBar() {
@@ -99,7 +108,7 @@ extension AdminHomeVC {
     }
 }
 
-//MARK: -
+//MARK: - Delegate, DataSource
 extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -121,7 +130,7 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
               cell.fillCategoryData(category: categoryValue[indexPath.item])
           }
          
-        
+         
         cell.layer.cornerRadius = 8
         return cell
     }
@@ -134,10 +143,28 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let selectedCategory = categoryValue[indexPath.item]
             vc.selCategory = selectedCategory   // AddEditCategoryVC pass data -> selected category
             let lowerCaseStr: String = selectedCategory.name.lowercased()
+            
+            print("seçilen kategori ID",selectedCategory.id)
             vc.selectStr = lowerCaseStr
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ByCategoryHeaderView.identifier, for: indexPath) as! ByCategoryHeaderView
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width,
+                      height: 200)
+    }
+    
+    
+    
+    
 }
 
 
@@ -148,14 +175,14 @@ extension AdminHomeVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
       
-        return CGSize(width: (view.frame.width / 3) - 10,
+        return CGSize(width: (view.frame.width / 3) - 20,
                           height: 250)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 4)
+            return UIEdgeInsets(top: 50, left: 4, bottom: 10, right: 4)
     }
-    
+ 
 }

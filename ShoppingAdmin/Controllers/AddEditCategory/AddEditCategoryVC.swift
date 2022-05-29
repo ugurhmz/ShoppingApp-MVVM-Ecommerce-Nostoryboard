@@ -69,6 +69,10 @@ class AddEditCategoryVC: UIViewController {
         return stackView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.showActivityIndicator()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +84,13 @@ class AddEditCategoryVC: UIViewController {
         setConstraints()
         addTapGestureForImage()
         categoryIfEditing()
+        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.hideActivityIndicator()
+    }
     private func addTapGestureForImage(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(clickImg(_:)))
         tap.numberOfTapsRequired = 1
@@ -95,6 +104,7 @@ class AddEditCategoryVC: UIViewController {
         if let url = URL(string: selectCategoryModel.imgUrl) {
             categoryimgView.kf.setImage(with: url)
         }
+        
     }
 }
 
@@ -167,17 +177,27 @@ extension AddEditCategoryVC {
         }
     }
    
+    // UPLOAD DOCUMENT
     func uploadDocument(url: String){
         var docRef: DocumentReference?
-        
+       
         var category = CategoryModel.init(id: "",
                                           name: txtCategoryName.text ?? "-",
                                           imgUrl: url,
                                           isActive: true,
                                           timeStamp: Timestamp())
         
-        docRef = Firestore.firestore().collection("categories").document()
-        category.id = docRef?.documentID ?? "1231qw0e"
+        if selectCategoryModel.id.isEmpty { // new
+            docRef = Firestore.firestore().collection("categories").document()
+            category.id = docRef?.documentID ?? "1231qw0e"
+            
+        } else { // edit
+            docRef = Firestore.firestore().collection("categories").document(self.selectCategoryModel.id)
+            category.id =  self.selectCategoryModel.id
+        }
+        
+        
+        
         
         let data = CategoryModel.modelToData(category: category)
         docRef?.setData(data, merge: true, completion: {  error in

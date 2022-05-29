@@ -56,6 +56,7 @@ class AdminProductsByCategoryVC: UIViewController {
             self.arrProductsByCategory = self.homeViewModel.adminArrList
             self.generalCollectionView.reloadData()
         }
+        self.hideActivityIndicator()
     }
     
     private func setupViews(){

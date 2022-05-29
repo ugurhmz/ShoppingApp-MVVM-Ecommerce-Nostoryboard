@@ -331,12 +331,12 @@
 			path = Advertisements;
 			sourceTree = "<group>";
 		};
-		6380D0FC283E91D3005D07A8 /* CellHeader */ = {
+		6380D0FC283E91D3005D07A8 /* EveryCellHeader */ = {
 			isa = PBXGroup;
 			children = (
 				638A6DE02837A7E000F05EDA /* CellHeaderView.swift */,
 			);
-			path = CellHeader;
+			path = EveryCellHeader;
 			sourceTree = "<group>";
 		};
 		6380D0FD283E91EC005D07A8 /* Coffees */ = {
@@ -411,7 +411,7 @@
 				6375C1612840F2A200E27C4E /* CartCell */,
 				637F0F2B283F93060023F579 /* PrdDetailCell */,
 				6380D0FD283E91EC005D07A8 /* Coffees */,
-				6380D0FC283E91D3005D07A8 /* CellHeader */,
+				6380D0FC283E91D3005D07A8 /* EveryCellHeader */,
 				6380D0FB283E91BA005D07A8 /* Advertisements */,
 				6380D0FA283E91B1005D07A8 /* PhonesAndDresses */,
 				6380D0F9283E9199005D07A8 /* Categories */,

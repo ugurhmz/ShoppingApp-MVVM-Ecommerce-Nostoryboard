@@ -250,7 +250,7 @@ class HomeVC:  UIViewController {
         if #available(iOS 13.0, *) {
           let navBarAppearance = UINavigationBarAppearance()
             //navBarAppearance.configureWithDefaultBackground()
-           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
+           navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
            
           // navigationController?.navigationBar.barStyle = .black
           //navigationController?.navigationBar.standardAppearance = navBarAppearance
@@ -435,7 +435,10 @@ extension HomeVC: UICollectionViewDelegate {
         
         switch indexPath.section {
             case Sections.CategoriesSection.rawValue:
-            print(indexPath.row)
+                let cateVC = ProductsByCategoryVC()
+                cateVC.selectCategoryId = self.homeViewModel.categoryList?[indexPath.row].id
+                self.navigationController?.pushViewController(cateVC, animated: true)
+                
             
             case Sections.ProductsOneSection.rawValue:
                 vc.configure(with: self.homeViewModel.productList?[indexPath.row] ?? ProductModel(data: [:]))

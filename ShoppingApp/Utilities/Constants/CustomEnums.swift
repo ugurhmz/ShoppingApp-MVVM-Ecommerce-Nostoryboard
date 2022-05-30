@@ -8,10 +8,11 @@
 import Foundation
 
 enum Sections: Int {
-    case CategoriesSection = 0
-    case ProductsOneSection = 1
-    case AdvertiseSection = 2
-    case ProductsTwoSection = 3
-    case ProductsThreeSection = 4
+    case HeaderGreetingSection = 0
+    case CategoriesSection = 1
+    case ProductsOneSection = 2
+    case AdvertiseSection = 3
+    case ProductsTwoSection = 4
+    case ProductsThreeSection = 5
   
 }

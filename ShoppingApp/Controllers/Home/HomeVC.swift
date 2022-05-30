@@ -14,6 +14,7 @@ class HomeVC:  UIViewController {
     let otherImgList = ["v1","v2","v3","v4","v5","v6"]
     lazy var  homeViewModel = HomeViewModel()
     lazy var cartVC = CartVC()
+    var currentUser: String?
     
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,9 +23,11 @@ class HomeVC:  UIViewController {
         // register
         cv.register(AdvertiseCell.self,
                     forCellWithReuseIdentifier: AdvertiseCell.identifier)
-       
-        cv.register(CellHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier:   CellHeaderView.identifier)
-        
+        //header
+        cv.register(CellHeaderView.self, forSupplementaryViewOfKind: "header",
+                    withReuseIdentifier:   CellHeaderView.identifier)
+        // product cells
+        cv.register(HomeGreetingHeaderCell.self, forCellWithReuseIdentifier: HomeGreetingHeaderCell.identifier)
         cv.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         cv.register(ProductsOneCell.self, forCellWithReuseIdentifier: ProductsOneCell.identifier)
         cv.register(ProductsTwoCell.self, forCellWithReuseIdentifier: ProductsTwoCell.identifier)
@@ -42,14 +45,16 @@ class HomeVC:  UIViewController {
     static func createSectionFor(index: Int, environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch index {
         case 0:
-            return createCategoriesSection()
+            return createGreetingHeaderSection()
         case 1:
-            return createProductsOneSection()
+            return createCategoriesSection()
         case 2:
-            return createSliderSection()
+            return createProductsOneSection()
         case 3:
-            return createProductsTwoSection()
+            return createSliderSection()
         case 4:
+            return createProductsTwoSection()
+        case 5:
             return createProductsOneSection()
         default:
             return  createCategoriesSection()
@@ -57,7 +62,26 @@ class HomeVC:  UIViewController {
     }
     
     
-    //MARK: - 0 SECTION Categories
+    static func createGreetingHeaderSection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+            item.contentInsets.trailing = 6
+            item.contentInsets.leading = 8
+       
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(125)), subitems: [item])
+       let section = NSCollectionLayoutSection(group: group)
+       section.orthogonalScrollingBehavior = .continuous
+        // suplementary
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                heightDimension: .absolute(55))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                 elementKind: "header",
+                                                                 alignment: .top)
+        section.boundarySupplementaryItems = [header]
+       return section
+    }
+    
+    
+    //MARK: - 1 SECTION Categories
     static func createCategoriesSection() -> NSCollectionLayoutSection {
         
         let inset: CGFloat = 1
@@ -90,7 +114,7 @@ class HomeVC:  UIViewController {
         return section
     }
     
-       //MARK: - 1 SECTION Products
+       //MARK: - 2 SECTION Products
        static func createProductsOneSection() -> NSCollectionLayoutSection {
            
            let inset: CGFloat = 3
@@ -196,7 +220,7 @@ class HomeVC:  UIViewController {
         super.viewDidAppear(animated)
 
         if let user = Auth.auth().currentUser, !user.isAnonymous {
-
+            self.currentUser = user.email
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
                                                               target: self, action: nil)
@@ -324,12 +348,14 @@ extension HomeVC: UICollectionViewDataSource {
     
     // numberOfSections
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return 6
     }
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
+        case Sections.HeaderGreetingSection.rawValue:
+            return 1
         case Sections.CategoriesSection.rawValue:
             return self.homeViewModel.categoryList?.count ?? 0
         case Sections.AdvertiseSection.rawValue:
@@ -351,6 +377,15 @@ extension HomeVC: UICollectionViewDataSource {
         
         switch indexPath.section {
             
+        case Sections.HeaderGreetingSection.rawValue:
+             let greetingCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeGreetingHeaderCell.identifier, for: indexPath) as! HomeGreetingHeaderCell
+            greetingCell.backgroundColor = .orange
+            greetingCell.layer.cornerRadius = 20
+            if let thisUser = self.currentUser {
+                greetingCell.userInfo(data: thisUser)
+            }
+            
+            return greetingCell
         //MARK: - Categories
         case Sections.CategoriesSection.rawValue:
             let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
@@ -409,6 +444,8 @@ extension HomeVC: UICollectionViewDataSource {
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: CellHeaderView.identifier, for: indexPath) as! CellHeaderView
         
         switch indexPath.section {
+            case Sections.HeaderGreetingSection.rawValue:
+                view.titleLabel.text = "HeaderGreetingSection"
             case Sections.CategoriesSection.rawValue:
                 view.titleLabel.text = "Categories"
             case Sections.ProductsOneSection.rawValue:

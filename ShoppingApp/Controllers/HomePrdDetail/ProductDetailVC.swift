@@ -33,6 +33,7 @@ class ProductDetailVC: UIViewController {
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
         generalCollectionView.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .blue
     }
 
 }

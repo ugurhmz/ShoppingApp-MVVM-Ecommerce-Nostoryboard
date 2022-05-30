@@ -11,7 +11,7 @@ class AdminProductsByCategoryVC: UIViewController {
 
      lazy var homeViewModel = HomeViewModel()
     var arrProductsByCategory: [ProductModel]? = []
-    var selectStr: String?
+    var selectCategoryIdStr: String?
     var selCategory: CategoryModel?
     
      // General CollectionView
@@ -45,8 +45,8 @@ class AdminProductsByCategoryVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let myStr = self.selectStr {
-            self.homeViewModel.fetchCategoryToProducts(getCategoryFilter: myStr)
+        if let myStr = self.selectCategoryIdStr {
+            self.homeViewModel.fetchCategoryToProductsWithId(filterById: myStr)
             self.hideActivityIndicator()
         }
         

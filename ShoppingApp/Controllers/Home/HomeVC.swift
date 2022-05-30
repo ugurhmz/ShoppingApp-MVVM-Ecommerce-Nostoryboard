@@ -209,15 +209,21 @@ class HomeVC:  UIViewController {
         }
         // fetching
         homeViewModel.fetchAllCategoriesData()
-        homeViewModel.fetchProducts(getCategoryFilter: "phones")
-        homeViewModel.fetchProducts(getCategoryFilter: "coffees")
-        homeViewModel.fetchProducts(getCategoryFilter: "dresses")
         
+       
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
             guard let self = self else { return }
             self.generalCollectionView.reloadData()
         }
+        
+        self.homeViewModel.uniqueCategoryClosure = { [weak self] in
+            guard let self = self else { return }
+            for item in self.homeViewModel.uniqueCategoryId {
+                self.homeViewModel.fetchProducts(getCategoryFilter: item )
+            }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -20,10 +20,11 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productThreeList: [ProductModel]? = []
     var adminArrList: [ProductModel]? = []
     var reloadData: VoidClosure?
+    var uniqueCategoryClosure: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
     var db: Firestore?
-  
+    var uniqueCategoryId = Set<String>()
     
     init(){
         db = Firestore.firestore()
@@ -45,22 +46,23 @@ extension HomeViewModel {
                 return
             }
             
+            
             switch getCategoryFilter {
-            case "phones":
+            case "RvGTTdx7PE99wEI7Oq8j":
                 self.productList?.removeAll()
                     for document in documents {
                         let data =  document.data()
                         let newProductArr = ProductModel.init(data: data)
                         self.productList?.append(newProductArr)
                     }
-            case "coffees":
+            case "nDVHEA5e8p0pLJzWyAR8":
                 self.productTwoList?.removeAll()
                     for document in documents {
                         let data =  document.data()
                         let newProductArr = ProductModel.init(data: data)
                         self.productTwoList?.append(newProductArr)
                     }
-            case "dresses":
+            case "a4uHOjGK1uyqUjzLkSeD":
                 self.productThreeList?.removeAll()
                 for document in documents {
                     let data =  document.data()
@@ -76,8 +78,6 @@ extension HomeViewModel {
         
     }
     
-    
-    //MARK: -
     //MARK: - FETCH ALL PRODUCTS
     func fetchCategoryToProducts(getCategoryFilter: String){
   
@@ -120,9 +120,36 @@ extension HomeViewModel {
                 let data =  document.data()
                 let newCategoryArr = CategoryModel.init(data: data)
                 self.categoryList?.append(newCategoryArr)
-             
+                self.uniqueCategoryId.insert(newCategoryArr.id)
             }
             self.reloadData?()
+            self.uniqueCategoryClosure?()
         }
+    }
+    
+    
+    //MARK: - FETCH BY ID Products To Category
+    func fetchCategoryToProductsWithId(filterById: String){
+  
+        let productRef = db?.collection("products").whereField("category", isEqualTo: "\(filterById)")
+        
+        realTimeListener = productRef?.addSnapshotListener { (snap, error) in
+            
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            
+            print("documents", documents)
+            self.adminArrList?.removeAll()
+            for document in documents {
+                let data =  document.data()
+                let newProductArr = ProductModel.init(data: data)
+                self.adminArrList?.append(newProductArr)
+            }
+           
+            self.reloadData?()
+        }
+        
     }
 }

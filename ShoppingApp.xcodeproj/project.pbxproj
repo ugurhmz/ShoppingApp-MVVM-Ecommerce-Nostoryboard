@@ -189,12 +189,12 @@
 			path = MainTabbar;
 			sourceTree = "<group>";
 		};
-		636BB44728393DB800095F2A /* Categories */ = {
+		636BB44728393DB800095F2A /* CategoryDetail */ = {
 			isa = PBXGroup;
 			children = (
 				636BB44828393DC400095F2A /* CategoryVC.swift */,
 			);
-			path = Categories;
+			path = CategoryDetail;
 			sourceTree = "<group>";
 		};
 		636BB44C28394A0500095F2A /* ViewModel */ = {
@@ -424,7 +424,7 @@
 			children = (
 				637F0F30283FEE440023F579 /* Cart */,
 				637F0F28283F90DE0023F579 /* HomePrdDetail */,
-				636BB44728393DB800095F2A /* Categories */,
+				636BB44728393DB800095F2A /* CategoryDetail */,
 				636BB44628391BB700095F2A /* MainTabbar */,
 				636BB44528391BAD00095F2A /* Profile */,
 				636BB44428391BA100095F2A /* Home */,

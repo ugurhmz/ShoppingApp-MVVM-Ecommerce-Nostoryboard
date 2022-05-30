@@ -142,10 +142,9 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let vc = AdminProductsByCategoryVC()
             let selectedCategory = categoryValue[indexPath.item]
             vc.selCategory = selectedCategory   // AddEditCategoryVC pass data -> selected category
-            let lowerCaseStr: String = selectedCategory.name.lowercased()
-            
             print("seçilen kategori ID",selectedCategory.id)
-            vc.selectStr = lowerCaseStr
+            vc.selectCategoryIdStr = selectedCategory.id
+
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -153,6 +152,11 @@ extension AdminHomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ByCategoryHeaderView.identifier, for: indexPath) as! ByCategoryHeaderView
+        
+        
+        if let categoryValue = self.homeViewModel.categoryList {
+            header.fillCategoryData(category: categoryValue)
+        }
         
         return header
     }

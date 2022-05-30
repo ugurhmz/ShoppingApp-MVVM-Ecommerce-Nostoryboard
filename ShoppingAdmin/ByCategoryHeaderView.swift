@@ -10,6 +10,15 @@ import UIKit
 class ByCategoryHeaderView: UICollectionReusableView {
     
     static var identifier = "ByCategoryHeaderView"
+    
+    public var personImg: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "carton")
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 20
+        return iv
+    }()
 
     private let headerLbl: UILabel = {
         let label = UILabel()
@@ -23,7 +32,7 @@ class ByCategoryHeaderView: UICollectionReusableView {
         let myString = "Hi Admin"
         let myAttribute = [
             NSAttributedString.Key.shadow: myShadow,
-            NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1),
+            NSAttributedString.Key.foregroundColor: UIColor.black,
                             NSAttributedString.Key.font: UIFont(name: "Zapfino", size: 32.0)! ]
         let myAttrString = NSAttributedString(string: myString, attributes: myAttribute)
 
@@ -64,7 +73,8 @@ class ByCategoryHeaderView: UICollectionReusableView {
         super.init(frame: .zero)
         addSubview(headerLbl)
         addSubview(headerDescriptionLbl)
-        backgroundColor = #colorLiteral(red: 0.3158148667, green: 1, blue: 0.47757736, alpha: 1)
+        addSubview(personImg)
+        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         layer.cornerRadius = 20
         setConstraints()
     }
@@ -76,19 +86,37 @@ class ByCategoryHeaderView: UICollectionReusableView {
 
 }
 
+
+//MARK: -
+extension ByCategoryHeaderView {
+    func fillCategoryData(category: [CategoryModel]) {
+        self.headerDescriptionLbl.text = "Total Categories: \(category.count)"
+    }
+}
+
 //MARK: -
 extension ByCategoryHeaderView {
     private func setConstraints(){
+        
+        personImg.anchor(top: topAnchor,
+                         leading: nil,
+                         bottom: nil,
+                         trailing: trailingAnchor,
+                         padding: .init(top: -40, left: 2, bottom: 0, right: -5),
+                         size: .init(width: 120, height: 190)
+        )
+        
         headerLbl.anchor(top: topAnchor,
                          leading: leadingAnchor,
-                         bottom: headerDescriptionLbl.topAnchor,
-                         trailing: trailingAnchor,
-                         padding: .init(top: 5, left: 15, bottom: 0, right: 15)
+                         bottom: nil,
+                         trailing: personImg.leadingAnchor,
+                         padding: .init(top: 25, left: 15, bottom: 0, right: 15),
+                         size: .init(width: 0, height: 90)
         )
         headerDescriptionLbl.anchor(top: headerLbl.bottomAnchor,
                                     leading: leadingAnchor,
                                     bottom: bottomAnchor,
                                     trailing: trailingAnchor,
-                                    padding: .init(top: 5, left: 15, bottom: 20, right: 15) )
+                                    padding: .init(top: 29, left: 15, bottom: 10, right: 8) )
     }
 }

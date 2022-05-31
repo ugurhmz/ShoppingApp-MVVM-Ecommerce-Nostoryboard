@@ -10,6 +10,7 @@ import Kingfisher
 
 class ProductsTwoCell: UICollectionViewCell {
     static var identifier = "ProductsTwoCell"
+    var addFavClosure: VoidClosure?
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -37,7 +38,6 @@ class ProductsTwoCell: UICollectionViewCell {
     private let prdNameLbl: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum "
         label.textColor = #colorLiteral(red: 0.1709887727, green: 0.1870856636, blue: 0.2076978542, alpha: 1)
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -59,12 +59,10 @@ class ProductsTwoCell: UICollectionViewCell {
     private let addToFavouriteBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
-       
         btn.tintColor = .black
         btn.backgroundColor = .white
-        btn.layer.cornerRadius = 15
-
-      // btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
+        btn.layer.cornerRadius = 9
+        btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
        return btn
    }()
 
@@ -91,8 +89,6 @@ class ProductsTwoCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.darkGray.cgColor
         contentView.layer.borderWidth = 0.4
         contentView.layer.cornerRadius = 12
-        
-        
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 3
         self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
@@ -102,11 +98,9 @@ class ProductsTwoCell: UICollectionViewCell {
                                             transform: nil)
         self.layer.shadowOpacity = 2;
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
         addToCartBtn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-     
     }
     
     required init?(coder: NSCoder) {
@@ -126,6 +120,24 @@ extension ProductsTwoCell {
         }
         self.prdNameLbl.text = product.name
         self.prdPriceLbl.text = "\(product.price) TL"
+        
+        // FAV BTN SETTINGS 
+        if userService.favourites.contains(product){
+            addToFavouriteBtn.setBackgroundImage(UIImage(named: "likefillselected"), for: .normal)
+        } else {
+            addToFavouriteBtn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
+            //addToFavouriteBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+}
+
+
+//MARK: - @objc funcs
+extension ProductsTwoCell {
+    @objc func clickFavouriteBtn(){
+        if let action = self.addFavClosure {
+            action()
+        }
     }
 }
 

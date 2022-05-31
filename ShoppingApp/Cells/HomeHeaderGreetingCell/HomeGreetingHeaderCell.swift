@@ -42,21 +42,18 @@ class HomeGreetingHeaderCell: UICollectionViewCell {
         addSubview(personImg)
         personImg.layer.zPosition = 1
         headerLbl.layer.zPosition = 1
-        backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        layer.cornerRadius = 20
+        backgroundColor = .orange
         setConstraints()
-      
-        
-       
-        
-        // insert it only once
         greadientLayer.colors = [#colorLiteral(red: 0.9674693942, green: 0.5338351727, blue: 0.6743286252, alpha: 1).cgColor, #colorLiteral(red: 1, green: 0.4322735344, blue: 0.4470588235, alpha: 1).cgColor ]
         contentView.layer.insertSublayer(greadientLayer, at: 0)
+        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        greadientLayer.frame = contentView.frame
+       
+        greadientLayer.frame = contentView.layer.bounds
+        greadientLayer.cornerRadius = 20
         greadientLayer.zPosition = -1
     }
     

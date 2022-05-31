@@ -28,8 +28,6 @@ class ProductsOneCell: UICollectionViewCell {
         label.text = "6,10 TL"
         label.textColor = .black
         label.textAlignment = .left
-        
-      
         return label
     }()
     
@@ -58,17 +56,13 @@ class ProductsOneCell: UICollectionViewCell {
     private let addToFavouriteBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
-       
         btn.tintColor = .black
         btn.backgroundColor = .white
-        btn.layer.cornerRadius = 15
-
+        btn.layer.cornerRadius = 8
        btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
        return btn
    }()
 
- 
-    
     private lazy var prdstackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [prdPriceLbl, prdNameLbl])
         stackView.axis = .vertical
@@ -76,7 +70,6 @@ class ProductsOneCell: UICollectionViewCell {
         stackView.alignment = .leading
         return stackView
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,7 +98,6 @@ class ProductsOneCell: UICollectionViewCell {
         contentView.layer.borderWidth = 0.8
         contentView.layer.cornerRadius = 12
         
-        
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowRadius = 9
         self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
@@ -115,10 +107,6 @@ class ProductsOneCell: UICollectionViewCell {
                                             transform: nil)
         self.layer.shadowOpacity = 6.0;
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-       
-        
-    
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
         addToCartBtn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
@@ -152,11 +140,12 @@ extension ProductsOneCell {
         self.prdNameLbl.text = product.name
         self.prdPriceLbl.text = "\(product.price) TL"
         
-        // FAV BTN SETTINGS 1
+        // FAV BTN SETTINGS
         if userService.favourites.contains(product){
             addToFavouriteBtn.setBackgroundImage(UIImage(named: "likefillselected"), for: .normal)
         } else {
             addToFavouriteBtn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
+            //addToFavouriteBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
         }
     }
 }

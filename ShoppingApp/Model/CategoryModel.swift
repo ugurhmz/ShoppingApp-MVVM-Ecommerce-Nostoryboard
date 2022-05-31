@@ -31,7 +31,7 @@ struct CategoryModel {
     
     init(data: [String: Any]){
         
-        self.id = data["id"] as? String ?? ""
+        self.id = data["id"] as? String ?? UUID().uuidString
         self.name = data["name"] as? String ?? ""
         self.imgUrl = data["imgUrl"] as? String ?? ""
         self.isActive = data["isActive"] as? Bool ?? true

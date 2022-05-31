@@ -8,7 +8,6 @@
 import UIKit
 import Firebase
 
-
 class HomeVC:  UIViewController {
     
     let otherImgList = ["v1","v2","v3","v4","v5","v6"]
@@ -61,7 +60,6 @@ class HomeVC:  UIViewController {
         }
     }
     
-    
     static func createGreetingHeaderSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets.trailing = 6
@@ -79,7 +77,6 @@ class HomeVC:  UIViewController {
         section.boundarySupplementaryItems = [header]
        return section
     }
-    
     
     //MARK: - 1 SECTION Categories
     static func createCategoriesSection() -> NSCollectionLayoutSection {
@@ -253,7 +250,6 @@ class HomeVC:  UIViewController {
                 self.homeViewModel.fetchProducts(getCategoryFilter: item )
             }
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -268,7 +264,6 @@ class HomeVC:  UIViewController {
         generalCollectionView.collectionViewLayout =  HomeVC.createCompositionalLayout()
         setConstraints()
     }
-    
     
     private func settingsNavigateBar() {
         let logOutImage = UIImage(systemName: "person")?.withRenderingMode(.alwaysOriginal)
@@ -289,15 +284,12 @@ class HomeVC:  UIViewController {
 
           navigationController?.navigationBar.prefersLargeTitles = false
           navigationItem.title = "ShopMe®"
-          
           }
        // icons color
-       navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.3210115628, blue: 0.07575775568, alpha: 1)
     }
 }
-
-
 
 //MARK: - @objc functions
 extension HomeVC {
@@ -307,7 +299,6 @@ extension HomeVC {
         loginVC.modalPresentationStyle = .fullScreen
         present(loginVC, animated: true, completion: nil)
     }
-    
     // click logout btn
     @objc func clickLogoutBtn(){
         let loginVC = LoginVC()
@@ -351,7 +342,6 @@ extension HomeVC {
     }
 }
 
-
 //MARK: - DataSource
 extension HomeVC: UICollectionViewDataSource {
     
@@ -388,22 +378,14 @@ extension HomeVC: UICollectionViewDataSource {
             
         case Sections.HeaderGreetingSection.rawValue:
              let greetingCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeGreetingHeaderCell.identifier, for: indexPath) as! HomeGreetingHeaderCell
-            greetingCell.backgroundColor = .orange
             greetingCell.layer.cornerRadius = 20
-            
             greetingCell.layer.borderColor = UIColor.darkGray.cgColor
             greetingCell.layer.borderWidth = 0.4
-            greetingCell.layer.cornerRadius = 12
-            
-            
             greetingCell.layer.shadowColor = UIColor.black.cgColor
             greetingCell.layer.shadowRadius = 12
-            greetingCell.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0, y: 0, width: greetingCell.layer.bounds.width, height: greetingCell.layer.bounds.height),transform: nil)
+            greetingCell.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0, y: 0, width:greetingCell.layer.bounds.width, height: greetingCell.layer.bounds.height),transform: nil)
             greetingCell.layer.shadowOpacity = 7;
             greetingCell.layer.shadowOffset = CGSize(width: 1, height: 1)
-            
-          
-        
             
             if let thisUser = self.currentUser {
                 greetingCell.userInfo(data: thisUser)
@@ -413,12 +395,10 @@ extension HomeVC: UICollectionViewDataSource {
         //MARK: - Categories
         case Sections.CategoriesSection.rawValue:
             let categoryCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
-            
-           
+        
             if let categoryValue = self.homeViewModel.categoryList {
                 categoryCell.fillCategoryData(category: categoryValue[indexPath.item])
             }
-            
             return categoryCell
             
         //MARK: - Phones
@@ -433,8 +413,6 @@ extension HomeVC: UICollectionViewDataSource {
                     self?.generalCollectionView.reloadData()
                 }
             }
-            
-            
             return cell
             
         //MARK: - Advertise
@@ -450,8 +428,11 @@ extension HomeVC: UICollectionViewDataSource {
             
             if let productValue = self.homeViewModel.productTwoList {
                 cell.fillData(product: productValue[indexPath.item])
+                cell.addFavClosure = { [weak self] in
+                    userService.addFavourites(product: productValue[indexPath.item])
+                    self?.generalCollectionView.reloadData()
+                }
             }
-            
             return cell
             
         //MARK: - Dresses
@@ -460,20 +441,12 @@ extension HomeVC: UICollectionViewDataSource {
             
             if let productValue = self.homeViewModel.productThreeList {
                 cell.fillData(product: productValue[indexPath.item])
-                
-                
-            }
-            
-            if let val = self.homeViewModel.productThreeList {
                 cell.addFavClosure = { [weak self] in
-                    userService.addFavourites(product: val[indexPath.item])
+                    userService.addFavourites(product: productValue[indexPath.item])
                     self?.generalCollectionView.reloadData()
                 }
             }
-          
-            
             return cell
-       
         default:
             return UICollectionViewCell()
         }
@@ -487,7 +460,7 @@ extension HomeVC: UICollectionViewDataSource {
         
         switch indexPath.section {
             case Sections.HeaderGreetingSection.rawValue:
-                view.titleLabel.text = "HeaderGreetingSection"
+                view.titleLabel.text = ""
             case Sections.CategoriesSection.rawValue:
                 view.titleLabel.text = "Categories"
             case Sections.ProductsOneSection.rawValue:
@@ -517,7 +490,6 @@ extension HomeVC: UICollectionViewDelegate {
                 let cateVC = ProductsByCategoryVC()
                 cateVC.selectCategoryId = self.homeViewModel.categoryList?[indexPath.row].id
                 self.navigationController?.pushViewController(cateVC, animated: true)
-                
             
             case Sections.ProductsOneSection.rawValue:
                 vc.configure(with: self.homeViewModel.productList?[indexPath.row] ?? ProductModel(data: [:]))
@@ -530,7 +502,6 @@ extension HomeVC: UICollectionViewDelegate {
             case Sections.ProductsThreeSection.rawValue:
                 vc.configure(with: self.homeViewModel.productThreeList?[indexPath.row] ?? ProductModel(data: [:]))
                 navigationController?.pushViewController(vc, animated: true)
-            
             case Sections.AdvertiseSection.rawValue:
             print(indexPath.row)
             default:

@@ -219,21 +219,27 @@ class HomeVC:  UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        // When login
         if let user = Auth.auth().currentUser, !user.isAnonymous {
             self.currentUser = user.email
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
                                                               target: self, action: nil)
             navigationItem.leftBarButtonItem?.action =  #selector(clickLogoutBtn)
-        } else {
+            
+            if userService.userListener == nil {
+                userService.getCurrentUser()
+            }
+            
+        } else {    // When logout
             let loginImage = UIImage(systemName: "person.fill")?.withRenderingMode(.alwaysOriginal)
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: loginImage, style: .done,
                                                               target: self, action: nil)
             navigationItem.leftBarButtonItem?.action =  #selector(clickLoginBtn)
         }
+        
         // fetching
         homeViewModel.fetchAllCategoriesData()
-        
        
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
@@ -303,7 +309,6 @@ extension HomeVC {
     
     // click logout btn
     @objc func clickLogoutBtn(){
-        print("logout")
         let loginVC = LoginVC()
         loginVC.modalPresentationStyle = .fullScreen
 
@@ -313,7 +318,9 @@ extension HomeVC {
             present(loginVC, animated: true, completion: nil)
         } else {
             do {
-                  try Auth.auth().signOut()
+                    try Auth.auth().signOut()
+                    userService.logoutUser()    // Singleton logout
+                
                     Auth.auth().signInAnonymously { result, error in
                         if let error = error {
                             self.handleFireAuthError(error: error,
@@ -324,6 +331,7 @@ extension HomeVC {
                         }
                         self.present(loginVC, animated: true, completion: nil)
                     }
+                
             } catch {
                 self.handleFireAuthError(error: error,
                                     fontSize: 25,

@@ -33,8 +33,6 @@ class ProductsTwoCell: UICollectionViewCell {
         return label
     }()
     
-    
-    
     private let prdNameLbl: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
@@ -65,7 +63,6 @@ class ProductsTwoCell: UICollectionViewCell {
         btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
        return btn
    }()
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -94,8 +91,7 @@ class ProductsTwoCell: UICollectionViewCell {
         self.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0,
                                                               y: 0,
                                                               width: layer.bounds.width,
-                                                              height: layer.bounds.height / 1.46 ),
-                                            transform: nil)
+                                                              height: layer.bounds.height / 1.46 ),transform: nil)
         self.layer.shadowOpacity = 2;
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         addToCartBtn.layer.shadowOpacity = 12
@@ -130,7 +126,6 @@ extension ProductsTwoCell {
         }
     }
 }
-
 
 //MARK: - @objc funcs
 extension ProductsTwoCell {

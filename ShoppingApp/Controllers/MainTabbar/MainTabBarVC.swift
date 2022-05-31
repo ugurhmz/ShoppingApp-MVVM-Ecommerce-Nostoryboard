@@ -12,12 +12,11 @@ class MainTabBarVC: UITabBarController {
     let homeTab = UINavigationController(rootViewController: HomeVC())
     let profileTab = UINavigationController(rootViewController: ProfileVC())
     let cartTab = UINavigationController(rootViewController: CartVC())
-    let favoritePrdTab = UINavigationController(rootViewController: ProfileVC())
+    let favoritePrdTab = UINavigationController(rootViewController: FavouriteProductsVC())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         
         homeTab.tabBarItem.image = UIImage(systemName: "house")
         favoritePrdTab.tabBarItem.image =  UIImage(systemName: "heart.fill")
@@ -43,7 +42,6 @@ class MainTabBarVC: UITabBarController {
             self.tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         }
         
-        
         setViewControllers([homeTab,favoritePrdTab,cartTab ,profileTab], animated: true)
     }
     
@@ -53,13 +51,24 @@ class MainTabBarVC: UITabBarController {
           NotificationCenter.default.addObserver(self, selector: #selector(badgeINC),
                                                          name: NSNotification.Name("applyBtn"),
                                                          object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(badgeFavINC),
+                                                       name: NSNotification.Name("notifiFavourite"),
+                                                       object: nil)
+        
     }
-    
+   
     
     @objc func badgeINC(_ notification: Notification){
           if let myNum = notification.object as? Int {
               cartTab.tabBarItem.badgeValue = "\(myNum)"
           }
-      }
+    }
+    
+    @objc func badgeFavINC(_ notification: Notification) {
+        if let myNum = notification.object as? Int {
+            favoritePrdTab.tabBarItem.badgeValue = "\(myNum)"
+        }
+    }
     
 }

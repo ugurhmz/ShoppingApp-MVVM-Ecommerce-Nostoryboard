@@ -199,6 +199,11 @@ class HomeVC:  UIViewController {
         isCurrentUserCheck()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func isCurrentUserCheck() {
         if Auth.auth().currentUser == nil {
             Auth.auth().signInAnonymously { (result, error) in
@@ -215,9 +220,12 @@ class HomeVC:  UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+      
+        
         // When login
         if let user = Auth.auth().currentUser, !user.isAnonymous {
+            self.homeViewModel.fetchFavItemsCurrentUser(userId: user.uid)
+            
             self.currentUser = user.email
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
            navigationItem.leftBarButtonItem = UIBarButtonItem(image: logOutImage, style: .done,
@@ -238,6 +246,13 @@ class HomeVC:  UIViewController {
         // fetching
         homeViewModel.fetchAllCategoriesData()
        
+        self.homeViewModel.favItemCount = { [weak self] in
+            guard let self = self else { return }
+            if let favCount = self.homeViewModel.favouritesArrList?.count {
+                NotificationCenter.default.post(name: NSNotification.Name("notifiFavourite"), object: favCount)
+            }
+        }
+        
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
             guard let self = self else { return }

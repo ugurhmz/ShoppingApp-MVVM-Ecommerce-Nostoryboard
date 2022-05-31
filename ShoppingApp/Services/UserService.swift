@@ -83,6 +83,7 @@ final class UserService {
             favourites.append(product)
             let data = ProductModel.modelToData(product: product)
             favsRef.document(product.id).setData(data)
+            
         }
     }
     

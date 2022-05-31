@@ -19,8 +19,10 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productTwoList: [ProductModel]? = []
     var productThreeList: [ProductModel]? = []
     var adminArrList: [ProductModel]? = []
+    var favouritesArrList: [ProductModel]? = []
     var reloadData: VoidClosure?
     var uniqueCategoryClosure: VoidClosure?
+    var favItemCount: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
     var db: Firestore?
@@ -45,7 +47,6 @@ extension HomeViewModel {
                 SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
-            
             
             switch getCategoryFilter {
             case "RvGTTdx7PE99wEI7Oq8j":
@@ -72,10 +73,8 @@ extension HomeViewModel {
             default:
                 return
             }
-            
             self.reloadData?()
         }
-        
     }
     
     //MARK: - FETCH ALL PRODUCTS
@@ -89,18 +88,14 @@ extension HomeViewModel {
                 SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
-            
-            print("documents", documents)
             self.adminArrList?.removeAll()
             for document in documents {
                 let data =  document.data()
                 let newProductArr = ProductModel.init(data: data)
                 self.adminArrList?.append(newProductArr)
             }
-           
             self.reloadData?()
         }
-        
     }
     
  
@@ -115,7 +110,6 @@ extension HomeViewModel {
                 return
             }
             self.categoryList?.removeAll()
-            
             for document in documents {
                 let data =  document.data()
                 let newCategoryArr = CategoryModel.init(data: data)
@@ -134,22 +128,38 @@ extension HomeViewModel {
         let productRef = db?.collection("products").whereField("category", isEqualTo: "\(filterById)")
         
         realTimeListener = productRef?.addSnapshotListener { (snap, error) in
-            
             guard let documents = snap?.documents else {
                 SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
-            
-            print("documents", documents)
             self.adminArrList?.removeAll()
             for document in documents {
                 let data =  document.data()
                 let newProductArr = ProductModel.init(data: data)
                 self.adminArrList?.append(newProductArr)
             }
-           
             self.reloadData?()
         }
+    }
+    
+    
+    //MARK: - FETCH FAVOURITES
+    func fetchFavItemsCurrentUser(userId: String){
+        let  favRef = db?.collection("users").document(userId).collection("favourites")
         
+        realTimeListener = favRef?.addSnapshotListener { (snap, error) in
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: " Database Error!. Favourites are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            self.favouritesArrList?.removeAll()
+            for document in documents {
+                let data =  document.data()
+                let favouriteModel = ProductModel.init(data: data)
+                self.favouritesArrList?.append(favouriteModel)
+            }
+            self.reloadData?()
+            self.favItemCount?()
+        }
     }
 }

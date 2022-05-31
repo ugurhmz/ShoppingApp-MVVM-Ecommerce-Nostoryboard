@@ -35,7 +35,6 @@ class ProductDetailVC: UIViewController {
         generalCollectionView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .blue
     }
-
 }
 
 //MARK: - Pass Data
@@ -59,11 +58,11 @@ extension ProductDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailCell.identifier, for: indexPath) as! ProductDetailCell
         
-        cell.configure(objModel: self.myObj ?? ProductModel(data: [:]))
-        
+        if let prdValue = self.myObj {
+            cell.configure(objModel: prdValue)
+        }
         return cell
     }
-    
 }
 
 extension ProductDetailVC: UICollectionViewDelegateFlowLayout {

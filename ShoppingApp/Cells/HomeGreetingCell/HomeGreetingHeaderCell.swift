@@ -11,6 +11,8 @@ import Firebase
 class HomeGreetingHeaderCell: UICollectionViewCell {
     static var identifier = "HomeGreetingHeaderCell"
     
+    
+    let greadientLayer = CAGradientLayer()
     public var personImg: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "carton")
@@ -32,15 +34,30 @@ class HomeGreetingHeaderCell: UICollectionViewCell {
         label.numberOfLines = 0
         return label
     }()
+   
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         addSubview(headerLbl)
         addSubview(personImg)
+        personImg.layer.zPosition = 1
+        headerLbl.layer.zPosition = 1
         backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         layer.cornerRadius = 20
         setConstraints()
+      
         
+       
+        
+        // insert it only once
+        greadientLayer.colors = [#colorLiteral(red: 0.9674693942, green: 0.5338351727, blue: 0.6743286252, alpha: 1).cgColor, #colorLiteral(red: 1, green: 0.4322735344, blue: 0.4470588235, alpha: 1).cgColor ]
+        contentView.layer.insertSublayer(greadientLayer, at: 0)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        greadientLayer.frame = contentView.frame
+        greadientLayer.zPosition = -1
     }
     
     required init?(coder: NSCoder) {

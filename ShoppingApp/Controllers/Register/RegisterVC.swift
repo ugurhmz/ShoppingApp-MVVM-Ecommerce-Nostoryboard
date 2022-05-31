@@ -124,6 +124,26 @@ class RegisterVC: UIViewController {
         iv.tintColor = .red
         return iv
     }()
+  
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [registerTxtLabel,txtUsername,txtEmail, txtPassword,txtRePassword, registerBtn ])
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = AppColors.DarkGreen
+        setupViews()
+        setConstraints()
+    }
+    
+}
+
+//MARK: -  AUTHENTICATION
+extension RegisterVC {
     
     // click registerBtn
     @objc func clickRegisterBtn(){
@@ -156,11 +176,33 @@ class RegisterVC: UIViewController {
         
         self.showActivityIndicator()
         
+//        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                self.handleFireAuthError(error: error,
+//                                    fontSize: 24,
+//                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+//                                    bgColor: .white)
+//                return
+//            }
+//
+//            guard let fireUser = result?.user else { return }
+//            let artUser = UserModel(id: fireUser.uid,
+//                                    email: email,
+//                                    username: username,
+//                                    stripeId: "")
+//            // UPLOAD FIRESTORE
+//            self.createFireStoreUser(user: artUser)
+//
+        //}
+        
+        
         guard let authUser = Auth.auth().currentUser else {
             return
         }
-        
+
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        
         authUser.link(with: credential) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -170,28 +212,43 @@ class RegisterVC: UIViewController {
                                     bgColor: .white)
                 return
             }
-            
-            self.hideActivityIndicator()
-            self.dismiss(animated: true, completion: nil)
+
+            guard let fireUser = result?.user else { return }
+            let artUser = UserModel(id: fireUser.uid,
+                                    email: email,
+                                    username: username,
+                                    stripeId: "")
+            // UPLOAD FIRESTORE
+            self.createFireStoreUser(user: artUser)
         }
+    }
+    
+    func createFireStoreUser(user: UserModel) {
+        // 1. Create Document reference
+        let newUserRef = Firestore.firestore().collection("users").document(user.id)
         
+        // 2. Create Model data
+        let data = UserModel.modelToData(user: user)
+        
+        // 3. Upload To firestore
+        newUserRef.setData(data) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+                self.handleFireAuthError(error: error,
+                                    fontSize: 24,
+                                    textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
+                                    bgColor: .white)
+                return
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.hideActivityIndicator()
+        }
+    
     }
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [registerTxtLabel,txtUsername,txtEmail, txtPassword,txtRePassword, registerBtn ])
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        return stackView
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = AppColors.DarkGreen
-        setupViews()
-        setConstraints()
-    }
-    
 }
+
+
 
 //MARK: -
 extension RegisterVC {

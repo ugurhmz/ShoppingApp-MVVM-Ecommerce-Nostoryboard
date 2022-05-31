@@ -22,8 +22,8 @@ class ProductsByCategoryVC: UIViewController {
          cv.backgroundColor = .white
         
          //register cells
-         cv.register(AdminProductsByCategoryCell.self,
-                     forCellWithReuseIdentifier: AdminProductsByCategoryCell.identifier)
+         cv.register(ProductsByCategoryCell.self,
+                     forCellWithReuseIdentifier: ProductsByCategoryCell.identifier)
          return cv
      }()
     
@@ -85,7 +85,7 @@ extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSo
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdminProductsByCategoryCell.identifier, for: indexPath) as! AdminProductsByCategoryCell
+        let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsByCategoryCell.identifier, for: indexPath) as! ProductsByCategoryCell
         cell.layer.cornerRadius = 12
         
         

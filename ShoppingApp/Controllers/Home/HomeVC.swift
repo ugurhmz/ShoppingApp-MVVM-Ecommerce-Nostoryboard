@@ -381,6 +381,21 @@ extension HomeVC: UICollectionViewDataSource {
              let greetingCell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: HomeGreetingHeaderCell.identifier, for: indexPath) as! HomeGreetingHeaderCell
             greetingCell.backgroundColor = .orange
             greetingCell.layer.cornerRadius = 20
+            
+            greetingCell.layer.borderColor = UIColor.darkGray.cgColor
+            greetingCell.layer.borderWidth = 0.4
+            greetingCell.layer.cornerRadius = 12
+            
+            
+            greetingCell.layer.shadowColor = UIColor.black.cgColor
+            greetingCell.layer.shadowRadius = 12
+            greetingCell.layer.shadowPath = CGPath.init(rect: CGRect.init(x: 0, y: 0, width: greetingCell.layer.bounds.width, height: greetingCell.layer.bounds.height),transform: nil)
+            greetingCell.layer.shadowOpacity = 7;
+            greetingCell.layer.shadowOffset = CGSize(width: 1, height: 1)
+            
+          
+        
+            
             if let thisUser = self.currentUser {
                 greetingCell.userInfo(data: thisUser)
             }

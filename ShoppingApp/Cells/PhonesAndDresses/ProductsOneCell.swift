@@ -8,9 +8,10 @@
 import UIKit
 import Kingfisher
 
+
 class ProductsOneCell: UICollectionViewCell {
     static var identifier  = "ProductsOneCell"
-    
+    var addFavClosure: VoidClosure?
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -129,9 +130,10 @@ class ProductsOneCell: UICollectionViewCell {
 //MARK: - @objc funcs
 extension ProductsOneCell {
     @objc func clickFavouriteBtn(){
-        print("clickFavouriteBtn")
+        if let action = addFavClosure  {        // add fav when click then homevc shown
+            action()
+        }
     }
-    
     @objc func clickAddToCartBtn(){
         print("clickAddToCartBtn")
     }
@@ -140,7 +142,7 @@ extension ProductsOneCell {
 
 //MARK: - FillData
 extension ProductsOneCell {
-    func fillData(product: ProductModel) {
+    func fillData(product: ProductModel) { 
         if let prdImgUrl = URL(string: product.imageUrl) {
             let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
@@ -149,6 +151,13 @@ extension ProductsOneCell {
         }
         self.prdNameLbl.text = product.name
         self.prdPriceLbl.text = "\(product.price) TL"
+        
+        // FAV BTN SETTINGS 1
+        if userService.favourites.contains(product){
+            addToFavouriteBtn.setBackgroundImage(UIImage(named: "likefillselected"), for: .normal)
+        } else {
+            addToFavouriteBtn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
+        }
     }
 }
 

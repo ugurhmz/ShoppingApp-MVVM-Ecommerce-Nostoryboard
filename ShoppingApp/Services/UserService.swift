@@ -68,6 +68,23 @@ final class UserService {
         })
     }
     
+    //MARK: - ADDED FAVOURITES
+    func addFavourites(product: ProductModel){
+        let favsRef = Firestore.firestore().collection("users").document(userModel.id).collection("favourites")
+        
+        
+        if favourites.contains(product){ // when contains then remove it.
+            favourites.removeAll {
+                $0 == product
+            }
+            favsRef.document(product.id).delete()
+            
+        } else {                        // when !contains then add it.
+            favourites.append(product)
+            let data = ProductModel.modelToData(product: product)
+            favsRef.document(product.id).setData(data)
+        }
+    }
     
     //MARK: - LOGOUT
     func logoutUser(){

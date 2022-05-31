@@ -298,6 +298,7 @@ class HomeVC:  UIViewController {
 }
 
 
+
 //MARK: - @objc functions
 extension HomeVC {
     
@@ -426,7 +427,14 @@ extension HomeVC: UICollectionViewDataSource {
             
             if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
+                
+                cell.addFavClosure = { [weak self] in
+                    userService.addFavourites(product: productValue[indexPath.item])
+                    self?.generalCollectionView.reloadData()
+                }
             }
+            
+            
             return cell
             
         //MARK: - Advertise
@@ -452,7 +460,18 @@ extension HomeVC: UICollectionViewDataSource {
             
             if let productValue = self.homeViewModel.productThreeList {
                 cell.fillData(product: productValue[indexPath.item])
+                
+                
             }
+            
+            if let val = self.homeViewModel.productThreeList {
+                cell.addFavClosure = { [weak self] in
+                    userService.addFavourites(product: val[indexPath.item])
+                    self?.generalCollectionView.reloadData()
+                }
+            }
+          
+            
             return cell
        
         default:

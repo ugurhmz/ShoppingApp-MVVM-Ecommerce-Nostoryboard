@@ -390,11 +390,11 @@
 			isa = PBXGroup;
 			children = (
 				638A6E182837E41500F05EDA /* GoogleService-Info.plist */,
+				638A6DDA2837A7E000F05EDA /* Model */,
 				637E7F0D284660D9004D3F5E /* Services */,
 				636BB45228395AE900095F2A /* Utilities */,
 				636BB44C28394A0500095F2A /* ViewModel */,
 				638A6DDE2837A7E000F05EDA /* Cells */,
-				638A6DDA2837A7E000F05EDA /* Model */,
 				638A6DE62837A7E000F05EDA /* Resources */,
 				638A6DE22837A7E000F05EDA /* Controllers */,
 			);
@@ -429,7 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				63981B34284542E70023FE21 /* ProductsByCategoryCell */,
-				63981B31284535510023FE21 /* HomeGreetingCell */,
+				63981B31284535510023FE21 /* HomeHeaderGreetingCell */,
 				6375C1612840F2A200E27C4E /* CartCell */,
 				637F0F2B283F93060023F579 /* PrdDetailCell */,
 				6380D0FD283E91EC005D07A8 /* Coffees */,
@@ -504,12 +504,12 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
-		63981B31284535510023FE21 /* HomeGreetingCell */ = {
+		63981B31284535510023FE21 /* HomeHeaderGreetingCell */ = {
 			isa = PBXGroup;
 			children = (
 				63981B32284535630023FE21 /* HomeGreetingHeaderCell.swift */,
 			);
-			path = HomeGreetingCell;
+			path = HomeHeaderGreetingCell;
 			sourceTree = "<group>";
 		};
 		63981B34284542E70023FE21 /* ProductsByCategoryCell */ = {

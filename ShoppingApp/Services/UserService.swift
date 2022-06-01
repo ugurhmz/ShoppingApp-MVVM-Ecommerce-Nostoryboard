@@ -15,11 +15,15 @@ final class UserService {
     
     var userModel = UserModel()
     var favourites = [ProductModel]()
+    var cartItems = [ProductModel]()
     let auth = Auth.auth()
     let db = Firestore.firestore()
     var userListener: ListenerRegistration? = nil
     var favsListener: ListenerRegistration? = nil
+    var addToCartListener: ListenerRegistration? = nil
+    var cartArr = [CartModel]()
     
+    var quantity: Int = 0
     
     //MARK: - GUEST USER
     var isGuestUser: Bool {
@@ -66,6 +70,20 @@ final class UserService {
                 self.favourites.append(favourite)
             })
         })
+        
+//        // cart
+//        let cartRef = userRef.collection("cart")
+//        addToCartListener = cartRef.addSnapshotListener({  snap, error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//
+//            snap?.documents.forEach({ (document) in
+//                let item = CartModel.init(data: document.data())
+//                self.cartArr.append(item)
+//            })
+//        })
     }
     
     //MARK: - ADDED FAVOURITES
@@ -87,13 +105,27 @@ final class UserService {
         }
     }
     
+    
+    //MARK: -  ADD TO CART
+    func addToCart(count: Int,product: ProductModel){
+        print("userService", count)
+        let cartRef = Firestore.firestore().collection("users").document(userModel.id).collection("newcarts")
+            
+        let data =  CartModel.modelToData(myquantity: count, product: product)
+        cartRef.document(product.id).setData(data)
+    }
+    
+    
+    
     //MARK: - LOGOUT
     func logoutUser(){
         userListener?.remove()
         userListener = nil
         favsListener?.remove()
+        addToCartListener?.remove()
         favsListener = nil
         userModel = UserModel()
         favourites.removeAll()
+        cartItems.removeAll()
     }
 }

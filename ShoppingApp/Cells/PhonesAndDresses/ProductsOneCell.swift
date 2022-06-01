@@ -12,6 +12,9 @@ import Kingfisher
 class ProductsOneCell: UICollectionViewCell {
     static var identifier  = "ProductsOneCell"
     var addFavClosure: VoidClosure?
+    var addToCartClosure: ( (Int) -> Void )?
+    var prdCount = 0
+    
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -123,7 +126,13 @@ extension ProductsOneCell {
         }
     }
     @objc func clickAddToCartBtn(){
-        print("clickAddToCartBtn")
+        if let addCartAction = addToCartClosure {
+           
+            prdCount += 1
+            print("myprd", prdCount)
+
+            addCartAction(prdCount)
+        }
     }
 }
 

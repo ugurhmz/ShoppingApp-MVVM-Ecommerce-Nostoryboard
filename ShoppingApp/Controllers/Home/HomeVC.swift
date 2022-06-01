@@ -225,6 +225,7 @@ class HomeVC:  UIViewController {
         // When login
         if let user = Auth.auth().currentUser, !user.isAnonymous {
             self.homeViewModel.fetchFavItemsCurrentUser(userId: user.uid)
+            self.homeViewModel.fetchCartItemsCurrentUser(userId: user.uid)
             
             self.currentUser = user.email
             let logOutImage = UIImage(systemName: "person.fill.xmark")?.withRenderingMode(.alwaysOriginal)
@@ -250,6 +251,13 @@ class HomeVC:  UIViewController {
             guard let self = self else { return }
             if let favCount = self.homeViewModel.favouritesArrList?.count {
                 NotificationCenter.default.post(name: NSNotification.Name("notifiFavourite"), object: favCount)
+            }
+        }
+        
+        self.homeViewModel.cartData = { [weak self] in
+            guard let self = self else { return }
+            if let cartItem = self.homeViewModel.cartItemArrList {
+                print("cartItem", cartItem)
             }
         }
         
@@ -427,7 +435,16 @@ extension HomeVC: UICollectionViewDataSource {
                     userService.addFavourites(product: productValue[indexPath.item])
                     self?.generalCollectionView.reloadData()
                 }
+                
             }
+            
+            if let val = self.homeViewModel.productList {
+                cell.addToCartClosure = { [weak self] prdCount in
+                    print("miktar -> ", prdCount)
+                    userService.addToCart(count: prdCount,product: val[indexPath.item])
+                }
+            }
+            
             return cell
             
         //MARK: - Advertise

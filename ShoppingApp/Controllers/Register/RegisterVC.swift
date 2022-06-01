@@ -216,8 +216,7 @@ extension RegisterVC {
             guard let fireUser = result?.user else { return }
             let artUser = UserModel(id: fireUser.uid,
                                     email: email,
-                                    username: username,
-                                    stripeId: "")
+                                    username: username)
             // UPLOAD FIRESTORE
             self.createFireStoreUser(user: artUser)
         }

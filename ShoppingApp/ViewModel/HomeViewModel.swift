@@ -20,13 +20,17 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productThreeList: [ProductModel]? = []
     var adminArrList: [ProductModel]? = []
     var favouritesArrList: [ProductModel]? = []
+    var cartItemArrList: [CartModel]? = []
     var reloadData: VoidClosure?
+    var cartData: VoidClosure?
     var uniqueCategoryClosure: VoidClosure?
     var favItemCount: VoidClosure?
     var categoryList: [CategoryModel]? = []
     var realTimeListener: ListenerRegistration?
     var db: Firestore?
     var uniqueCategoryId = Set<String>()
+    
+    var prdDatas = [ProductModel]()
     
     init(){
         db = Firestore.firestore()
@@ -146,7 +150,6 @@ extension HomeViewModel {
     //MARK: - FETCH FAVOURITES
     func fetchFavItemsCurrentUser(userId: String){
         let  favRef = db?.collection("users").document(userId).collection("favourites")
-        
         realTimeListener = favRef?.addSnapshotListener { (snap, error) in
             guard let documents = snap?.documents else {
                 SnackHelper.showSnack(message: " Database Error!. Favourites are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
@@ -162,4 +165,27 @@ extension HomeViewModel {
             self.favItemCount?()
         }
     }
+    
+    //MARK: - FETCH FAVOURITES
+    func fetchCartItemsCurrentUser(userId: String){
+        let  favRef = db?.collection("users").document(userId).collection("carts")
+        
+        realTimeListener = favRef?.addSnapshotListener { (snap, error) in
+            
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: " Database Error!. Favourites are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            self.cartItemArrList?.removeAll()
+            
+            for document in documents {
+                let data =  document.data()
+                let cartModel = CartModel.init(data: data)
+                self.cartItemArrList?.append(cartModel)
+            }
+            self.reloadData?()
+            self.cartData?()
+        }
+    }
+    
 }

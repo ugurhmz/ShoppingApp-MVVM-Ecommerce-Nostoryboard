@@ -210,6 +210,7 @@ extension RegisterVC {
                                     fontSize: 24,
                                     textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
                                     bgColor: .white)
+                self.hideActivityIndicator()
                 return
             }
 
@@ -219,6 +220,7 @@ extension RegisterVC {
                                     username: username)
             // UPLOAD FIRESTORE
             self.createFireStoreUser(user: artUser)
+            self.hideActivityIndicator()
         }
     }
     
@@ -237,6 +239,7 @@ extension RegisterVC {
                                     fontSize: 24,
                                     textColor: #colorLiteral(red: 0.9254902005, green: 0.3018482075, blue: 0.1536569698, alpha: 1),
                                     bgColor: .white)
+                self.hideActivityIndicator()
                 return
             } else {
                 self.dismiss(animated: true, completion: nil)

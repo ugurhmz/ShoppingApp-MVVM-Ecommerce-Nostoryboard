@@ -71,19 +71,19 @@ final class UserService {
             })
         })
         
-//        // cart
-//        let cartRef = userRef.collection("cart")
-//        addToCartListener = cartRef.addSnapshotListener({  snap, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                return
-//            }
-//
-//            snap?.documents.forEach({ (document) in
-//                let item = CartModel.init(data: document.data())
-//                self.cartArr.append(item)
-//            })
-//        })
+        // cart
+        let cartRef = userRef.collection("newcarts")
+        addToCartListener = cartRef.addSnapshotListener({  snap, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+
+            snap?.documents.forEach({ (document) in
+                let item = CartModel.init(data: document.data())
+                self.cartArr.append(item)
+            })
+        })
     }
     
     //MARK: - ADDED FAVOURITES

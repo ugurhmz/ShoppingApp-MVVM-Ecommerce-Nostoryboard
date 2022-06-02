@@ -431,13 +431,15 @@ extension HomeVC: UICollectionViewDataSource {
             if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
                 
+                
+                // ** ADD FAV CLOSURE **
                 cell.addFavClosure = { [weak self] in
                     userService.addFavourites(product: productValue[indexPath.item])
                     self?.generalCollectionView.reloadData()
                 }
                 
             }
-            
+            // ** ADD CART CLOSURE **
             if let val = self.homeViewModel.productList {
                 cell.addToCartClosure = { [weak self] prdCount in
                     print("miktar -> ", prdCount)

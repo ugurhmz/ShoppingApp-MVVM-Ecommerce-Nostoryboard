@@ -6,18 +6,20 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CartCollectionCell: UICollectionViewCell {
     
     static var identifier = "CartCollectionCell"
     var myClosure: ( (Int) -> Void )?
-    var prdCount = 1
     var getObjPrice: Double = 0.0
+    var addToCartClosure: ( () -> Void )?
+    var priceProductInCart: Double = 0.0
     
     private let prdImgView: UIImageView = {
          let iv = UIImageView()
          iv.image = UIImage(named: "v3")
-         iv.contentMode = .scaleAspectFill
+         iv.contentMode = .scaleToFill
          iv.clipsToBounds = true
          iv.layer.cornerRadius = 15
          return iv
@@ -39,7 +41,7 @@ class CartCollectionCell: UICollectionViewCell {
         label.text = "Lorem Ipsum"
         label.textColor = #colorLiteral(red: 0.1709887727, green: 0.1870856636, blue: 0.2076978542, alpha: 1)
         label.textAlignment = .left
-        label.numberOfLines = 0
+        label.numberOfLines = 2
 
         return label
     }()
@@ -47,10 +49,10 @@ class CartCollectionCell: UICollectionViewCell {
     private let prdDescriptionLbl: UILabel = {
         let label = UILabel()
         label.text = "lorem ipsum dolar sit lorem ipsum dolar sitlorem ipsum dolar sitlorem ipsum dolar sitlorem ipsum dolar sit"
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         label.textColor = #colorLiteral(red: 0.1709887727, green: 0.1870856636, blue: 0.2076978542, alpha: 1)
         label.textAlignment = .left
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         return label
     }()
 
@@ -77,7 +79,6 @@ class CartCollectionCell: UICollectionViewCell {
          return buton
      }()
     
-
     private let stepperCountLbl: UILabel = {
           let label = UILabel()
           label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -101,8 +102,7 @@ class CartCollectionCell: UICollectionViewCell {
         stackView.distribution = .fillProportionally
         return stackView
     }()
-
-
+    
     private var  prdstackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -122,16 +122,7 @@ class CartCollectionCell: UICollectionViewCell {
         self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
         self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
         bringSubviewToFront(prdstackView)
-        self.myClosure = { [weak self] myPrdCount in
-            guard let self = self else { return }
-            self.stepperCountLbl.text = "\(myPrdCount)"
-            let totalPrice = self.getObjPrice * Double(myPrdCount)
-            self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
-            
-            NotificationCenter.default.post(name: NSNotification.Name("applyBtn"), object: myPrdCount)
-        }
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
@@ -142,20 +133,28 @@ class CartCollectionCell: UICollectionViewCell {
 extension CartCollectionCell {
     
     @objc func clickMinusBtn(){
-        prdCount -= 1
-        if prdCount < 1 {
-            self.prdCount = 1
-        }
-        self.myClosure?(prdCount)
+        
     }
     
     @objc func clickPlusBtn(){
-        prdCount += 1
         
-        if prdCount > 15 {
-            self.prdCount = 15
+    }
+}
+
+extension CartCollectionCell {
+    func fillData(cartItems: CartModel) {
+        self.prdTitleLbl.text = cartItems.name
+        self.priceProductInCart = cartItems.price
+        self.prdDescriptionLbl.text = cartItems.productOverview
+        if let prdImgUrl = URL(string: cartItems.imageUrl) {
+            let placeholder = UIImage(named: "placeholder")
+            let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]
+            prdImgView.kf.indicatorType = .activity
+            prdImgView.kf.setImage(with: prdImgUrl, placeholder: placeholder, options: options)
         }
-        self.myClosure?(prdCount)
+        self.stepperCountLbl.text = "\(cartItems.quantity)"
+        let totalPrice = Double(cartItems.quantity) * cartItems.price
+        self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
     }
 }
 
@@ -170,7 +169,6 @@ extension CartCollectionCell {
         addSubview(prdPriceLbl)
         [minusBtn, stepperCountLbl, plusBtn].forEach{ prdstackView.addArrangedSubview($0)}
         [prdTitleLbl, prdDescriptionLbl].forEach{ topstackView.addArrangedSubview($0)}
-        
     }
     
     private func setConstraints(){

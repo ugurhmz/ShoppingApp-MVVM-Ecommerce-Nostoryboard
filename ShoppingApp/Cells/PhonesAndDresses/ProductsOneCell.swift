@@ -113,7 +113,6 @@ class ProductsOneCell: UICollectionViewCell {
         addToCartBtn.layer.shadowOpacity = 12
         addToCartBtn.layer.shadowRadius = 12
         addToCartBtn.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-     
     }
     
 }

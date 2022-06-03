@@ -405,6 +405,7 @@ extension HomeVC: UICollectionViewDataSource {
         }
     }
     
+    
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

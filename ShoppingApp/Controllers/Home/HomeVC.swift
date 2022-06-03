@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import ProgressHUD
 
 class HomeVC:  UIViewController {
     
@@ -14,6 +15,7 @@ class HomeVC:  UIViewController {
     lazy var  homeViewModel = HomeViewModel()
     lazy var cartVC = CartVC()
     var currentUser: String?
+    var sumQuantity = 0
     
     var userCartItemsArr: [CartModel] = []
     
@@ -222,7 +224,7 @@ class HomeVC:  UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-      
+        
         
         // When login
         if let user = Auth.auth().currentUser, !user.isAnonymous {
@@ -257,12 +259,19 @@ class HomeVC:  UIViewController {
         }
         
         self.homeViewModel.cartData = { [weak self] in
+            
             guard let self = self else { return }
             if let cartItem = self.homeViewModel.fetchCartArrList {
-                print("cartItem", cartItem)
                 self.userCartItemsArr = cartItem
+                self.sumQuantity = 0
+                cartItem.forEach({
+                    self.sumQuantity += $0.quantity
+                })
+                NotificationCenter.default.post(name: NSNotification.Name("notifiCart"), object: self.sumQuantity)
+                
             }
         }
+    
         
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
@@ -444,7 +453,9 @@ extension HomeVC: UICollectionViewDataSource {
             }
             // ** ADD CART CLOSURE **
             if let val = self.homeViewModel.productList {
+               
                 cell.addToCartClosure = { [weak self]  in
+                    ProgressHUD.showSuccess()
                     // 1. TIKLANAN PRODUCT'ı bul.
                         print("TIKLANAN PRD ->", val[indexPath.row].name)
                     //2. Tıklanan prd -> O Userdaki, Cart itemlarında varmı bunu check et.
@@ -454,7 +465,7 @@ extension HomeVC: UICollectionViewDataSource {
                     }
                 }
             }
-            
+            ProgressHUD.dismiss()
             return cell
             
         //MARK: - Advertise

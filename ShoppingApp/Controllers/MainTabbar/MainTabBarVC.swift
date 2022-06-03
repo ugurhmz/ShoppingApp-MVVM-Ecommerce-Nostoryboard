@@ -55,6 +55,9 @@ class MainTabBarVC: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(badgeFavINC),
                                                        name: NSNotification.Name("notifiFavourite"),
                                                        object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(badgeCartINC),
+                                                       name: NSNotification.Name("notifiCart"),
+                                                       object: nil)
         
     }
    
@@ -68,6 +71,12 @@ class MainTabBarVC: UITabBarController {
     @objc func badgeFavINC(_ notification: Notification) {
         if let myNum = notification.object as? Int {
             favoritePrdTab.tabBarItem.badgeValue = "\(myNum)"
+        }
+    }
+    
+    @objc func badgeCartINC(_ notification: Notification) {
+        if let myNum = notification.object as? Int {
+            cartTab.tabBarItem.badgeValue = "\(myNum)"
         }
     }
     

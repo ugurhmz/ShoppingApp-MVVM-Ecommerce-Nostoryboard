@@ -10,7 +10,7 @@ def 	shared_pods
 	pod 'Kingfisher', '~> 7.0'
 	pod 'CodableFirebase'
 	pod 'SwiftEntryKit', '2.0.0'
-  pod 'M13Checkbox'
+	pod 'ProgressHUD'
 end
     
 

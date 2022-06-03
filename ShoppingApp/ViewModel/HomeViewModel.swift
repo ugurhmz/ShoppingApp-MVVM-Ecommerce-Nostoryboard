@@ -183,7 +183,7 @@ extension HomeViewModel {
                 let cartModel = CartModel.init(data: data)
                 self.fetchCartArrList?.append(cartModel)
             }
-            self.reloadData?()
+           // self.reloadData?()
             self.cartData?()
         }
     }

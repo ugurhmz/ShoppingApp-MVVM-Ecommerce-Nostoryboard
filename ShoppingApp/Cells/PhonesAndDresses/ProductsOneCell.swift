@@ -12,8 +12,8 @@ import Kingfisher
 class ProductsOneCell: UICollectionViewCell {
     static var identifier  = "ProductsOneCell"
     var addFavClosure: VoidClosure?
-    var addToCartClosure: ( (Int) -> Void )?
-    var prdCount = 0
+    var addToCartClosure: ( () -> Void )?
+    var prdCount = 1
     
     
     public var prdimgView: UIImageView = {
@@ -127,14 +127,37 @@ extension ProductsOneCell {
     }
     @objc func clickAddToCartBtn(){
         if let addCartAction = addToCartClosure {
-           
-            prdCount += 1
-            print("myprd", prdCount)
-
-            addCartAction(prdCount)
+            addCartAction()
         }
     }
 }
+
+extension   ProductsOneCell {
+    func  checkPrdAndCartItem(clickedPrd: ProductModel, allCartItems: [CartModel]){
+        var count = 0
+        var miktar = 0
+        allCartItems.forEach({
+            
+            if clickedPrd.id == $0.prdId {
+                count += 1
+                miktar = $0.quantity
+                return
+            }
+        })
+        
+        if count == 1 {
+            userService.addToCart(count: miktar + 1,product: clickedPrd)
+        } else {
+            userService.addToCart(count: 1,product: clickedPrd)
+        
+        }
+    }
+}
+
+
+
+
+
 
 
 //MARK: - FillData

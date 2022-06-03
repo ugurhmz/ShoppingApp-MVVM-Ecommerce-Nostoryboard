@@ -108,7 +108,6 @@ final class UserService {
     
     //MARK: -  ADD TO CART
     func addToCart(count: Int,product: ProductModel){
-        print("userService", count)
         let cartRef = Firestore.firestore().collection("users").document(userModel.id).collection("newcarts")
             
         let data =  CartModel.modelToData(myquantity: count, product: product)

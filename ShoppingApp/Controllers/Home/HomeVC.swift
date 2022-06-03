@@ -15,6 +15,8 @@ class HomeVC:  UIViewController {
     lazy var cartVC = CartVC()
     var currentUser: String?
     
+    var userCartItemsArr: [CartModel] = []
+    
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: HomeVC.createCompositionalLayout())
@@ -258,6 +260,7 @@ class HomeVC:  UIViewController {
             guard let self = self else { return }
             if let cartItem = self.homeViewModel.fetchCartArrList {
                 print("cartItem", cartItem)
+                self.userCartItemsArr = cartItem
             }
         }
         
@@ -441,9 +444,14 @@ extension HomeVC: UICollectionViewDataSource {
             }
             // ** ADD CART CLOSURE **
             if let val = self.homeViewModel.productList {
-                cell.addToCartClosure = { [weak self] prdCount in
-                    print("miktar -> ", prdCount)
-                    userService.addToCart(count: prdCount,product: val[indexPath.item])
+                cell.addToCartClosure = { [weak self]  in
+                    // 1. TIKLANAN PRODUCT'ı bul.
+                        print("TIKLANAN PRD ->", val[indexPath.row].name)
+                    //2. Tıklanan prd -> O Userdaki, Cart itemlarında varmı bunu check et.
+                    if let allCartArr = self?.userCartItemsArr {
+                        cell.checkPrdAndCartItem(clickedPrd: val[indexPath.item],
+                                                 allCartItems: allCartArr)
+                    }
                 }
             }
             

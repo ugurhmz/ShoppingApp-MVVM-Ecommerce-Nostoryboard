@@ -11,6 +11,8 @@ import Kingfisher
 class ProductsTwoCell: UICollectionViewCell {
     static var identifier = "ProductsTwoCell"
     var addFavClosure: VoidClosure?
+    var addToCartClosure: ( () -> Void )?
+    
     
     public var prdimgView: UIImageView = {
         let iv = UIImageView()
@@ -49,7 +51,7 @@ class ProductsTwoCell: UICollectionViewCell {
         btn.tintColor = .orange
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
-        //btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
        
        return btn
    }()
@@ -104,6 +106,43 @@ class ProductsTwoCell: UICollectionViewCell {
     }
     
 }
+//MARK: - @objc funcs
+extension ProductsTwoCell {
+    @objc func clickFavouriteBtn(){
+        if let action = self.addFavClosure {
+            action()
+        }
+    }
+    
+    @objc func clickAddToCartBtn(){
+        if let addCartAction = addToCartClosure {
+            addCartAction()
+        }
+    }
+}
+
+//MARK: -  CART
+extension ProductsTwoCell {
+    func  checkPrdAndCartItem(clickedPrd: ProductModel, allCartItems: [CartModel]){
+        var count = 0
+        var miktar = 0
+        allCartItems.forEach({
+            
+            if clickedPrd.id == $0.prdId {
+                count += 1
+                miktar = $0.quantity
+                return
+            }
+        })
+        
+        if count == 1 {
+            userService.addToCart(count: miktar + 1,product: clickedPrd)
+        } else {
+            userService.addToCart(count: 1,product: clickedPrd)
+        
+        }
+    }
+}
 
 //MARK: - Fill Data
 extension ProductsTwoCell {
@@ -128,14 +167,7 @@ extension ProductsTwoCell {
     }
 }
 
-//MARK: - @objc funcs
-extension ProductsTwoCell {
-    @objc func clickFavouriteBtn(){
-        if let action = self.addFavClosure {
-            action()
-        }
-    }
-}
+
 
 //MARK: -
 extension ProductsTwoCell {

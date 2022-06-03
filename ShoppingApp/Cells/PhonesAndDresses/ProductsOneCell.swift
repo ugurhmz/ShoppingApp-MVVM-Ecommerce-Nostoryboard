@@ -155,11 +155,6 @@ extension   ProductsOneCell {
 }
 
 
-
-
-
-
-
 //MARK: - FillData
 extension ProductsOneCell {
     func fillData(product: ProductModel) { 

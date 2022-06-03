@@ -11,6 +11,8 @@ class CartVC: UIViewController {
     var homeViewModel = HomeViewModel()
     var cartItemArr: [CartModel] = []
     
+    private let checkOutView = CartView()
+    
     // General CollectionView
       private let generalCollectionView: UICollectionView = {
           let layout = UICollectionViewFlowLayout()
@@ -18,9 +20,13 @@ class CartVC: UIViewController {
           let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
           cv.showsHorizontalScrollIndicator = false
           cv.backgroundColor = .white
-          //register cells
+          
           cv.register(CartCollectionCell.self,
-                      forCellWithReuseIdentifier: CartCollectionCell.identifier)
+                          forCellWithReuseIdentifier: CartCollectionCell.identifier)
+          
+          cv.register(CheckOutReusableView.self,
+                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CheckOutReusableView.Identifier)
+          
           return cv
       }()
 
@@ -28,6 +34,7 @@ class CartVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         setConstraints()
+        checkOutView.backgroundColor = #colorLiteral(red: 0.8906015158, green: 0.2020004392, blue: 0.3312987983, alpha: 1)
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
         
@@ -46,6 +53,9 @@ class CartVC: UIViewController {
     
     private func setupViews(){
         view.addSubview(generalCollectionView)
+        view.addSubview(checkOutView)
+        
+        checkOutView.layer.cornerRadius = 40
         self.homeViewModel.cartData = { [weak self] in
             guard let self = self else { return }
             if let cartItem = self.homeViewModel.fetchCartArrList {
@@ -56,6 +66,19 @@ class CartVC: UIViewController {
     }
 }
 extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       
+        self.checkOutView.isHidden = false
+        let height = scrollView.frame.size.height
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        
+        if distanceFromBottom < height {
+            self.checkOutView.isHidden = true
+        }
+        
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -72,7 +95,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CartCollectionCell.identifier, for: indexPath) as! CartCollectionCell
-        cell.layer.cornerRadius = 12
         cell.fillData(cartItems: self.cartItemArr[indexPath.item])
         
         return cell
@@ -80,8 +102,24 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 25
+            return 30
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionFooter {
+            let footerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier:CheckOutReusableView.Identifier , for: indexPath) as! CheckOutReusableView
+            
+            return footerCell
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return  CGSize(width: generalCollectionView.frame.width,
+                       height: 105)
+    }
+  
 }
 
 //MARK: - DelegateFlowLayout
@@ -96,13 +134,24 @@ extension CartVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        
         return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
+   
+    
 }
 //MARK: -
 extension CartVC {
     private func setConstraints(){
+     
         generalCollectionView.fillSuperview()
+        checkOutView.anchor(top: nil,
+                            leading: view.leadingAnchor,
+                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 0, left: 20, bottom: 0, right: 20),
+                            size: .init(width: 0, height: 80)
+        )
     }
 }
 

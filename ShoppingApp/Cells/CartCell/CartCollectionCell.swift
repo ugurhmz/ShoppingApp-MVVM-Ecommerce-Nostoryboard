@@ -119,9 +119,11 @@ class CartCollectionCell: UICollectionViewCell {
     }
     
     private func setStyle(){
-        self.plusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
-        self.minusBtn.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.453745815, blue: 0.06696524085, alpha: 0.9476407285)
+        self.plusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
+        self.minusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
         bringSubviewToFront(prdstackView)
+        
+        
     }
     
     required init?(coder: NSCoder) {

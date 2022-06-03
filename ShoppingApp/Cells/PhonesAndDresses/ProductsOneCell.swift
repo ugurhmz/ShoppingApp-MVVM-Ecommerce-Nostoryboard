@@ -50,7 +50,7 @@ class ProductsOneCell: UICollectionViewCell {
         btn.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
         btn.tintColor = .orange
         btn.backgroundColor = .white
-        btn.layer.cornerRadius = 15
+        btn.layer.cornerRadius = 12
         btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
        
        return btn
@@ -62,7 +62,7 @@ class ProductsOneCell: UICollectionViewCell {
         btn.tintColor = .black
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 8
-       btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(clickFavouriteBtn), for: .touchUpInside)
        return btn
    }()
 
@@ -82,7 +82,6 @@ class ProductsOneCell: UICollectionViewCell {
         bringSubviewToFront(addToCartBtn)
         bringSubviewToFront(addToFavouriteBtn)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
@@ -125,6 +124,7 @@ extension ProductsOneCell {
         }
     }
     @objc func clickAddToCartBtn(){
+        addToCartBtn.shakeButton()
         if let addCartAction = addToCartClosure {
             addCartAction()
         }

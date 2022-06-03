@@ -122,8 +122,6 @@ class CartCollectionCell: UICollectionViewCell {
         self.plusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
         self.minusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
         bringSubviewToFront(prdstackView)
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -144,11 +142,7 @@ extension CartCollectionCell {
 }
 
 extension CartCollectionCell {
-    
-    
     func fillData(cartItems: CartModel) {
-       
-        
         self.prdTitleLbl.text = cartItems.name
         self.priceProductInCart = cartItems.price
         self.prdDescriptionLbl.text = cartItems.productOverview
@@ -162,7 +156,6 @@ extension CartCollectionCell {
         let totalPrice = Double(cartItems.quantity) * cartItems.price
         self.prdPriceLbl.text = "\(numberFormat(totalPrice)) TL"
     }
-    
 }
 
 //MARK: -

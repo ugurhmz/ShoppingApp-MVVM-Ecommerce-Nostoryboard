@@ -8,8 +8,6 @@
 import UIKit
 
 class CartView: UIView {
-
-    
     private var checkOutBtn: UIButton = {
         let buton = UIButton(type: .system)
          buton.setTitle("Check Out", for: .normal)
@@ -26,7 +24,6 @@ class CartView: UIView {
         print("click")
     }
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -34,22 +31,24 @@ class CartView: UIView {
     }
     
     private func setupViews(){
-        
        addSubview(checkOutBtn)
-        let strCast = "2500"
-        let addCartStr = "Check Out | "
-        
-        let str = NSMutableAttributedString(string: "\(addCartStr)\(strCast) TL")
-        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 29), range: NSMakeRange(0, addCartStr.count))
-        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 22), range: NSMakeRange(addCartStr.count, strCast.count + 3))
-        self.checkOutBtn.setAttributedTitle(str, for: .normal)
-    
     }
     
     required init?(coder: NSCoder) {
         fatalError("not imp")
     }
 
+}
+extension CartView {
+    func fillData(sumData: Double) {
+        let strCast = "\(numberFormat(sumData))"
+        let addCartStr = "Check Out | "
+        
+        let str = NSMutableAttributedString(string: "\(addCartStr)\(strCast) TL")
+        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 28), range: NSMakeRange(0, addCartStr.count))
+        str.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 22), range: NSMakeRange(addCartStr.count, strCast.count + 3))
+        self.checkOutBtn.setAttributedTitle(str, for: .normal)
+    }
 }
 
 //MARK: -

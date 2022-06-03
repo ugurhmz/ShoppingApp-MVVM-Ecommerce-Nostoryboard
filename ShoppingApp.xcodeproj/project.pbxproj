@@ -50,6 +50,7 @@
 		63841463283C443F0065773A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63841462283C443F0065773A /* HomeViewModel.swift */; };
 		6385C629284A1F290057709B /* CheckOutReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385C628284A1F290057709B /* CheckOutReusableView.swift */; };
 		6385C62B284A2F5A0057709B /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385C62A284A2F5A0057709B /* CartView.swift */; };
+		6385C62D284A521B0057709B /* Extension+NUmbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6385C62C284A521B0057709B /* Extension+NUmbers.swift */; };
 		638A6DEB2837A7E000F05EDA /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */; };
 		638A6DEC2837A7E000F05EDA /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DDF2837A7E000F05EDA /* CategoryCell.swift */; };
 		638A6DED2837A7E000F05EDA /* CellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6DE02837A7E000F05EDA /* CellHeaderView.swift */; };
@@ -114,6 +115,7 @@
 		63841462283C443F0065773A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6385C628284A1F290057709B /* CheckOutReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutReusableView.swift; sourceTree = "<group>"; };
 		6385C62A284A2F5A0057709B /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		6385C62C284A521B0057709B /* Extension+NUmbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NUmbers.swift"; sourceTree = "<group>"; };
 		638A6DB72837A76000F05EDA /* ShoppingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638A6DC82837A76100F05EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		638A6DDC2837A7E000F05EDA /* Extension+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				636BB43D283909DC00095F2A /* SnackHelper.swift */,
 				637F0F2E283FE1BA0023F579 /* Extension+UIButton.swift */,
 				6375C16428411AAF00E27C4E /* Extension+UILabel.swift */,
+				6385C62C284A521B0057709B /* Extension+NUmbers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 			files = (
 				63841463283C443F0065773A /* HomeViewModel.swift in Sources */,
 				638A6DF32837A7E000F05EDA /* AppDelegate.swift in Sources */,
+				6385C62D284A521B0057709B /* Extension+NUmbers.swift in Sources */,
 				6375C1632840F2C400E27C4E /* CartCollectionCell.swift in Sources */,
 				6375C16528411AAF00E27C4E /* Extension+UILabel.swift in Sources */,
 				638A6DF12837A7E000F05EDA /* MainTabBarVC.swift in Sources */,

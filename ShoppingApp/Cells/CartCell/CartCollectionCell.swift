@@ -144,7 +144,11 @@ extension CartCollectionCell {
 }
 
 extension CartCollectionCell {
+    
+    
     func fillData(cartItems: CartModel) {
+       
+        
         self.prdTitleLbl.text = cartItems.name
         self.priceProductInCart = cartItems.price
         self.prdDescriptionLbl.text = cartItems.productOverview
@@ -156,8 +160,9 @@ extension CartCollectionCell {
         }
         self.stepperCountLbl.text = "\(cartItems.quantity)"
         let totalPrice = Double(cartItems.quantity) * cartItems.price
-        self.prdPriceLbl.text = "\(Double(round(1000*totalPrice)/1000)) TL"
+        self.prdPriceLbl.text = "\(numberFormat(totalPrice)) TL"
     }
+    
 }
 
 //MARK: -
@@ -209,6 +214,3 @@ extension CartCollectionCell {
                           padding: .init(top: 2, left: 5, bottom: 5, right: 1))
     }
 }
-
-
-

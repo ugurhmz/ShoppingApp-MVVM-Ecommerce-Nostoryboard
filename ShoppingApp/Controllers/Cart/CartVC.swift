@@ -10,8 +10,9 @@ import Firebase
 class CartVC: UIViewController {
     var homeViewModel = HomeViewModel()
     var cartItemArr: [CartModel] = []
-    
+    var sumQuantity = 0.0
     private let checkOutView = CartView()
+
     
     // General CollectionView
       private let generalCollectionView: UICollectionView = {
@@ -48,6 +49,16 @@ class CartVC: UIViewController {
             self.homeViewModel.fetchCartItemsCurrentUser(userId: user.uid)
             //self.currentUser = user.email
             if userService.userListener == nil { userService.getCurrentUser() }
+            
+            self.homeViewModel.cartData = { [weak self] in
+                guard let self = self else { return }
+                if let cartItem = self.homeViewModel.fetchCartArrList {
+                    self.cartItemArr = cartItem
+                    self.sumQuantity = cartItem.reduce(0) { $0 + $1.price}
+                    self.checkOutView.fillData(sumData: self.sumQuantity)
+                }
+                self.generalCollectionView.reloadData()
+            }
         }
     }
     
@@ -56,13 +67,7 @@ class CartVC: UIViewController {
         view.addSubview(checkOutView)
         
         checkOutView.layer.cornerRadius = 40
-        self.homeViewModel.cartData = { [weak self] in
-            guard let self = self else { return }
-            if let cartItem = self.homeViewModel.fetchCartArrList {
-                self.cartItemArr = cartItem
-            }
-            self.generalCollectionView.reloadData()
-        }
+      
     }
 }
 extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -109,7 +114,8 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if kind == UICollectionView.elementKindSectionFooter {
             let footerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier:CheckOutReusableView.Identifier , for: indexPath) as! CheckOutReusableView
-            
+      
+            footerCell.fillData(sumData: self.sumQuantity)
             return footerCell
         }
         return UICollectionReusableView()

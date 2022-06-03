@@ -20,7 +20,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     var productThreeList: [ProductModel]? = []
     var adminArrList: [ProductModel]? = []
     var favouritesArrList: [ProductModel]? = []
-    var cartItemArrList: [CartModel]? = []
+    var fetchCartArrList: [CartModel]? = []
     var reloadData: VoidClosure?
     var cartData: VoidClosure?
     var uniqueCategoryClosure: VoidClosure?
@@ -168,7 +168,7 @@ extension HomeViewModel {
     
     //MARK: - FETCH FAVOURITES
     func fetchCartItemsCurrentUser(userId: String){
-        let  favRef = db?.collection("users").document(userId).collection("carts")
+        let  favRef = db?.collection("users").document(userId).collection("newcarts")
         
         realTimeListener = favRef?.addSnapshotListener { (snap, error) in
             
@@ -176,12 +176,12 @@ extension HomeViewModel {
                 SnackHelper.showSnack(message: " Database Error!. Favourites are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
                 return
             }
-            self.cartItemArrList?.removeAll()
+            self.fetchCartArrList?.removeAll()
             
             for document in documents {
                 let data =  document.data()
                 let cartModel = CartModel.init(data: data)
-                self.cartItemArrList?.append(cartModel)
+                self.fetchCartArrList?.append(cartModel)
             }
             self.reloadData?()
             self.cartData?()

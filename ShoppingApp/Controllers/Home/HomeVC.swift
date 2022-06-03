@@ -256,7 +256,7 @@ class HomeVC:  UIViewController {
         
         self.homeViewModel.cartData = { [weak self] in
             guard let self = self else { return }
-            if let cartItem = self.homeViewModel.cartItemArrList {
+            if let cartItem = self.homeViewModel.fetchCartArrList {
                 print("cartItem", cartItem)
             }
         }

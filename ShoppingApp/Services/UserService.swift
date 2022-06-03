@@ -21,7 +21,7 @@ final class UserService {
     var userListener: ListenerRegistration? = nil
     var favsListener: ListenerRegistration? = nil
     var addToCartListener: ListenerRegistration? = nil
-    var cartArr = [CartModel]()
+    var serviceSavingCartArr = [CartModel]()
     
     var quantity: Int = 0
     
@@ -81,7 +81,7 @@ final class UserService {
 
             snap?.documents.forEach({ (document) in
                 let item = CartModel.init(data: document.data())
-                self.cartArr.append(item)
+                self.serviceSavingCartArr.append(item)
             })
         })
     }

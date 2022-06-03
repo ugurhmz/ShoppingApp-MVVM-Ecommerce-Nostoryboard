@@ -119,7 +119,8 @@ extension ProductsTwoCell {
         
         // FAV BTN SETTINGS 
         if userService.favourites.contains(product){
-            addToFavouriteBtn.setBackgroundImage(UIImage(named: "likefillselected"), for: .normal)
+            addToFavouriteBtn.tintColor = #colorLiteral(red: 0.8946131468, green: 0.03607716784, blue: 0.3753002882, alpha: 1)
+            addToFavouriteBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
             addToFavouriteBtn.setBackgroundImage(UIImage(named: "likeunselected"), for: .normal)
             //addToFavouriteBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)

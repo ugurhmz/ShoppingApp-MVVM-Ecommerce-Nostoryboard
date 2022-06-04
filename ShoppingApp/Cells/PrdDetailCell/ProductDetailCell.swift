@@ -10,6 +10,8 @@ import Kingfisher
 
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
+    var prdDetailArr: ProductModel?
+    var addToCartClosure: VoidClosure?
     
     let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
     let colorTwo: UIColor = #colorLiteral(red: 0.1414878297, green: 0.6880354557, blue: 0.5711142574, alpha: 0.9887210265)
@@ -109,7 +111,10 @@ class ProductDetailCell: UICollectionViewCell {
     }
     
     @objc func clickAddBasketBtn(){
-        print("addBasket")
+        addBasketBtn.shakeButton()
+        if let addCartAction = addToCartClosure {
+            addCartAction()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -119,9 +124,33 @@ class ProductDetailCell: UICollectionViewCell {
    
 }
 
+//MARK: -
+extension ProductDetailCell {
+    func  checkPrdAndCartItem(clickedPrd: ProductModel, allCartItems: [CartModel]){
+        var count = 0
+        var miktar = 0
+        allCartItems.forEach({
+            
+            if clickedPrd.id == $0.prdId {
+                count += 1
+                miktar = $0.quantity
+                return
+            }
+        })
+        
+        if count == 1 {
+            userService.addToCart(count: miktar + 1,product: clickedPrd)
+        } else {
+            userService.addToCart(count: 1,product: clickedPrd)
+        
+        }
+    }
+}
+
 //MARK: - Fill Data
 extension ProductDetailCell {
     func configure(objModel: ProductModel) {
+        self.prdDetailArr = objModel
         if let prdImgUrl = URL(string: objModel.imageUrl) {
             let placeholder = UIImage(named: "placeholder")
             let options: KingfisherOptionsInfo = [KingfisherOptionsInfoItem.transition(.fade(0.8))]

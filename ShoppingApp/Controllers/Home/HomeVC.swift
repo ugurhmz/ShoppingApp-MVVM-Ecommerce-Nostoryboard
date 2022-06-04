@@ -490,6 +490,7 @@ extension HomeVC: UICollectionViewDataSource {
             // ** ADD CART CLOSURE **
             if let val = self.homeViewModel.productTwoList {
                 cell.addToCartClosure = { [weak self]  in
+                    ProgressHUD.showSuccess()
                     // 1. TIKLANAN PRODUCT'ı bul.
                         print("TIKLANAN PRD ->", val[indexPath.row].name)
                     //2. Tıklanan prd -> O Userdaki, Cart itemlarında varmı bunu check et.
@@ -499,7 +500,7 @@ extension HomeVC: UICollectionViewDataSource {
                     }
                 }
             }
-            
+            ProgressHUD.dismiss()
             return cell
             
         //MARK: - Dresses
@@ -517,6 +518,7 @@ extension HomeVC: UICollectionViewDataSource {
             // ** ADD CART CLOSURE **
             if let val = self.homeViewModel.productThreeList {
                 cell.addToCartClosure = { [weak self]  in
+                    ProgressHUD.showSuccess()
                     // 1. TIKLANAN PRODUCT'ı bul.
                         print("TIKLANAN PRD ->", val[indexPath.row].name)
                     //2. Tıklanan prd -> O Userdaki, Cart itemlarında varmı bunu check et.
@@ -526,7 +528,7 @@ extension HomeVC: UICollectionViewDataSource {
                     }
                 }
             }
-            
+            ProgressHUD.dismiss()
             return cell
         default:
             return UICollectionViewCell()

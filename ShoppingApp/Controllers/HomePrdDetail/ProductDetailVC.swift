@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Firebase
+import ProgressHUD
 
 
 class ProductDetailVC: UIViewController {
 
     var didSelectClosure: ( (ProductModel) -> Void)?
-
+    var userCartItemsArr: [CartModel] = []
+    var homeViewModel = HomeViewModel()
+    
     var myObj: ProductModel?
     private  var generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,6 +38,27 @@ class ProductDetailVC: UIViewController {
         generalCollectionView.dataSource = self
         generalCollectionView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .blue
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let user = Auth.auth().currentUser, !user.isAnonymous {
+            self.homeViewModel.fetchCartItemsCurrentUser(userId: user.uid)
+            //self.currentUser = user.email
+            if userService.userListener == nil { userService.getCurrentUser() }
+            
+            self.homeViewModel.cartData = { [weak self] in
+                guard let self = self else { return }
+                
+                if let cartItem = self.homeViewModel.fetchCartArrList {
+                    self.userCartItemsArr = cartItem
+                }
+                
+           
+                self.generalCollectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -61,6 +86,18 @@ extension ProductDetailVC: UICollectionViewDelegate, UICollectionViewDataSource 
         if let prdValue = self.myObj {
             cell.configure(objModel: prdValue)
         }
+        
+        cell.addToCartClosure = { [weak self]  in
+            ProgressHUD.showSuccess()
+            if let allCartArr = self?.userCartItemsArr {
+                if let prdValue = self?.myObj {
+                    cell.checkPrdAndCartItem(clickedPrd: prdValue,
+                                             allCartItems: allCartArr)
+                }
+            }
+        }
+        
+        ProgressHUD.dismiss()
         return cell
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import ProgressHUD
 
 let userService = UserService()
 
@@ -47,6 +48,7 @@ final class UserService {
         userListener = userRef.addSnapshotListener({ (snap, error) in
             
             if let error = error {
+                ProgressHUD.showFailed("DB Error", interaction: true)
                 print(error.localizedDescription)
                 return
             }

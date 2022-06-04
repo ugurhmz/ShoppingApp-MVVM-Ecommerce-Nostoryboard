@@ -113,7 +113,22 @@ final class UserService {
         let data =  CartModel.modelToData(myquantity: count, product: product)
         cartRef.document(product.id).setData(data)
     }
+   
     
+    //MARK: -  ADD TO CART
+    func addToCartTwo(count: Int,product: CartModel){
+       var countdata = count
+        
+        if count < 1 {
+            countdata = 1
+        }
+        
+        let cartRef = Firestore.firestore().collection("users").document(userModel.id).collection("newcarts")
+            
+        let data =  CartModel.modelToDataTwo(myquantity: countdata, cartPrd: product)
+        cartRef.document(product.prdId).setData(data)
+    }
+   
     
     
     //MARK: - LOGOUT

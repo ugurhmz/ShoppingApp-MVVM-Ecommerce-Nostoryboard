@@ -112,6 +112,24 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CartCollectionCell.identifier, for: indexPath) as! CartCollectionCell
         cell.fillData(cartItems: self.cartItemArr[indexPath.item])
+       
+      
+       
+        
+            cell.addToCartClosure = { [weak self]  in
+                if let allCartArr = self?.homeViewModel.fetchCartArrList{
+                    print("click item ->", allCartArr[indexPath.item].name)
+                    userService.addToCartTwo(count: allCartArr[indexPath.item].quantity + 1, product: allCartArr[indexPath.item])
+                }
+            }
+        
+        cell.subtractToCartClosure = { [weak self]  in
+            if let allCartArr = self?.homeViewModel.fetchCartArrList{
+                userService.addToCartTwo(count: allCartArr[indexPath.item].quantity - 1, product: allCartArr[indexPath.item])
+            }
+        }
+     
+        
         
         return cell
     }

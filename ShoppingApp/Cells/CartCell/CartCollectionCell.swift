@@ -13,8 +13,10 @@ class CartCollectionCell: UICollectionViewCell {
     static var identifier = "CartCollectionCell"
     var myClosure: ( (Int) -> Void )?
     var getObjPrice: Double = 0.0
-    var addToCartClosure: ( () -> Void )?
+    var addToCartClosure: VoidClosure?
     var priceProductInCart: Double = 0.0
+    var subtractToCartClosure: VoidClosure?
+ 
     
     private let prdImgView: UIImageView = {
          let iv = UIImageView()
@@ -133,11 +135,16 @@ class CartCollectionCell: UICollectionViewCell {
 extension CartCollectionCell {
     
     @objc func clickMinusBtn(){
-        
+        if let subtractToCartAction = subtractToCartClosure {
+            minusBtn.shakeButton()
+            subtractToCartAction()
+        }
     }
-    
     @objc func clickPlusBtn(){
-        
+        if let addCartAction = addToCartClosure {
+            plusBtn.shakeButton()
+            addCartAction()
+        }
     }
 }
 

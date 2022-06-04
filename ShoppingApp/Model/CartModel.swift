@@ -52,5 +52,21 @@ final class CartModel {
         return data
     }
    
-    
+    // FOR +,- CLICK QUANTITY 
+    static func modelToDataTwo(myquantity: Int, cartPrd: CartModel) -> [String: Any] {
+        let data: [String: Any] = [
+            "cartId":   UUID().uuidString,
+            "prdId" : cartPrd.prdId,
+            "name" : cartPrd.name,
+            "category" : cartPrd.category,
+            "price" : cartPrd.price,
+            "productOverview" : cartPrd.productOverview,
+            "imageUrl" : cartPrd.imageUrl,
+            "timeStamp" : cartPrd.timeStamp,
+            "stock" : cartPrd.stock,
+            "quantity": myquantity
+        ]
+        
+        return data
+    }
 }

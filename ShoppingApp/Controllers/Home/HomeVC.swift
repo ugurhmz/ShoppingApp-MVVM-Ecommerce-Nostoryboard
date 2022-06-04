@@ -268,7 +268,6 @@ class HomeVC:  UIViewController {
                     self.sumQuantity += $0.quantity
                 })
                 NotificationCenter.default.post(name: NSNotification.Name("notifiCart"), object: self.sumQuantity)
-                
             }
         }
     

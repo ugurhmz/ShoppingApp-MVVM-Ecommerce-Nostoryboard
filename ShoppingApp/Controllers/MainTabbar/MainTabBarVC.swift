@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabBarVC: UITabBarController {
+    var homeViewModel = HomeViewModel()
     
     let homeTab = UINavigationController(rootViewController: HomeVC())
     let profileTab = UINavigationController(rootViewController: ProfileVC())
@@ -58,7 +60,7 @@ class MainTabBarVC: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(badgeCartINC),
                                                        name: NSNotification.Name("notifiCart"),
                                                        object: nil)
-        
+      
     }
    
     

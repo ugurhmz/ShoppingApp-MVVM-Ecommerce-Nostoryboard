@@ -447,9 +447,6 @@ extension HomeVC: UICollectionViewDataSource {
                 
                 // ** ADD FAV CLOSURE **
                 cell.addFavClosure = { [weak self] in
-                   
-                    
-                    
                     userService.addFavourites(product: productValue[indexPath.item])
                     self?.generalCollectionView.reloadData()
                 }

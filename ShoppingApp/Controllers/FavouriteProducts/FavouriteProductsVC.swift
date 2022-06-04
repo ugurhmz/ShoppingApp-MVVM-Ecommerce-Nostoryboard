@@ -58,7 +58,6 @@ class FavouriteProductsVC: UIViewController {
             self.arrFavList = self.homeViewModel.favouritesArrList
             if let count = self.arrFavList?.count {
                 if count == 0 {
-                    print("count", count)
                     self.dontHavePrdLbl.isHidden = false
                 } else if count > 0 {
                     self.dontHavePrdLbl.isHidden = true

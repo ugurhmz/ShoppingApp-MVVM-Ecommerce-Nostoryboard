@@ -52,11 +52,22 @@ class CartVC: UIViewController {
             
             self.homeViewModel.cartData = { [weak self] in
                 guard let self = self else { return }
+                
                 if let cartItem = self.homeViewModel.fetchCartArrList {
                     self.cartItemArr = cartItem
-                    self.sumQuantity = cartItem.reduce(0) { $0 + $1.price}
+                    self.sumQuantity = cartItem.reduce(0) { $0 + $1.price * Double($1.quantity)}
                     self.checkOutView.fillData(sumData: self.sumQuantity)
+//                    cartItem.forEach({
+//                        print("\($0.name), MİKTAR -> | \($0.quantity) -> \($0.price)")
+//                        totalPrice += Double($0.quantity) * $0.price
+//                        print("TOTAL PRİCE", totalPrice)
+//                    })
                 }
+                
+                if self.cartItemArr.count < 4 {
+                    self.checkOutView.isHidden = true
+                }
+           
                 self.generalCollectionView.reloadData()
             }
         }

@@ -450,6 +450,7 @@
 		638A6DDE2837A7E000F05EDA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				6380D0F9283E9199005D07A8 /* Categories */,
 				63981B34284542E70023FE21 /* ProductsByCategoryCell */,
 				63981B31284535510023FE21 /* HomeHeaderGreetingCell */,
 				6375C1612840F2A200E27C4E /* CartCell */,
@@ -458,7 +459,6 @@
 				6380D0FC283E91D3005D07A8 /* EveryCellHeader */,
 				6380D0FB283E91BA005D07A8 /* Advertisements */,
 				6380D0FA283E91B1005D07A8 /* PhonesAndDresses */,
-				6380D0F9283E9199005D07A8 /* Categories */,
 			);
 			path = Cells;
 			sourceTree = "<group>";

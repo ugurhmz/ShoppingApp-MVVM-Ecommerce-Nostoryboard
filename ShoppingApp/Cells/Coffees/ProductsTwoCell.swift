@@ -154,7 +154,7 @@ extension ProductsTwoCell {
             prdimgView.kf.setImage(with: prdImgUrl, placeholder: placeholder, options: options)
         }
         self.prdNameLbl.text = product.name
-        self.prdPriceLbl.text = "\(product.price) TL"
+        self.prdPriceLbl.text = "\(numberFormat(product.price)) TL"
         
         // FAV BTN SETTINGS 
         if userService.favourites.contains(product){

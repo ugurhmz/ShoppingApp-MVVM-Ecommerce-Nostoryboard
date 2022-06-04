@@ -14,8 +14,8 @@ class ProductDetailCell: UICollectionViewCell {
     var addToCartClosure: VoidClosure?
     
     let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
-    let colorTwo: UIColor = #colorLiteral(red: 0.1414878297, green: 0.6880354557, blue: 0.5711142574, alpha: 0.9887210265)
-    let colorThree: UIColor = #colorLiteral(red: 0.4158273037, green: 0.763119476, blue: 0.2118647997, alpha: 1)
+    let colorTwo: UIColor = #colorLiteral(red: 0.6666666667, green: 0.02745098039, blue: 0.4196078431, alpha: 0.99)
+    let colorThree: UIColor = #colorLiteral(red: 0.3803921569, green: 0.01568627451, blue: 0.3725490196, alpha: 1)
     var doublePrice: Double = 0.0
     
     public var prdimgView: UIImageView = {

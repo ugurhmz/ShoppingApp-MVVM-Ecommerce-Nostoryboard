@@ -10,7 +10,7 @@ import UIKit
 class AdvertiseCell: UICollectionViewCell {
     static var identifier = "AdvertiseCell"
     
-    public var advertiseImg: UIImageView = {
+     var advertiseImg: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "v4")
         iv.contentMode = .scaleToFill
@@ -34,7 +34,11 @@ class AdvertiseCell: UICollectionViewCell {
     }
     
 }
-
+extension AdvertiseCell {
+    func fillImage(imgStr: String)  {
+        self.advertiseImg.image = UIImage(named: imgStr)
+    }
+}
 
 //MARK: -
 extension AdvertiseCell  {

@@ -48,7 +48,7 @@ class ProductsTwoCell: UICollectionViewCell {
     private var addToCartBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.setBackgroundImage(UIImage(systemName: "plus"), for: .normal)
-        btn.tintColor = .orange
+        btn.tintColor = #colorLiteral(red: 0.3803921569, green: 0.01568627451, blue: 0.3725490196, alpha: 1)
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
         btn.addTarget(self, action: #selector(clickAddToCartBtn), for: .touchUpInside)
@@ -195,7 +195,7 @@ extension ProductsTwoCell {
                             bottom: prdimgView.bottomAnchor,
                             trailing: prdimgView.trailingAnchor,
                             padding: .init(top: 0, left:0, bottom: 4, right: 1 ),
-                            size: .init(width: 36, height: 36))
+                            size: .init(width: 37, height: 37))
         
         addToFavouriteBtn.anchor(top: prdimgView.topAnchor,
                                  leading: nil,

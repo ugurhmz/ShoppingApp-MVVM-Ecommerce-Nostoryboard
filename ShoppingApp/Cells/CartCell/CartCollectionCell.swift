@@ -39,7 +39,7 @@ class CartCollectionCell: UICollectionViewCell {
 
     private let prdTitleLbl: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 21, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         label.text = "Lorem Ipsum"
         label.textColor = #colorLiteral(red: 0.1709887727, green: 0.1870856636, blue: 0.2076978542, alpha: 1)
         label.textAlignment = .left
@@ -198,7 +198,7 @@ extension CartCollectionCell {
                             bottom: nil,
                             trailing: trailingAnchor,
                             padding: .init(top: 2, left: 8, bottom: 0, right: 0),
-                            size: .init(width: 0, height: 80))
+                            size: .init(width: 0, height: 90))
         
         prdstackView.anchor(top: topstackView.bottomAnchor,
                             leading: prdImgView.trailingAnchor,

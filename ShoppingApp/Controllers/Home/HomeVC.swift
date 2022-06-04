@@ -11,7 +11,7 @@ import ProgressHUD
 
 class HomeVC:  UIViewController {
     
-    let otherImgList = ["v1","v2","v3","v4","v5","v6"]
+    let advertiseImgList = ["sp1","sp2","sp3","sp4"]
     lazy var  homeViewModel = HomeViewModel()
     lazy var cartVC = CartVC()
     var currentUser: String?
@@ -392,7 +392,7 @@ extension HomeVC: UICollectionViewDataSource {
         case Sections.CategoriesSection.rawValue:
             return self.homeViewModel.categoryList?.count ?? 0
         case Sections.AdvertiseSection.rawValue:
-            return 10
+            return advertiseImgList.count
         case Sections.ProductsOneSection.rawValue:
             return self.homeViewModel.productList?.count ?? 0
         case Sections.ProductsTwoSection.rawValue:
@@ -471,7 +471,8 @@ extension HomeVC: UICollectionViewDataSource {
         //MARK: - Advertise
         case Sections.AdvertiseSection.rawValue:
             
-            let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: AdvertiseCell.identifier, for: indexPath)
+            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: AdvertiseCell.identifier, for: indexPath) as! AdvertiseCell
+            cell.fillImage(imgStr: advertiseImgList[indexPath.row])
             cell.layer.cornerRadius = 20
             return cell
             

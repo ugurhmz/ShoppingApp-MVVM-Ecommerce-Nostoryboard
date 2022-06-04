@@ -19,7 +19,7 @@ class CartItemsView: UIView {
          return iv
     }()
     
-    private let cartLbl: UILabel = {
+    var cartLbl: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 27, weight: .bold)
         label.text = "4544"

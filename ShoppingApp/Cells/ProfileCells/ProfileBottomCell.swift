@@ -9,10 +9,10 @@ import UIKit
 
 class ProfileBottomCell: UICollectionViewCell {
     static var identifier = "ProfileBottomCell"
-    
     private let allFavItemsView = FavItemsViews()
     private let allCartItemsView = CartItemsView()
     
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -24,12 +24,21 @@ class ProfileBottomCell: UICollectionViewCell {
     }
 }
 
+extension ProfileBottomCell {
+    func fillData(count:  Int, cartCount: Int) {
+        print("COUNT")
+        self.allFavItemsView.favLbl.text = "\(count)"
+        self.allCartItemsView.cartLbl.text = "\(cartCount)"
+    }
+}
+
 //MARK: -
 extension ProfileBottomCell {
     private func setupViews(){
         addSubview(allFavItemsView)
         addSubview(allCartItemsView)
         
+       
         allFavItemsView.layer.shadowColor = #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1).cgColor
         allFavItemsView.layer.shadowOffset = CGSize(width: 2, height: 2)
         allFavItemsView.layer.shadowOpacity = 2.8

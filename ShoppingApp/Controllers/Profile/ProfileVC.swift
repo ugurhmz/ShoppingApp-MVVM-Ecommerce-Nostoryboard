@@ -11,12 +11,13 @@ class ProfileVC: UIViewController {
     
     var homeViewModel = HomeViewModel()
     var currentUsr: User?
+    var countItem = 0
+    var countCartItem = 0
 
     private let mainCollectionView: UICollectionView = {
           let layout = UICollectionViewFlowLayout()
           let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
           layout.scrollDirection = .vertical
-            
           cv.showsVerticalScrollIndicator = false
           cv.showsHorizontalScrollIndicator = false
           cv.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +55,22 @@ class ProfileVC: UIViewController {
                 userService.getCurrentUser()
             }
             
+        }
+        
+        self.homeViewModel.favItemCount = { [weak self] in
+            guard let self = self else { return }
+            if let favItem = self.homeViewModel.favouritesArrList {
+                self.countItem = favItem.count
+            }
+            
+            if let cartItem = self.homeViewModel.fetchCartArrList {
+                var sumQuantity = 0
+                cartItem.forEach({
+                  
+                    sumQuantity += $0.quantity
+                })
+                self.countCartItem = sumQuantity
+            }
         }
         
         // reload data with closure
@@ -104,15 +121,15 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
             if let currentUser = self.currentUsr {
                 topCell.configure(user: currentUser)
             }
-         
-            
-            
             return topCell
         }
         
         
-        
         let bottomCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileBottomCell.identifier, for: indexPath) as! ProfileBottomCell
+        
+        
+        bottomCell.fillData(count:  self.countItem, cartCount: self.countCartItem)
+        
         
         return bottomCell
     }
@@ -133,7 +150,7 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
           
           // bottomListcell
           return CGSize(width: mainCollectionView.frame.width,
-                        height: mainCollectionView.frame.height)
+                        height: mainCollectionView.contentSize.height)
       }
           
     

@@ -163,6 +163,7 @@ extension HomeViewModel {
             }
             self.reloadData?()
             self.favItemCount?()
+            
         }
     }
     
@@ -184,6 +185,7 @@ extension HomeViewModel {
                 self.fetchCartArrList?.append(cartModel)
             }
            // self.reloadData?()
+            self.favItemCount?()
             self.cartData?()
         }
     }

@@ -19,7 +19,7 @@ class FavItemsViews: UIView {
          return iv
     }()
     
-    private let favLbl: UILabel = {
+     var  favLbl: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 27, weight: .bold)
         label.text = "4544"

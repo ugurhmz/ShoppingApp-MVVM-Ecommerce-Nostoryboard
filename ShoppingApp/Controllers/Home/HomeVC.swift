@@ -19,6 +19,8 @@ class HomeVC:  UIViewController {
     
     var userCartItemsArr: [CartModel] = []
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     private let generalCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: HomeVC.createCompositionalLayout())
@@ -201,6 +203,16 @@ class HomeVC:  UIViewController {
         setupViews()
         settingsNavigateBar()
         isCurrentUserCheck()
+        searchBarConfigure()
+        
+        // TODO FİLTRELENMİŞ ARRAY GELİYOR.
+        self.homeViewModel.searchRefresh = { [weak self] in
+            guard let self = self else { return }
+            if let filteredSearchArr = self.homeViewModel.filteredOneList {
+                print("FİLTERED ARR", filteredSearchArr)
+            }
+            
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -221,6 +233,38 @@ class HomeVC:  UIViewController {
             }
         }
     }
+    
+    private func  searchBarConfigure() {
+           customSearchBarStyle()
+           navigationItem.hidesSearchBarWhenScrolling = false
+           navigationItem.searchController = self.searchController
+           searchController.searchBar.tintColor  = .black
+           searchController.searchBar.delegate = self
+           searchController.searchBar.searchBarStyle = .minimal
+           searchController.searchBar.searchTextField.backgroundColor = .white
+           searchController.searchBar.searchTextField.defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+           searchController.searchBar.barTintColor = .black
+          
+   }
+    
+    private func customSearchBarStyle(){
+            
+         if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            //navBarAppearance.configureWithOpaqueBackground()
+             navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  #colorLiteral(red: 0.5725490196, green: 0, blue: 0.3058823529, alpha: 0.9291183775),NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 30)!]
+           
+            
+             navigationController?.navigationBar.barStyle = .black
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.compactAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+            navigationController?.navigationBar.prefersLargeTitles = false
+            
+            
+            }
+   }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -591,5 +635,13 @@ extension HomeVC: UICollectionViewDelegate {
             default:
                print("")
         }
+    }
+}
+
+
+//MARK: - Searching
+extension HomeVC: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        homeViewModel.searchBarText(searchBar.text ?? "-")
     }
 }

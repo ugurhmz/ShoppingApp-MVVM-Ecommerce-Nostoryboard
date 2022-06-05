@@ -116,6 +116,7 @@ extension ProductsTwoCell {
     
     @objc func clickAddToCartBtn(){
         if let addCartAction = addToCartClosure {
+            addToCartBtn.shakeButton()
             addCartAction()
         }
     }

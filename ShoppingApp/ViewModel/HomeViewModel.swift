@@ -33,11 +33,14 @@ final class HomeViewModel: HomeViewModelProtocol {
     var filteredOneList:  [ProductModel]? = []
     var searchRefresh: VoidClosure?
     var searchMode = false
+    var cartItemCount: VoidClosure?
+    var sumUsertCartItem = 0
     
     func searchBarText(_ searhText: String) {
         self.keyword = searhText
         fetchSearchProducts()
     }
+    
     
     
     var prdDatas = [ProductModel]()
@@ -194,8 +197,14 @@ extension HomeViewModel {
                 let cartModel = CartModel.init(data: data)
                 self.fetchCartArrList?.append(cartModel)
             }
+            
+            self.sumUsertCartItem = 0
+            self.fetchCartArrList?.forEach({
+                self.sumUsertCartItem += $0.quantity
+            })
+            
            // self.reloadData?()
-            self.favItemCount?()
+            self.cartItemCount?()
             self.cartData?()
         }
     }

@@ -26,9 +26,9 @@ class ProfileBottomCell: UICollectionViewCell {
 
 extension ProfileBottomCell {
     func fillData(count:  Int, cartCount: Int) {
-        print("COUNT")
         self.allFavItemsView.favLbl.text = "\(count)"
-        self.allCartItemsView.cartLbl.text = "\(cartCount)"
+        
+        self.allCartItemsView.fillData(cartCount)
     }
 }
 

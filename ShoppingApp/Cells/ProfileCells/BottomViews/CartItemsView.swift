@@ -52,6 +52,13 @@ class CartItemsView: UIView {
 
 }
 
+extension CartItemsView {
+    func fillData(_ count: Int){
+        
+        self.cartLbl.text = "\(count)"
+    }
+}
+
 //MARK: -
 extension CartItemsView {
     private func  setConstraints() {

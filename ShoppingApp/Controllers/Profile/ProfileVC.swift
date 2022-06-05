@@ -11,18 +11,13 @@ class ProfileVC: UIViewController {
     
     var homeViewModel = HomeViewModel()
     var currentUsr: User?
-    var countItem = 0
+    var countFavItems = 0
     var countCartItem = 0
 
     private let mainCollectionView: UICollectionView = {
           let layout = UICollectionViewFlowLayout()
           let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
           layout.scrollDirection = .vertical
-          cv.showsVerticalScrollIndicator = false
-          cv.showsHorizontalScrollIndicator = false
-          cv.translatesAutoresizingMaskIntoConstraints = false
-          
-          
           cv.register(ProfileTopCell.self,
                       forCellWithReuseIdentifier: ProfileTopCell.identifier)
           
@@ -40,6 +35,15 @@ class ProfileVC: UIViewController {
        
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+        
+        
+        // reload data with closure
+        self.homeViewModel.reloadData = { [weak self] in
+            guard let self = self else { return }
+            self.mainCollectionView.reloadData()
+        }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,7 +54,7 @@ class ProfileVC: UIViewController {
             self.homeViewModel.fetchCartItemsCurrentUser(userId: user.uid)
           
             self.currentUsr = user
-            
+            self.countCartItem = self.homeViewModel.sumUsertCartItem
             if userService.userListener == nil {
                 userService.getCurrentUser()
             }
@@ -60,24 +64,15 @@ class ProfileVC: UIViewController {
         self.homeViewModel.favItemCount = { [weak self] in
             guard let self = self else { return }
             if let favItem = self.homeViewModel.favouritesArrList {
-                self.countItem = favItem.count
-            }
-            
-            if let cartItem = self.homeViewModel.fetchCartArrList {
-                var sumQuantity = 0
-                cartItem.forEach({
-                  
-                    sumQuantity += $0.quantity
-                })
-                self.countCartItem = sumQuantity
+                self.countFavItems = favItem.count
             }
         }
         
-        // reload data with closure
-        self.homeViewModel.reloadData = { [weak self] in
+        self.homeViewModel.cartItemCount = {  [weak self] in
             guard let self = self else { return }
-            self.mainCollectionView.reloadData()
+            self.countCartItem =   self.homeViewModel.sumUsertCartItem
         }
+       
         
     }
     
@@ -85,12 +80,14 @@ class ProfileVC: UIViewController {
 extension ProfileVC {
     private func setupViews(){
         view.addSubview(mainCollectionView)
-        
     }
     
     private func setConstraints(){
-        mainCollectionView.fillSuperview()
-        
+        mainCollectionView.anchor(top: view.topAnchor,
+                                  leading: view.leadingAnchor,
+                                  bottom: view.bottomAnchor,
+                                  trailing: view.trailingAnchor)
+       
     }
 }
 
@@ -126,13 +123,10 @@ extension ProfileVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         
         let bottomCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileBottomCell.identifier, for: indexPath) as! ProfileBottomCell
-        
-        
-        bottomCell.fillData(count:  self.countItem, cartCount: self.countCartItem)
-        
-        
+        bottomCell.fillData(count:  self.countFavItems, cartCount: self.countCartItem)
         return bottomCell
     }
+    
     
 }
 
@@ -150,7 +144,7 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
           
           // bottomListcell
           return CGSize(width: mainCollectionView.frame.width,
-                        height: mainCollectionView.contentSize.height)
+                        height: 450)
       }
           
     

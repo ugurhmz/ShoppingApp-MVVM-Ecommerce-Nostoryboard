@@ -66,6 +66,7 @@ class CartVC: UIViewController {
                 self.generalCollectionView.reloadData()
             }
         }
+        
     }
     
     private func setupViews(){
@@ -138,6 +139,22 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return  CGSize(width: generalCollectionView.frame.width,
                        height: 105)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let clickedItem = self.homeViewModel.fetchCartArrList?[indexPath.item].prdId {
+            self.homeViewModel.fetchProductWithId(filterById: clickedItem)
+        }
+        
+        self.homeViewModel.clickDataClosure = { [weak self] in
+            if let clickedItem = self?.homeViewModel.clickedCartItemArr.last {
+                print("clickedItem", clickedItem)
+                let vc = ProductDetailVC()
+                vc.configure(with: clickedItem )
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+       
     }
   
 }

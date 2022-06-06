@@ -35,7 +35,10 @@ final class HomeViewModel: HomeViewModelProtocol {
     var searchMode = false
     var cartItemCount: VoidClosure?
     var sumUsertCartItem = 0
+    var clickDataClosure: VoidClosure?
     
+    
+    var clickedCartItemArr: [ProductModel] = []
     var prdDatas = [ProductModel]()
     
     init(){
@@ -201,4 +204,28 @@ extension HomeViewModel {
             self.cartData?()
         }
     }
+    
+    //MARK: - FETCH BY ID Products To Category
+    func fetchProductWithId(filterById: String){
+  
+        let productRef = db?.collection("products").whereField("id", isEqualTo: "\(filterById)")
+        
+        realTimeListener = productRef?.addSnapshotListener { (snap, error) in
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: "Database Error!. Product are unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+           
+            for document in documents {
+                let data =  document.data()
+                let newProductArr = ProductModel.init(data: data)
+                self.clickedCartItemArr.append(newProductArr)
+            }
+            
+            
+            self.clickDataClosure?()
+        }
+    }
+    
+    
 }

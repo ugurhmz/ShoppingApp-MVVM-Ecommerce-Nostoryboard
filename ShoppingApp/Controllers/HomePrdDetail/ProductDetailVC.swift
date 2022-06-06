@@ -68,6 +68,10 @@ extension ProductDetailVC {
     func configure(with productValue: ProductModel){
         self.myObj = productValue
     }
+    
+    func configureWithCartModel(_ prdVal: CartModel){
+        
+    }
 }
 
 //MARK: -

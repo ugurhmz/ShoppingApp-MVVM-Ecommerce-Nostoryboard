@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class AddProductsVC: UIViewController {
     
@@ -83,7 +84,7 @@ class AddProductsVC: UIViewController {
         btn.layer.borderWidth = 1
         btn.layer.borderColor = AppColors.DarkGreen.cgColor
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-       // btn.addTarget(self, action: #selector(clickAddCategory), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(addPrdClickHandle), for: .touchUpInside)
         return btn
     }()
     
@@ -139,7 +140,7 @@ extension AddProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
        if self.lastIndexActive != indexPath {
        let cell = collectionView.cellForItem(at: indexPath) as! SelectCategoryCell
        cell.configure(select: true)
-           print(self.allCategories?[indexPath.item].name)
+           print(self.allCategories?[indexPath.item].id)
 
        let cell1 = collectionView.cellForItem(at: self.lastIndexActive) as? SelectCategoryCell
            cell1?.configure(select: false)
@@ -167,12 +168,35 @@ extension AddProductsVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
+ //MARK: - IMAGE PICKER
+extension AddProductsVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func launchImagePicker() {
+        let imagePicker  = UIImagePickerController()
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.originalImage] as? UIImage else { return }
+
+        prdImgView.contentMode = .scaleAspectFill
+        prdImgView.image = image
+        dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
 
 //MARK: -
 extension AddProductsVC {
     
     private func setupViews(){
-        
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
         stackView.setCustomSpacing(15, after: prdDescriptionText)
         stackView.setCustomSpacing(15, after: prdImgView)
         
@@ -181,11 +205,79 @@ extension AddProductsVC {
         
         selectCategory.delegate = self
         selectCategory.dataSource = self
+        
+        
+        let imgSelectTap = UITapGestureRecognizer(target: self, action: #selector(selectPrdImage))
+        imgSelectTap.numberOfTapsRequired = 1 // Kullanıcının el hareketinin tespit edilmesi için gereken dokunma sayısı. (Varsayılan değeri 1'dir.)
+        prdImgView.isUserInteractionEnabled = true
+        prdImgView.addGestureRecognizer(imgSelectTap)
     }
     
+    @objc func selectPrdImage(){
+        launchImagePicker()
+    }
+    
+    @objc func addPrdClickHandle(){
+        uploadImageAndDocument()
+    }
+    
+    func uploadImageAndDocument(){
+        guard let prdImg = prdImgView.image,
+              let prdName = prdTitleField.text, !prdName.isEmpty,
+              let prdDesc = prdDescriptionText.text, !prdDesc.isEmpty,
+              let prdPrice = prdPriceField.text,
+              let price = Double(prdPrice) else {
+                  createAlert(title: "Missing Fields",
+                              msg: "Please fill required fields.",
+                              prefStyle: .alert,
+                              bgColor: .white,
+                              textColor: .red,
+                              fontSize: 25)
+                  return
+              }
+        
+        showActivityIndicator()
+        
+        guard let imageData = prdImg.jpegData(compressionQuality: 0.2) else { return }
+        let imageRef = Storage.storage().reference().child("/productImages/\(prdName).jgp")
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        imageRef.putData(imageData, metadata: metaData) { (metaData, error) in
+            if let error = error {
+                self.createAlert(title: "\(error.localizedDescription)",
+                            msg: "image upload error!",
+                            prefStyle: .alert,
+                            bgColor: .white, textColor: .red, fontSize: 26)
+                return
+            }
+            
+            imageRef.downloadURL { (url, error) in
+                if let error = error {
+                    self.createAlert(title: "\(error)",
+                                msg: "Image Download err!", prefStyle: .alert, bgColor: .white, textColor: .red, fontSize: 28)
+                    return
+                }
+                
+                guard let url = url else { return }
+                print("myimage", url)
+                
+            }
+        }
+    }
+    
+    func uploadPrdDocument(){
+        
+    }
+    
+}
+
+//MARK: - CONSTRAINTS
+extension AddProductsVC {
     private func setConstraints(){
         
-         view.addSubview(scrollView)
+      
         scrollView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                           leading: view.leadingAnchor,
                           bottom: view.bottomAnchor,
@@ -193,7 +285,7 @@ extension AddProductsVC {
                           padding: .init(top: 0, left: 0, bottom: 0, right: 0)
         )
         
-         scrollView.addSubview(stackView)
+         
         prdTitleField.anchor(top: nil,
                              leading: nil,
                              bottom: nil,
@@ -244,3 +336,5 @@ extension AddProductsVC {
                       size: .init(width: 0, height: 50))
     }
 }
+
+

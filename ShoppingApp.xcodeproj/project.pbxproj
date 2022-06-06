@@ -75,6 +75,7 @@
 		638A6E192837E41500F05EDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E182837E41500F05EDA /* GoogleService-Info.plist */; };
 		638A6E1B2837ED7200F05EDA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */; };
 		638A6E20283802E700F05EDA /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638A6E1F283802E700F05EDA /* ColorConstants.swift */; };
+		638C3791284E0E5600DD7009 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63812E00284736CD00E81DBF /* CartModel.swift */; };
 		63981B2F2845206A0023FE21 /* AdminProductsByCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637BDCFE28427C0C00F5E1D5 /* AdminProductsByCategoryCell.swift */; };
 		63981B30284532B60023FE21 /* ByCategoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */; };
 		63981B33284535630023FE21 /* HomeGreetingHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981B32284535630023FE21 /* HomeGreetingHeaderCell.swift */; };
@@ -177,6 +178,7 @@
 		6364863E2842D32300295A74 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				638C3792284E127900DD7009 /* HeaderView */,
 				637BD266284396430063E444 /* Addproducts */,
 				63721D9C284166060025FCE4 /* Home */,
 				63721DAA284172460025FCE4 /* AddEditCategory */,
@@ -525,7 +527,6 @@
 				637BDCF82842753200F5E1D5 /* Cells */,
 				638A6E1A2837ED7200F05EDA /* GoogleService-Info.plist */,
 				638A6E0A2837A87400F05EDA /* Info.plist */,
-				6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */,
 			);
 			path = ShoppingAdmin;
 			sourceTree = "<group>";
@@ -561,6 +562,14 @@
 				6385C62A284A2F5A0057709B /* CartView.swift */,
 			);
 			path = CartUIView;
+			sourceTree = "<group>";
+		};
+		638C3792284E127900DD7009 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				6364863F2842D51C00295A74 /* ByCategoryHeaderView.swift */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		63981B31284535510023FE21 /* HomeHeaderGreetingCell */ = {
@@ -862,6 +871,7 @@
 				637BD2682843A64F0063E444 /* SelectCategoryCell.swift in Sources */,
 				637BDCF62842452900F5E1D5 /* CategoryModel.swift in Sources */,
 				638A6DFF2837A87300F05EDA /* SceneDelegate.swift in Sources */,
+				638C3791284E0E5600DD7009 /* CartModel.swift in Sources */,
 				63721DA32841668A0025FCE4 /* Extension+UIView.swift in Sources */,
 				637BDCFD284278A500F5E1D5 /* AdminProductsByCategoryVC.swift in Sources */,
 			);

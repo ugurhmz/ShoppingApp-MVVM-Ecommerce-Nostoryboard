@@ -8,6 +8,10 @@ Admin ise kategorileri görüyor ve yeni bir kategori ekleyebiliyor.  Diğer yan
 ### 3.Kullanıcı Register/Loging/Forgotpassword
 Kullanıcı isterse üye olabilir ve o şekilde appe' girebilir. Şimdilik Anonymous şekilde girişi aktif etmedim. Eğerki kullanıcı register olduktan sonra şifresini unuttu ise, vermiş olduğu e-mail'e reset password adlı link firebase tarafından iletiliyor ve kullanıcı değiştirdiği şifresiyle girişyapabiliyor.
 
+<img width="494" alt="Ekran Resmi 2022-06-06 16 34 53" src="https://user-images.githubusercontent.com/13710309/172171182-68ba315f-0fb3-47a1-bbde-0c8322c7921a.png">
+<img width="374" alt="Ekran Resmi 2022-06-06 16 35 18" src="https://user-images.githubusercontent.com/13710309/172171198-78d67dd8-5485-454e-b463-283d8116c4f1.png">
+<img width="374" alt="Ekran Resmi 2022-06-06 16 35 33" src="https://user-images.githubusercontent.com/13710309/172171203-ed2e2e59-3fd9-4702-8e1c-dc796557d77e.png">
+
 <img width="876" alt="Ekran Resmi 2022-06-06 16 22 45" src="https://user-images.githubusercontent.com/13710309/172169143-11758b14-1d16-4149-8b75-c524c1e9e3b8.png">
 <img width="876" alt="Ekran Resmi 2022-06-06 16 23 09" src="https://user-images.githubusercontent.com/13710309/172169159-07e0ef8d-9a50-4d12-af10-159e7317dcd6.png">
 
@@ -18,3 +22,5 @@ Kullanıcı isterse üye olabilir ve o şekilde appe' girebilir. Şimdilik Anony
 <img width="798" alt="Ekran Resmi 2022-06-06 16 27 25" src="https://user-images.githubusercontent.com/13710309/172169886-28345a3f-e90e-4aa7-95ec-50b7ce219178.png">
 <img width="798" alt="Ekran Resmi 2022-06-06 16 27 44" src="https://user-images.githubusercontent.com/13710309/172169893-ea26bef7-0e76-4a99-b492-303abf153043.png">
 <img width="798" alt="Ekran Resmi 2022-06-06 16 28 08" src="https://user-images.githubusercontent.com/13710309/172169905-40638bab-49dc-44dc-9069-2769ed6b0721.png">
+<img width="1400" alt="Ekran Resmi 2022-06-06 16 31 01" src="https://user-images.githubusercontent.com/13710309/172170558-b532b90a-b727-45a0-bd59-12dfaabc34fd.png">
+<img width="1372" alt="Ekran Resmi 2022-06-06 16 31 27" src="https://user-images.githubusercontent.com/13710309/172170566-c343e116-7981-4f77-baba-c74858549cbd.png">

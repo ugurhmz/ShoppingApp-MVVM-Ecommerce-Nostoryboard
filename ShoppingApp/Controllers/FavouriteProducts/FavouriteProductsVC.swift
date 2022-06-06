@@ -118,6 +118,14 @@ extension FavouriteProductsVC: UICollectionViewDelegate, UICollectionViewDataSou
                         layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 30
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ProductDetailVC()
+        if let clickedPrdItem = self.arrFavList?[indexPath.row] {
+            vc.configure(with: clickedPrdItem)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 //MARK: - DelegateFlowLayout

@@ -38,6 +38,7 @@ class ProductDetailVC: UIViewController {
         generalCollectionView.dataSource = self
         generalCollectionView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .blue
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,11 +55,11 @@ class ProductDetailVC: UIViewController {
                 if let cartItem = self.homeViewModel.fetchCartArrList {
                     self.userCartItemsArr = cartItem
                 }
-                
-           
                 self.generalCollectionView.reloadData()
             }
         }
+        
+        
     }
 }
 

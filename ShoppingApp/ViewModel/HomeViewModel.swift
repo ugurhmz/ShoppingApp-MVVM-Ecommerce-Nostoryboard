@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import ProgressHUD
 
 protocol HomeViewModelProtocol {
     var productList: [ProductModel]? { get set}
@@ -36,7 +37,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     var cartItemCount: VoidClosure?
     var sumUsertCartItem = 0
     var clickDataClosure: VoidClosure?
-    
+    var deleteClosure: VoidClosure?
     
     var clickedCartItemArr: [ProductModel] = []
     var prdDatas = [ProductModel]()
@@ -227,5 +228,20 @@ extension HomeViewModel {
         }
     }
     
+    // DELETE
+    func deleteCartItem(userId: String, cartItemId: String) {
+        let  delRef = db?.collection("users").document(userId).collection("newcarts")
+           // .whereField("prdId", isEqualTo: "\(cartItemId)")
+       
+        delRef?.document("\(cartItemId)").delete()
+        realTimeListener = delRef?.addSnapshotListener { (snap, error) in
+
+            guard let documents = snap?.documents else {
+                SnackHelper.showSnack(message: " Delete error!", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
+                return
+            }
+            self.reloadData?()
+        }
+    }
     
 }

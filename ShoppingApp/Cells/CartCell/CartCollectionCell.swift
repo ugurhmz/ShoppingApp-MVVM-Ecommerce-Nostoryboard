@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Firebase
 
 class CartCollectionCell: UICollectionViewCell {
     
@@ -16,7 +17,8 @@ class CartCollectionCell: UICollectionViewCell {
     var addToCartClosure: VoidClosure?
     var priceProductInCart: Double = 0.0
     var subtractToCartClosure: VoidClosure?
- 
+    var cartItem: CartModel?
+    var homeViewModel = HomeViewModel()
     
     private let prdImgView: UIImageView = {
          let iv = UIImageView()
@@ -92,7 +94,7 @@ class CartCollectionCell: UICollectionViewCell {
    }()
     private let deleteIcon: UIImageView = {
            let iv = UIImageView()
-           iv.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate)
+        iv.image = UIImage(systemName: "trash")
            iv.tintColor = .red
            return iv
     }()
@@ -101,7 +103,7 @@ class CartCollectionCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         return stackView
     }()
     
@@ -124,6 +126,7 @@ class CartCollectionCell: UICollectionViewCell {
         self.plusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
         self.minusBtn.backgroundColor = #colorLiteral(red: 0.2499767244, green: 0.009076544084, blue: 0.8062750697, alpha: 1)
         bringSubviewToFront(prdstackView)
+        bringSubviewToFront(deleteIcon)
     }
     
     required init?(coder: NSCoder) {
@@ -150,6 +153,7 @@ extension CartCollectionCell {
 
 extension CartCollectionCell {
     func fillData(cartItems: CartModel) {
+        self.cartItem = cartItems
         self.prdTitleLbl.text = cartItems.name
         self.priceProductInCart = cartItems.price
         self.prdDescriptionLbl.text = cartItems.productOverview
@@ -174,8 +178,24 @@ extension CartCollectionCell {
         addSubview(prdstackView)
         addSubview(topstackView)
         addSubview(prdPriceLbl)
+       
         [minusBtn, stepperCountLbl, plusBtn].forEach{ prdstackView.addArrangedSubview($0)}
         [prdTitleLbl, prdDescriptionLbl].forEach{ topstackView.addArrangedSubview($0)}
+        
+        
+        let deleteIconTap = UITapGestureRecognizer(target: self, action: #selector(clickDeleteIcon))
+        deleteIcon.isUserInteractionEnabled = true
+        deleteIcon.addGestureRecognizer(deleteIconTap)
+    }
+    
+    @objc func clickDeleteIcon(){
+        if let user = Auth.auth().currentUser, !user.isAnonymous {
+            if let cartItemId  =  cartItem?.prdId {
+                self.homeViewModel.deleteCartItem(userId: user.uid, cartItemId: cartItemId)
+            }
+        }
+        
+       
     }
     
     private func setConstraints(){
@@ -185,19 +205,19 @@ extension CartCollectionCell {
                           trailing: nil,
                           size: .init(width: 120, height: 0))
         
-        deleteIcon.anchor(top: topstackView.topAnchor,
+        deleteIcon.anchor(top: contentView.topAnchor,
                           leading: nil,
                           bottom: nil,
-                          trailing: topstackView.trailingAnchor,
-                          padding: .init(top: 2, left: 6, bottom: 10, right: 2),
-                          size: .init(width: 0, height: 20))
+                          trailing: contentView.trailingAnchor,
+                          padding: .init(top: 2, left: 4, bottom: 10, right: 2),
+                          size: .init(width:25, height: 25))
         
         
-        topstackView.anchor(top: topAnchor,
+        topstackView.anchor(top: deleteIcon.topAnchor,
                             leading: prdImgView.trailingAnchor,
                             bottom: nil,
-                            trailing: trailingAnchor,
-                            padding: .init(top: 2, left: 8, bottom: 0, right: 0),
+                            trailing: deleteIcon.leadingAnchor,
+                            padding: .init(top: 2, left: 8, bottom: 0, right: 3),
                             size: .init(width: 0, height: 90))
         
         prdstackView.anchor(top: topstackView.bottomAnchor,

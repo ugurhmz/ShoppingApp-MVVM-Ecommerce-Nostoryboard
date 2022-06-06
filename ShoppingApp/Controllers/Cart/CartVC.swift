@@ -6,28 +6,26 @@
 //
 import UIKit
 import Firebase
+import ProgressHUD
 
 class CartVC: UIViewController {
     var homeViewModel = HomeViewModel()
     var cartItemArr: [CartModel] = []
     var sumQuantity = 0.0
+    var checkoutHiddenClosure: VoidClosure?
     private let checkOutView = CartView()
-
     
     // General CollectionView
-      private let generalCollectionView: UICollectionView = {
+    private let generalCollectionView: UICollectionView = {
           let layout = UICollectionViewFlowLayout()
           layout.scrollDirection = .vertical
           let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
           cv.showsHorizontalScrollIndicator = false
           cv.backgroundColor = .white
-          
           cv.register(CartCollectionCell.self,
                           forCellWithReuseIdentifier: CartCollectionCell.identifier)
-          
           cv.register(CheckOutReusableView.self,
                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CheckOutReusableView.Identifier)
-          
           return cv
       }()
 
@@ -59,14 +57,13 @@ class CartVC: UIViewController {
                     self.checkOutView.fillData(sumData: self.sumQuantity)
                 }
                 
-                if self.cartItemArr.count < 4 {
+                if   self.cartItemArr.count < 4 {
                     self.checkOutView.isHidden = true
                 }
-           
+                
                 self.generalCollectionView.reloadData()
             }
         }
-        
     }
     
     private func setupViews(){
@@ -129,6 +126,7 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if kind == UICollectionView.elementKindSectionFooter {
             let footerCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier:CheckOutReusableView.Identifier , for: indexPath) as! CheckOutReusableView
+           
       
             footerCell.fillData(sumData: self.sumQuantity)
             return footerCell
@@ -154,9 +152,7 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
-       
     }
-  
 }
 
 //MARK: - DelegateFlowLayout

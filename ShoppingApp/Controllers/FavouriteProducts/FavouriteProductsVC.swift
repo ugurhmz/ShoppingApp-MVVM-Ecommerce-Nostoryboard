@@ -123,6 +123,7 @@ extension FavouriteProductsVC: UICollectionViewDelegate, UICollectionViewDataSou
         let vc = ProductDetailVC()
         if let clickedPrdItem = self.arrFavList?[indexPath.row] {
             vc.configure(with: clickedPrdItem)
+            showActivityIndicator()
             navigationController?.pushViewController(vc, animated: true)
         }
     }

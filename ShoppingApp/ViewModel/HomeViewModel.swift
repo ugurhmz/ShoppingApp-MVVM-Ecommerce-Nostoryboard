@@ -36,13 +36,6 @@ final class HomeViewModel: HomeViewModelProtocol {
     var cartItemCount: VoidClosure?
     var sumUsertCartItem = 0
     
-    func searchBarText(_ searhText: String) {
-        self.keyword = searhText
-        fetchSearchProducts()
-    }
-    
-    
-    
     var prdDatas = [ProductModel]()
     
     init(){
@@ -206,50 +199,6 @@ extension HomeViewModel {
            // self.reloadData?()
             self.cartItemCount?()
             self.cartData?()
-        }
-    }
-    
-    // SEARCH
-    func fetchSearchProducts(){
-        
-        guard let mykeyword = self.keyword,
-              !mykeyword.trimmingCharacters(in: .whitespaces).isEmpty,
-              (mykeyword.trimmingCharacters(in: .whitespaces).count) >= 2 else {
-                  SnackHelper.showSnack(message: "Please enter at least two characters.", bgColor: .white, textColor: #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), viewHeight: 80, msgDuration: 0.8)
-                  return
-        }
-        
-//        self.filteredOneList = self.productList?.filter({
-//            self.searchMode = true
-//            return $0.name.range(of: mykeyword.lowercased()) != nil
-//        })
-//
-//
-//
-//        filteredOneList?.forEach({
-//            print($0.name)
-//        })
-        
-        
-        db?.collection("products").getDocuments { (snap, error) in
-            
-            if error != nil {
-                return
-            }
-            guard let documents = snap?.documents else {
-                SnackHelper.showSnack(message: " Database Error!. Search is unavailable.", bgColor: .white, textColor: .red, viewHeight: 170, msgDuration: 0.6)
-                return
-            }
-            for document in documents {
-                let data =  document.data()
-                let newFilterArr = ProductModel.init(data: data)
-                self.filteredOneList?.append(newFilterArr) // datas
-            }
-            self.filteredOneList = self.filteredOneList?.filter({
-                $0.name.lowercased().contains(mykeyword.lowercased())
-                
-            })
-            self.searchRefresh?()
         }
     }
 }

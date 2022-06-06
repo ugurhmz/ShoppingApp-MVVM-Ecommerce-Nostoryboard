@@ -203,16 +203,6 @@ class HomeVC:  UIViewController {
         setupViews()
         settingsNavigateBar()
         isCurrentUserCheck()
-        searchBarConfigure()
-        
-        // TODO FİLTRELENMİŞ ARRAY GELİYOR.
-        self.homeViewModel.searchRefresh = { [weak self] in
-            guard let self = self else { return }
-            if let filteredSearchArr = self.homeViewModel.filteredOneList {
-                print("FİLTERED ARR", filteredSearchArr)
-            }
-            
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -233,38 +223,6 @@ class HomeVC:  UIViewController {
             }
         }
     }
-    
-    private func  searchBarConfigure() {
-           customSearchBarStyle()
-           navigationItem.hidesSearchBarWhenScrolling = false
-           navigationItem.searchController = self.searchController
-           searchController.searchBar.tintColor  = .black
-           searchController.searchBar.delegate = self
-           searchController.searchBar.searchBarStyle = .minimal
-           searchController.searchBar.searchTextField.backgroundColor = .white
-           searchController.searchBar.searchTextField.defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-           searchController.searchBar.barTintColor = .black
-          
-   }
-    
-    private func customSearchBarStyle(){
-            
-         if #available(iOS 13.0, *) {
-            let navBarAppearance = UINavigationBarAppearance()
-            //navBarAppearance.configureWithOpaqueBackground()
-             navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor:  #colorLiteral(red: 0.5725490196, green: 0, blue: 0.3058823529, alpha: 0.9291183775),NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 30)!]
-           
-            
-             navigationController?.navigationBar.barStyle = .black
-            navigationController?.navigationBar.standardAppearance = navBarAppearance
-            navigationController?.navigationBar.compactAppearance = navBarAppearance
-            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-            navigationController?.navigationBar.prefersLargeTitles = false
-            
-            
-            }
-   }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -448,7 +406,6 @@ extension HomeVC: UICollectionViewDataSource {
         }
     }
     
-    
     // cellForItemAt
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -486,8 +443,6 @@ extension HomeVC: UICollectionViewDataSource {
             
             if let productValue = self.homeViewModel.productList {
                 cell.fillData(product: productValue[indexPath.item])
-                
-                
                 // ** ADD FAV CLOSURE **
                 cell.addFavClosure = { [weak self] in
                     userService.addFavourites(product: productValue[indexPath.item])
@@ -500,9 +455,6 @@ extension HomeVC: UICollectionViewDataSource {
                
                 cell.addToCartClosure = { [weak self]  in
                     ProgressHUD.showSuccess()
-                    // 1. TIKLANAN PRODUCT'ı bul.
-                        print("TIKLANAN PRD ->", val[indexPath.row].name)
-                    //2. Tıklanan prd -> O Userdaki, Cart itemlarında varmı bunu check et.
                     if let allCartArr = self?.userCartItemsArr {
                         cell.checkPrdAndCartItem(clickedPrd: val[indexPath.item],
                                                  allCartItems: allCartArr)
@@ -635,13 +587,5 @@ extension HomeVC: UICollectionViewDelegate {
             default:
                print("")
         }
-    }
-}
-
-
-//MARK: - Searching
-extension HomeVC: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        homeViewModel.searchBarText(searchBar.text ?? "-")
     }
 }

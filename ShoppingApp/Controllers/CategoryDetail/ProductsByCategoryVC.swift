@@ -12,6 +12,8 @@ class ProductsByCategoryVC: UIViewController {
     var selectCategoryId: String?
     var arrProductsByCategory: [ProductModel]? = []
     var homeViewModel = HomeViewModel()
+    var searchMode = false
+    var filteredArrayTodisplay = [ProductModel]()
     
     // General CollectionView
      private let generalCollectionView: UICollectionView = {
@@ -58,10 +60,12 @@ class ProductsByCategoryVC: UIViewController {
         generalCollectionView.delegate = self
         generalCollectionView.dataSource = self
         
+        configureSearchBarButton()
     }
-    
+ 
     private func setupViews(){
         view.addSubview(generalCollectionView)
+        
     }
     
     private func setNavigationBar(){
@@ -69,6 +73,70 @@ class ProductsByCategoryVC: UIViewController {
     }
 }
 
+
+//MARK: - SEARCHBAR CONFIGURES
+extension ProductsByCategoryVC {
+    
+    func configureSearchBarButton(){
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search,
+                                                                    target: self,
+                                                                    action: #selector(showSearchBar))
+                navigationItem.rightBarButtonItem?.tintColor = .red
+    }
+    
+    @objc func showSearchBar(){
+               searchingFunc(shouldShow: true)
+    }
+    
+    @objc func searchingFunc(shouldShow: Bool) {
+        if shouldShow {
+            // searchBar
+            let searchBar = UISearchBar()
+            searchBar.delegate = self
+            searchBar.sizeToFit()
+            searchBar.showsCancelButton = true
+            searchBar.becomeFirstResponder() // icona tıklayınca searchbar focus
+            searchBar.tintColor = .black
+            searchBar.searchTextField.backgroundColor = .white
+            searchBar.searchTextField.textColor = .black
+            navigationItem.rightBarButtonItem = nil
+            navigationItem.titleView = searchBar
+            
+        } else {
+            navigationItem.titleView = nil
+            configureSearchBarButton()
+            searchMode = false
+            generalCollectionView.reloadData()
+        }
+    }
+}
+
+
+
+//MARK: -  SEARCHBAR DELEGATE
+extension ProductsByCategoryVC: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchingFunc(shouldShow: false)
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty || searchBar.text == nil {
+            searchMode = false
+            generalCollectionView.reloadData()
+            view.endEditing(true)
+        } else {    // search mode ON
+            searchMode = true
+            if let  myarr = self.arrProductsByCategory {
+                    filteredArrayTodisplay = myarr.filter({
+                    $0.name.lowercased().contains(searchText.lowercased()) as! Bool
+                })
+            }
+            generalCollectionView.reloadData()
+        }
+    }
+}
 
 //MARK: -  DELEGATE & DATASOURCE
 extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -79,7 +147,7 @@ extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return self.arrProductsByCategory?.count ?? 0
+        return searchMode ?                 filteredArrayTodisplay.count : self.arrProductsByCategory?.count ?? 0
     }
 
     // cellForItemAt
@@ -88,8 +156,10 @@ extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: ProductsByCategoryCell.identifier, for: indexPath) as! ProductsByCategoryCell
         cell.layer.cornerRadius = 12
         
+        if let productsByCategoryItem = self.arrProductsByCategory?[indexPath.row] {
+        searchMode ? cell.fillData(data:filteredArrayTodisplay[indexPath.item]) :  cell.fillData(data: productsByCategoryItem)
+        }
         
-        cell.fillData(data: self.arrProductsByCategory?[indexPath.row] ?? ProductModel(data: [:]))
         return cell
     }
     

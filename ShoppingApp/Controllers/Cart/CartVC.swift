@@ -57,11 +57,6 @@ class CartVC: UIViewController {
                     self.cartItemArr = cartItem
                     self.sumQuantity = cartItem.reduce(0) { $0 + $1.price * Double($1.quantity)}
                     self.checkOutView.fillData(sumData: self.sumQuantity)
-//                    cartItem.forEach({
-//                        print("\($0.name), MİKTAR -> | \($0.quantity) -> \($0.price)")
-//                        totalPrice += Double($0.quantity) * $0.price
-//                        print("TOTAL PRİCE", totalPrice)
-//                    })
                 }
                 
                 if self.cartItemArr.count < 4 {
@@ -76,9 +71,7 @@ class CartVC: UIViewController {
     private func setupViews(){
         view.addSubview(generalCollectionView)
         view.addSubview(checkOutView)
-        
         checkOutView.layer.cornerRadius = 40
-      
     }
 }
 extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -92,7 +85,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         if distanceFromBottom < height {
             self.checkOutView.isHidden = true
         }
-        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -112,10 +104,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let cell = generalCollectionView.dequeueReusableCell(withReuseIdentifier: CartCollectionCell.identifier, for: indexPath) as! CartCollectionCell
         cell.fillData(cartItems: self.cartItemArr[indexPath.item])
-       
-      
-       
-        
             cell.addToCartClosure = { [weak self]  in
                 if let allCartArr = self?.homeViewModel.fetchCartArrList{
                     print("click item ->", allCartArr[indexPath.item].name)
@@ -128,9 +116,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 userService.addToCartTwo(count: allCartArr[indexPath.item].quantity - 1, product: allCartArr[indexPath.item])
             }
         }
-     
-        
-        
         return cell
     }
     
@@ -172,8 +157,6 @@ extension CartVC: UICollectionViewDelegateFlowLayout {
         
         return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
-   
-    
 }
 //MARK: -
 extension CartVC {

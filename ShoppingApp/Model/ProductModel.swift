@@ -18,6 +18,27 @@ struct ProductModel {
     var timeStamp: Timestamp
     var stock: Int
     
+    
+    init(id: String,
+         name: String,
+         category: String,
+         price: Double,
+         productOverview: String,
+         imageUrl: String,
+         timeStamp: Timestamp,
+         stock: Int
+    
+    ){
+        self.id = id
+        self.name = name
+        self.category = category
+        self.price = price
+        self.productOverview = productOverview
+        self.imageUrl = imageUrl
+        self.timeStamp = timeStamp
+        self.stock = stock
+    }
+    
     init(data: [String: Any]) {
         id = data["id"] as? String ?? UUID().uuidString
         name = data["name"] as? String ?? ""

@@ -103,7 +103,7 @@ class CartCollectionCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     

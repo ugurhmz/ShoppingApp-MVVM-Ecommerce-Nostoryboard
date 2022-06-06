@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseStorage
+import FirebaseFirestore
 
 class AddProductsVC: UIViewController {
     
@@ -15,6 +16,13 @@ class AddProductsVC: UIViewController {
     var lastIndexActive:IndexPath = [1 ,0]
     var myBool: Bool = false
     let scrollView = UIScrollView()
+    var selectCategoryBool = false
+    var selectedPrdCategoryString: String = ""
+    
+    var prdname = ""
+    var prdprice = 0.0
+    var prddesc = ""
+    var prdstock = "0"
     
     private let prdTitleField: CustomTextField = {
         let txt = CustomTextField(padding: 24, height: 55)
@@ -140,8 +148,14 @@ extension AddProductsVC: UICollectionViewDelegate, UICollectionViewDataSource {
        if self.lastIndexActive != indexPath {
        let cell = collectionView.cellForItem(at: indexPath) as! SelectCategoryCell
        cell.configure(select: true)
-           print(self.allCategories?[indexPath.item].id)
-
+           print()
+           
+           if let selectedCate = self.allCategories?[indexPath.item].id {
+               self.selectCategoryBool = true
+               self.selectedPrdCategoryString = selectedCate
+               print("click")
+           }
+           
        let cell1 = collectionView.cellForItem(at: self.lastIndexActive) as? SelectCategoryCell
            cell1?.configure(select: false)
        self.lastIndexActive = indexPath
@@ -222,8 +236,19 @@ extension AddProductsVC {
     }
     
     func uploadImageAndDocument(){
+        if !selectCategoryBool {
+            createAlert(title: "Missing Fields",
+                        msg: "Please fill required fields.",
+                        prefStyle: .alert,
+                        bgColor: .white,
+                        textColor: .red,
+                        fontSize: 25)
+            return
+        }
+        
         guard let prdImg = prdImgView.image,
               let prdName = prdTitleField.text, !prdName.isEmpty,
+              let prdStock = prdStockField.text, !prdStock.isEmpty,
               let prdDesc = prdDescriptionText.text, !prdDesc.isEmpty,
               let prdPrice = prdPriceField.text,
               let price = Double(prdPrice) else {
@@ -235,6 +260,12 @@ extension AddProductsVC {
                               fontSize: 25)
                   return
               }
+        
+        self.prdname = prdName
+        self.prddesc = prdDesc
+        self.prdprice = price
+        self.prdstock = prdStock
+        
         
         showActivityIndicator()
         
@@ -262,13 +293,43 @@ extension AddProductsVC {
                 
                 guard let url = url else { return }
                 print("myimage", url)
-                
+                self.uploadPrdDocument(url: url.absoluteString)
             }
         }
     }
     
-    func uploadPrdDocument(){
+    func uploadPrdDocument(url: String){
+        var docRef: DocumentReference?
+        var willSavePrd = ProductModel(id: "",
+                                       name: prdname,
+                                       category: selectedPrdCategoryString,
+                                       price: prdprice,
+                                       productOverview: prddesc,
+                                       imageUrl: url,
+                                       timeStamp: Timestamp(),
+                                       stock: Int(prdstock) ?? 0)
         
+        docRef = Firestore.firestore().collection("products").document()
+        willSavePrd.id = docRef?.documentID ?? ""
+        
+        let data = ProductModel.modelToData(product: willSavePrd)
+        docRef?.setData(data, merge: true, completion: {  error in
+            if let error = error {
+                self.createAlert(title: "Error",
+                                 msg: "Fail upload new category to Firestore",
+                                 prefStyle: .alert,
+                                 bgColor: .white, textColor:  #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1), fontSize: 24)
+                print("err",error.localizedDescription)
+                self.hideActivityIndicator()
+                return
+            }
+           
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                self.hideActivityIndicator()
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
     }
     
 }

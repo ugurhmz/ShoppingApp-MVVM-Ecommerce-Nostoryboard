@@ -34,7 +34,7 @@ class LoginVC: UIViewController {
         return txt
     }()
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, registerBtn, continueGuesBtn])
+        let stackView = UIStackView(arrangedSubviews: [txtEmail, txtPassword, forgetPwTxtLabel, loginBtn, registerBtn])
         stackView.axis = .vertical
         stackView.spacing = 16
         return stackView
@@ -130,18 +130,18 @@ class LoginVC: UIViewController {
         regVC.modalPresentationStyle = .pageSheet
         present(regVC, animated: true, completion: nil)
     }
-    
-    private let continueGuesBtn: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("Continue as gues", for: .normal)
-        btn.setTitleColor(.darkGray, for: .normal)
-        btn.layer.cornerRadius = 15
-        btn.backgroundColor = .white
-        btn.layer.borderWidth = 1
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .light)
-        btn.titleLabel?.font = UIFont(name: "Futura-Medium", size:22)
-        return btn
-    }()
+    // FOR GUEST BUT  NOT YET ACTIVATED
+//    private let continueGuesBtn: UIButton = {
+//        let btn = UIButton(type: .system)
+//        btn.setTitle("Continue as gues", for: .normal)
+//        btn.setTitleColor(.darkGray, for: .normal)
+//        btn.layer.cornerRadius = 15
+//        btn.backgroundColor = .white
+//        btn.layer.borderWidth = 1
+//        btn.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .light)
+//        btn.titleLabel?.font = UIFont(name: "Futura-Medium", size:22)
+//        return btn
+//    }()
     
     
     

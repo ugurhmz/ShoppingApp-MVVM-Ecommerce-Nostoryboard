@@ -244,4 +244,18 @@ extension HomeViewModel {
         }
     }
     
+    // DELETE ALL CART ITEM
+    func deleteAllCartItems(userId: String) {
+        let  delRef = db?.collection("users").document(userId).collection("newcarts").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+              print("Error getting documents: \(err)")
+            } else {
+              for document in querySnapshot!.documents {
+                document.reference.delete()
+              }
+            }
+          }
+                        
+        
+    }
 }

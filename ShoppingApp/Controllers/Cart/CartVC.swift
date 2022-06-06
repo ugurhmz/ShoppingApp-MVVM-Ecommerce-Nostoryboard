@@ -14,6 +14,7 @@ class CartVC: UIViewController {
     var sumQuantity = 0.0
     var checkoutHiddenClosure: VoidClosure?
     private let checkOutView = CartView()
+    var currentUserId: String?
     
     // General CollectionView
     private let generalCollectionView: UICollectionView = {
@@ -46,6 +47,10 @@ class CartVC: UIViewController {
         if let user = Auth.auth().currentUser, !user.isAnonymous {
             self.homeViewModel.fetchCartItemsCurrentUser(userId: user.uid)
             //self.currentUser = user.email
+            
+            
+            self.currentUserId = user.uid
+            
             if userService.userListener == nil { userService.getCurrentUser() }
             
             self.homeViewModel.cartData = { [weak self] in
@@ -70,8 +75,44 @@ class CartVC: UIViewController {
         view.addSubview(generalCollectionView)
         view.addSubview(checkOutView)
         checkOutView.layer.cornerRadius = 40
+        settingsNavigateBar()
         
     }
+    
+    private func settingsNavigateBar(){
+               if #available(iOS 13.0, *) {
+                 let navBarAppearance = UINavigationBarAppearance()
+                  navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font: UIFont(name: "Charter-Black", size: 26)!]
+                
+                   navigationController?.navigationBar.barStyle = .black
+                 navigationController?.navigationBar.standardAppearance = navBarAppearance
+                 navigationController?.navigationBar.compactAppearance = navBarAppearance
+                 navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+                 navigationController?.navigationBar.prefersLargeTitles = false
+                 }
+               
+               let deleteAllBtn = UIButton(type: .system)
+                   deleteAllBtn.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
+                   deleteAllBtn.setTitle("Delete All", for: .normal)
+                   deleteAllBtn.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+                   deleteAllBtn.titleLabel?.font = UIFont(name: "Charter-Black", size: 18)
+               
+               navigationItem.rightBarButtonItems = [
+                   UIBarButtonItem(customView: deleteAllBtn)
+               ]
+               navigationController?.navigationBar.tintColor = .label
+        
+        deleteAllBtn.addTarget(self, action: #selector(clickDeleteAllCartItems), for: .touchUpInside)
+           
+    }
+    
+    @objc func clickDeleteAllCartItems(){
+        
+        if let userId = self.currentUserId {
+            self.homeViewModel.deleteAllCartItems(userId: userId)
+        }
+    }
+    
 }
 extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

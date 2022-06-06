@@ -37,6 +37,7 @@ class ProfileVC: UIViewController {
         mainCollectionView.dataSource = self
         
         
+        
         // reload data with closure
         self.homeViewModel.reloadData = { [weak self] in
             guard let self = self else { return }

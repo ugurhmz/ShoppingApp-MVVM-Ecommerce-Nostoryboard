@@ -70,6 +70,7 @@ class CartVC: UIViewController {
         view.addSubview(generalCollectionView)
         view.addSubview(checkOutView)
         checkOutView.layer.cornerRadius = 40
+        
     }
 }
 extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -104,7 +105,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.fillData(cartItems: self.cartItemArr[indexPath.item])
             cell.addToCartClosure = { [weak self]  in
                 if let allCartArr = self?.homeViewModel.fetchCartArrList{
-                    print("click item ->", allCartArr[indexPath.item].name)
                     userService.addToCartTwo(count: allCartArr[indexPath.item].quantity + 1, product: allCartArr[indexPath.item])
                 }
             }
@@ -146,7 +146,6 @@ extension CartVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         self.homeViewModel.clickDataClosure = { [weak self] in
             if let clickedItem = self?.homeViewModel.clickedCartItemArr.last {
-                print("clickedItem", clickedItem)
                 let vc = ProductDetailVC()
                 vc.configure(with: clickedItem )
                 self?.navigationController?.pushViewController(vc, animated: true)

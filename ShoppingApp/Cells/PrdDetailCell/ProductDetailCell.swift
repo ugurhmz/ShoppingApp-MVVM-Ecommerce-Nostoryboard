@@ -8,14 +8,17 @@
 import UIKit
 import Kingfisher
 
+public var colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
+public var colorTwo: UIColor = #colorLiteral(red: 0.6666666667, green: 0.02745098039, blue: 0.4196078431, alpha: 0.99)
+public var colorThree: UIColor = #colorLiteral(red: 0.3803921569, green: 0.01568627451, blue: 0.3725490196, alpha: 1)
+
 class ProductDetailCell: UICollectionViewCell {
     static var identifier =  "ProductDetailCell"
     var prdDetailArr: ProductModel?
     var addToCartClosure: VoidClosure?
     
-    let colorOne: UIColor = #colorLiteral(red: 0.9529411793, green: 0.4504883169, blue: 0.09692602899, alpha: 1)
-    let colorTwo: UIColor = #colorLiteral(red: 0.6666666667, green: 0.02745098039, blue: 0.4196078431, alpha: 0.99)
-    let colorThree: UIColor = #colorLiteral(red: 0.3803921569, green: 0.01568627451, blue: 0.3725490196, alpha: 1)
+  
+   
     var doublePrice: Double = 0.0
     
     public var prdimgView: UIImageView = {
@@ -105,9 +108,7 @@ class ProductDetailCell: UICollectionViewCell {
     }
     
     private func setupStyle(){
-        
         self.addBasketBtn.applyGradient(colors: [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor])
-       
     }
     
     @objc func clickAddBasketBtn(){

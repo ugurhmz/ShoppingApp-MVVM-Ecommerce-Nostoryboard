@@ -21,6 +21,7 @@ class CartView: UIView {
      }()
     
     @objc func clickCheckOutBtn(){
+        // CHECKOUT
         print("click")
     }
     

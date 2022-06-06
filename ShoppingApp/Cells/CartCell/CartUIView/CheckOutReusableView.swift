@@ -46,6 +46,8 @@ class CheckOutReusableView: UICollectionReusableView {
         self.dontHaveCartItem.isHidden = true
       
         
+        self.checkOutBtn.applyGradient(colors: [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor])
+        
     }
     required init?(coder: NSCoder) {
         fatalError("not imp")

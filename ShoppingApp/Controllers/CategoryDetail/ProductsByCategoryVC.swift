@@ -169,15 +169,10 @@ extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-     
         if let productsByCategoryItem = self.arrProductsByCategory?[indexPath.row] {
             let vc = ProductDetailVC()
-            
-            
             vc.configure(with: searchMode ? filteredArrayTodisplay[indexPath.row] : productsByCategoryItem )
            navigationController?.pushViewController(vc, animated: true)
-            
-            
         }
         
     }

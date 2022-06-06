@@ -167,6 +167,20 @@ extension ProductsByCategoryVC: UICollectionViewDelegate, UICollectionViewDataSo
                         layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 30
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+     
+        if let productsByCategoryItem = self.arrProductsByCategory?[indexPath.row] {
+            let vc = ProductDetailVC()
+            
+            
+            vc.configure(with: searchMode ? filteredArrayTodisplay[indexPath.row] : productsByCategoryItem )
+           navigationController?.pushViewController(vc, animated: true)
+            
+            
+        }
+        
+    }
 }
 
 //MARK: - DelegateFlowLayout

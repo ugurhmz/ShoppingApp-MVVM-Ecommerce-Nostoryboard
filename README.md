@@ -8,11 +8,12 @@ Admin ise kategorileri görüyor ve yeni bir kategori ekleyebiliyor.  Diğer yan
 ### 3.Kullanıcı Register/Loging/Forgotpassword
 Kullanıcı isterse üye olabilir ve o şekilde appe' girebilir. Şimdilik Anonymous şekilde girişi aktif etmedim. Eğerki kullanıcı register olduktan sonra şifresini unuttu ise, vermiş olduğu e-mail'e reset password adlı link firebase tarafından iletiliyor ve kullanıcı değiştirdiği şifresiyle girişyapabiliyor.
 
+<img width="876" alt="Ekran Resmi 2022-06-06 16 22 45" src="https://user-images.githubusercontent.com/13710309/172169143-11758b14-1d16-4149-8b75-c524c1e9e3b8.png">
+
 <img width="494" alt="Ekran Resmi 2022-06-06 16 34 53" src="https://user-images.githubusercontent.com/13710309/172171182-68ba315f-0fb3-47a1-bbde-0c8322c7921a.png">
 <img width="374" alt="Ekran Resmi 2022-06-06 16 35 18" src="https://user-images.githubusercontent.com/13710309/172171198-78d67dd8-5485-454e-b463-283d8116c4f1.png">
 <img width="374" alt="Ekran Resmi 2022-06-06 16 35 33" src="https://user-images.githubusercontent.com/13710309/172171203-ed2e2e59-3fd9-4702-8e1c-dc796557d77e.png">
 
-<img width="876" alt="Ekran Resmi 2022-06-06 16 22 45" src="https://user-images.githubusercontent.com/13710309/172169143-11758b14-1d16-4149-8b75-c524c1e9e3b8.png">
 <img width="876" alt="Ekran Resmi 2022-06-06 16 23 09" src="https://user-images.githubusercontent.com/13710309/172169159-07e0ef8d-9a50-4d12-af10-159e7317dcd6.png">
 
 <img width="876" alt="Ekran Resmi 2022-06-06 16 25 17" src="https://user-images.githubusercontent.com/13710309/172169497-4d16e0dd-70f3-49d5-95da-f67aa0fe7323.png">

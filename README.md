@@ -1,5 +1,5 @@
 ### 1.Ekran Kayıtlı Kullanıcı ekranı:
-Her kullanıcının kendine ait favorileri ve sepetteki ürünlerini  firebase’de tutulup, real time olarak çekiliyor. Sepetekki ürünler  ve favori ürünler dinamik olarak gösteriliyor ve hesaplanıyor.  Ayrıca realtime olarak değişikleri  gösteriyor.
+Her kullanıcının kendine ait favorileri ve sepetteki ürünlerini  firebase’de tutulup, real time olarak çekiliyor. Sepetekki ürünler  ve favori ürünler dinamik olarak gösteriliyor ve hesaplanıyor.  Ayrıca realtime olarak değişikleri gösteriyor.
 
 
 ### 2.Ekran Admin ekranı:
